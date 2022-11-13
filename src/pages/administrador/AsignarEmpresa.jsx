@@ -93,7 +93,7 @@ function Example() {
   return (
     <>
       
-      <MUIDataTable  title={"ACME Employee list"} data={data} columns={columns} options={options}
+      <MUIDataTable  title={"Asignar empresa"} data={data} columns={columns} options={options}
        />
     </>
   );

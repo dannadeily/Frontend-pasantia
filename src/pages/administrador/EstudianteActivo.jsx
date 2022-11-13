@@ -100,7 +100,7 @@ function Example() {
   return (
     <>
       
-      <MUIDataTable  title={"ACME Employee list"} data={data} columns={columns} options={options} />
+      <MUIDataTable  title={"Estudiantes activos"} data={data} columns={columns} options={options} />
     </>
   );
 }
