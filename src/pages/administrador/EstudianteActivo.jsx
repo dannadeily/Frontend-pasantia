@@ -12,6 +12,8 @@ import TextField from '@mui/material/TextField';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
+import { Link } from "react-router-dom";
+
 function Example() {
 
   const [responsive, setResponsive] = useState("horizontal");
@@ -42,8 +44,8 @@ function Example() {
      
       customBodyRenderLite: (dataIndex, rowIndex) => {
         return (
-          <button onClick={() => window.alert(`Clicked "Edit" for row ${rowIndex} with dataIndex of ${dataIndex}`)}>
-            <InfoIcon />
+          <button >
+            <Link to="/Administrador/InfoEstudiante"><InfoIcon /></Link>
           </button>
         );
       }

@@ -24,6 +24,7 @@ import Evaluar from "./pages/administrador/Evaluar";
 import HistorialCalificacion from "./pages/administrador/HistorialCalificacion";
 import ReporteEstudiante from "./pages/administrador/ReporteEstudiante";
 import ReporteEmpresa from "./pages/administrador/ReporteEmpresa";
+import InfoEstudiante from "./pages/administrador/InfoEstudiante";
 //Estudiante
 import DrawerEstudiante from "./components/DrawerEstudiante";
 import InicioPracticas from "./pages/estudiante/InicioPracticas";
@@ -49,6 +50,7 @@ function App() {
   
                 <Route path="/Administrador" element={<DrawerAdminsitrador />}>
                     <Route index element={<EstudianteActivo></EstudianteActivo>} />
+                    <Route path="/Administrador/InfoEstudiante" element={<InfoEstudiante></InfoEstudiante>} />
                     <Route path="/Administrador/AsignarEmpresa" element={<AsignarEmpresa></AsignarEmpresa>} />
                     <Route path="/Administrador/AsignarJurado" element={<AsignarJurado></AsignarJurado>} />
                     <Route path="/Administrador/HistorialEstudiante" element={<HistorialEstudiante></HistorialEstudiante>} />
