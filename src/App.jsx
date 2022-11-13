@@ -49,28 +49,28 @@ function App() {
   
                 <Route path="/Administrador" element={<DrawerAdminsitrador />}>
                     <Route index element={<EstudianteActivo></EstudianteActivo>} />
-                    <Route path="Administrador/AsignarEmpresa" element={<AsignarEmpresa></AsignarEmpresa>} />
-                    <Route path="Administrador/AsignarJurado" element={<AsignarJurado></AsignarJurado>} />
-                    <Route path="Administrador/HistorialEstudiante" element={<HistorialEstudiante></HistorialEstudiante>} />
-                    <Route path="Administrador/CargarConvenio" element={<CargarConvenio></CargarConvenio>} />
-                    <Route path="Administrador/DocumentosEmpresa" element={<DocumentosEmpresa></DocumentosEmpresa>} />
-                    <Route path="Administrador/HistorialEmpresa" element={<HistorialEmpresa></HistorialEmpresa>} />
-                    <Route path="Administrador/RegistrarJurado" element={<RegistrarJurado></RegistrarJurado>} />
-                    <Route path="Administrador/DocumentoEvaluado" element={<DocumentoEvaluado></DocumentoEvaluado>} />
-                    <Route path="Administrador/EstudianteEvaluado" element={<EstudianteEvaluado></EstudianteEvaluado>} />
-                    <Route path="Administrador/HistorialJurado" element={<HistorialJurado></HistorialJurado>} />
-                    <Route path="Administrador/Evaluar" element={<Evaluar></Evaluar>} />
-                    <Route path="Administrador/HistorialCalificacion" element={<HistorialCalificacion></HistorialCalificacion>} />
-                    <Route path="Administrador/ReporteEstudiante" element={<ReporteEstudiante></ReporteEstudiante>} />
-                    <Route path="Administrador/ReporteEmpresa" element={<ReporteEmpresa></ReporteEmpresa>} />
+                    <Route path="/Administrador/AsignarEmpresa" element={<AsignarEmpresa></AsignarEmpresa>} />
+                    <Route path="/Administrador/AsignarJurado" element={<AsignarJurado></AsignarJurado>} />
+                    <Route path="/Administrador/HistorialEstudiante" element={<HistorialEstudiante></HistorialEstudiante>} />
+                    <Route path="/Administrador/CargarConvenio" element={<CargarConvenio></CargarConvenio>} />
+                    <Route path="/Administrador/DocumentosEmpresa" element={<DocumentosEmpresa></DocumentosEmpresa>} />
+                    <Route path="/Administrador/HistorialEmpresa" element={<HistorialEmpresa></HistorialEmpresa>} />
+                    <Route path="/Administrador/RegistrarJurado" element={<RegistrarJurado></RegistrarJurado>} />
+                    <Route path="/Administrador/DocumentoEvaluado" element={<DocumentoEvaluado></DocumentoEvaluado>} />
+                    <Route path="/Administrador/EstudianteEvaluado" element={<EstudianteEvaluado></EstudianteEvaluado>} />
+                    <Route path="/Administrador/HistorialJurado" element={<HistorialJurado></HistorialJurado>} />
+                    <Route path="/Administrador/Evaluar" element={<Evaluar></Evaluar>} />
+                    <Route path="/Administrador/HistorialCalificacion" element={<HistorialCalificacion></HistorialCalificacion>} />
+                    <Route path="/Administrador/ReporteEstudiante" element={<ReporteEstudiante></ReporteEstudiante>} />
+                    <Route path="/Administrador/ReporteEmpresa" element={<ReporteEmpresa></ReporteEmpresa>} />
                 </Route>
                 <Route path="/Estudiante" element={<DrawerEstudiante />}>
                     <Route index element={<InicioPracticas></InicioPracticas>} />
-                    <Route path="Estudiante/DatosPersonales" element={<AsignarEmpresa></AsignarEmpresa>} />
-                    <Route path="Estudiante/CargarDocumentos" element={<AsignarJurado></AsignarJurado>} />
-                    <Route path="Estudiante/CargarAvances" element={<HistorialEstudiante></HistorialEstudiante>} />
-                    <Route path="Estudiante/DocumentoFinal" element={<CargarConvenio></CargarConvenio>} />
-                    <Route path="Estudiante/Consulta" element={<DocumentosEmpresa></DocumentosEmpresa>} />
+                    <Route path="/Estudiante/DatosPersonales" element={<DatosPersonales></DatosPersonales>} />
+                    <Route path="/Estudiante/CargarDocumentos" element={<CargarDocumentos></CargarDocumentos>} />
+                    <Route path="/Estudiante/CargarAvances" element={<CargarAvances></CargarAvances>} />
+                    <Route path="/Estudiante/DocumentoFinal" element={<DocumentoFinal></DocumentoFinal>} />
+                    <Route path="/Estudiante/Consulta" element={<Consulta></Consulta>} />
                    
                 </Route>
             </Routes>
