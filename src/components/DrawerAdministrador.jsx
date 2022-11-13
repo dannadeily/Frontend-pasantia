@@ -246,6 +246,12 @@ export default function PersistentDrawerLeft() {
     </Menu>
   );
 
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={clsx(classes.appBar, {
@@ -320,7 +326,7 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
 
-        <Accordion>
+        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -340,7 +346,7 @@ export default function PersistentDrawerLeft() {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion>
+      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"
@@ -363,7 +369,7 @@ export default function PersistentDrawerLeft() {
       </Accordion>
 
 
-      <Accordion>
+      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3a-content"
@@ -387,7 +393,7 @@ export default function PersistentDrawerLeft() {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion>
+      <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel4a-content"
@@ -407,7 +413,7 @@ export default function PersistentDrawerLeft() {
         </List>
         </AccordionDetails>
       </Accordion>
-      <Accordion>
+      <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel5a-content"

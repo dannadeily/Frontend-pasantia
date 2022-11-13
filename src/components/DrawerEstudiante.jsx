@@ -247,6 +247,12 @@ export default function PersistentDrawerLeft() {
     </Menu>
   );
 
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   return (
     <div className={classes.root}>
       <AppBar
