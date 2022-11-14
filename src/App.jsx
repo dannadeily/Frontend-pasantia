@@ -34,6 +34,7 @@ import CargarAvances from "./pages/estudiante/CargarAvances";
 import DocumentoFinal from "./pages/estudiante/DocumentoFinal";
 import Consulta from "./pages/estudiante/Consulta";
 import RecuperarPassword from "./pages/RecuperarPassword"
+import EditarDatos from './pages/estudiante/EditarDatos';
 function App() {
 
 
@@ -69,6 +70,7 @@ function App() {
                 <Route path="/Estudiante" element={<DrawerEstudiante />}>
                     <Route index element={<InicioPracticas></InicioPracticas>} />
                     <Route path="/Estudiante/DatosPersonales" element={<DatosPersonales></DatosPersonales>} />
+                    <Route path="/Estudiante/EditarDatos" element={<EditarDatos></EditarDatos>} />
                     <Route path="/Estudiante/CargarDocumentos" element={<CargarDocumentos></CargarDocumentos>} />
                     <Route path="/Estudiante/CargarAvances" element={<CargarAvances></CargarAvances>} />
                     <Route path="/Estudiante/DocumentoFinal" element={<DocumentoFinal></DocumentoFinal>} />

@@ -10,7 +10,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +30,7 @@ export default function DatosPersonales() {
       <Typography variant="h4">Datos Personales</Typography>
 
       <Grid container spacing={3}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Table>
             <TableBody>
               <TableRow>
@@ -93,7 +93,7 @@ export default function DatosPersonales() {
             </TableBody>
           </Table>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Table>
             <TableBody>
               <TableRow>
@@ -150,7 +150,7 @@ export default function DatosPersonales() {
       </Grid>
       <Grid item>
         <Button variant="contained" color="primary">
-          <Link to="">Editar datos</Link>
+          <Link to="/Estudiante/EditarDatos">Editar datos</Link>
         </Button>
       </Grid>
     </div>
