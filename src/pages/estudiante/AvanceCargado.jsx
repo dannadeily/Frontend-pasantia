@@ -48,24 +48,14 @@ export default function CargarDocumentos() {
                 <TableCell>
                   <Typography variant="p"> nombreArchivo.pdf </Typography>
                 </TableCell>
-
                 <TableCell>
-                  <input
-                    accept="image/*"
-                    className={classes.input}
-                    id="icon-button-file"
-                    type="file"
-                  />
-                  <label htmlFor="icon-button-file">
-                    <IconButton
-                      color="primary"
-                      aria-label="upload picture"
-                      component="span"
-                    >
-                      <PublishIcon />
-                    </IconButton>
-                  </label>
+                  <Typography variant="p">Estado del documento: </Typography>
                 </TableCell>
+                <TableCell>
+                  <Typography variant="p">Aprobado </Typography>
+                </TableCell>
+
+                
               
               </TableRow>
               <TableRow>
@@ -75,24 +65,14 @@ export default function CargarDocumentos() {
                 <TableCell>
                   <Typography variant="p"> nombreArchivo.pdf </Typography>
                 </TableCell>
-
                 <TableCell>
-                  <input
-                    accept="image/*"
-                    className={classes.input}
-                    id="icon-button-file"
-                    type="file"
-                  />
-                  <label htmlFor="icon-button-file">
-                    <IconButton
-                      color="primary"
-                      aria-label="upload picture"
-                      component="span"
-                    >
-                      <PublishIcon />
-                    </IconButton>
-                  </label>
+                  <Typography variant="p">Estado del documento: </Typography>
                 </TableCell>
+                <TableCell>
+                  <Typography variant="p">Aprobado </Typography>
+                </TableCell>
+
+                
               
               </TableRow>
               <TableRow>
@@ -102,36 +82,23 @@ export default function CargarDocumentos() {
                 <TableCell>
                   <Typography variant="p"> nombreArchivo.pdf </Typography>
                 </TableCell>
-
                 <TableCell>
-                  <input
-                    accept="image/*"
-                    className={classes.input}
-                    id="icon-button-file"
-                    type="file"
-                  />
-                  <label htmlFor="icon-button-file">
-                    <IconButton
-                      color="primary"
-                      aria-label="upload picture"
-                      component="span"
-                    >
-                      <PublishIcon />
-                    </IconButton>
-                  </label>
+                  <Typography variant="p">Estado del documento: </Typography>
                 </TableCell>
-               
+                <TableCell>
+                  <Typography variant="p">Aprobado </Typography>
+                </TableCell>
+
+                
+              
               </TableRow>
             </TableBody>
           </Table>
 
-          <h6>
-            los archivos deben estar en formato pdf y no superar los 5mb de
-            tamaño
-          </h6>
+          
           <Grid item>
         <Button variant="contained" color="primary">
-          <Link to="/Estudiante/AvanceCargado">Editar datos</Link>
+          <Link to="/Estudiante/CargarAvances">Actualizar Documentos</Link>
         </Button>
       </Grid>
         </form>

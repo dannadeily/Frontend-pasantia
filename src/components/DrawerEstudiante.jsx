@@ -209,8 +209,9 @@ export default function PersistentDrawerLeft() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Cerrar Sesion</MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to="/Estudiante/DatosPersonales">Perfil</Link></MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to="/Estudiante/CambiarPasswordEst">Cambiar Contraseña</Link></MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to="/">Cerrar sesion</Link></MenuItem>
     </Menu>
   );
 
@@ -331,11 +332,11 @@ export default function PersistentDrawerLeft() {
 
         <List>
           {[
-            <Link to="/Estudiante">Inicio de practicas</Link>,
-            <Link to="/Estudiante/DatosPersonales">Datos personales</Link>,
-            <Link to="/Estudiante/CargarDocumentos">Cargar documentos</Link>,
-            <Link to="/Estudiante/CargarAvances">Cargar avances</Link>,
-            <Link to="/Estudiante/DocumentoFinal">
+            <Link to="/Estudiante">Estado de la pasantia</Link>,
+           
+            <Link to="/Estudiante/DocumentoCargado">Cargar documentos</Link>,
+            <Link to="/Estudiante/AvanceCargado">Cargar avances</Link>,
+            <Link to="/Estudiante/DocumentoFinalCargado">
               Cargar Documentos finales
             </Link>,
             <Link to="/Estudiante/Consulta">Consultas</Link>,

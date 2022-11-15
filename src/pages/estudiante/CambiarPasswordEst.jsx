@@ -50,11 +50,7 @@ export default function SignUp() {
   const classes = useStyles();
 
   return (
-    
     <Container component="main" maxWidth="xs">
-      <br></br>
-      <br></br>
-      <br></br>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -71,15 +67,39 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                name="email"
-                label="Correo institucional"
-                type="email"
-                id="email"
-                autoComplete="current-email"
+                name="password"
+                label="contraseña actual"
+                type="password"
+                id="password"
+                autoComplete="current-password"
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="nueva contraseña"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
             </Grid>
-          
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="repetir contraseña"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+            </Grid>
+            
+          </Grid>
           <Button
             type="submit"
             fullWidth
