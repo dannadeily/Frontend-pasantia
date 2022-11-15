@@ -27,7 +27,7 @@ export default function DatosPersonales() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Typography variant="h4">Datos Personales</Typography>
+      <Typography variant="h6">Datos Personales</Typography>
 
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>

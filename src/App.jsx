@@ -27,7 +27,7 @@ import ReporteEmpresa from "./pages/administrador/ReporteEmpresa";
 import InfoEstudiante from "./pages/administrador/InfoEstudiante";
 //Estudiante
 import DrawerEstudiante from "./components/DrawerEstudiante";
-import InicioPracticas from "./pages/estudiante/InicioPracticas";
+import EstadoPasantia from "./pages/estudiante/EstadoPasantia";
 import DatosPersonales from "./pages/estudiante/DatosPersonales"
 import CargarDocumentos from "./pages/estudiante/CargarDocumentos";
 import CargarAvances from "./pages/estudiante/CargarAvances";
@@ -35,6 +35,10 @@ import DocumentoFinal from "./pages/estudiante/DocumentoFinal";
 import Consulta from "./pages/estudiante/Consulta";
 import RecuperarPassword from "./pages/RecuperarPassword"
 import EditarDatos from './pages/estudiante/EditarDatos';
+import DocumentoCargado from './pages/estudiante/DocumentoCargado'
+import AvanceCargado from   './pages/estudiante/AvanceCargado'
+import DocumentoFinalCargado from './pages/estudiante/DocumentoFinalCargado'
+import CambiarPasswordEst from './pages/estudiante/CambiarPasswordEst'
 function App() {
 
 
@@ -68,13 +72,18 @@ function App() {
                     <Route path="/Administrador/ReporteEmpresa" element={<ReporteEmpresa></ReporteEmpresa>} />
                 </Route>
                 <Route path="/Estudiante" element={<DrawerEstudiante />}>
-                    <Route index element={<InicioPracticas></InicioPracticas>} />
+                    <Route index element={<EstadoPasantia></EstadoPasantia>} />
                     <Route path="/Estudiante/DatosPersonales" element={<DatosPersonales></DatosPersonales>} />
                     <Route path="/Estudiante/EditarDatos" element={<EditarDatos></EditarDatos>} />
+                    <Route path="/Estudiante/DocumentoCargado" element={<DocumentoCargado></DocumentoCargado>} />
                     <Route path="/Estudiante/CargarDocumentos" element={<CargarDocumentos></CargarDocumentos>} />
+                    <Route path="/Estudiante/AvanceCargado" element={<AvanceCargado></AvanceCargado>} />
                     <Route path="/Estudiante/CargarAvances" element={<CargarAvances></CargarAvances>} />
+                    <Route path="/Estudiante/DocumentoFinalCargado" element={<DocumentoFinalCargado></DocumentoFinalCargado>} />
                     <Route path="/Estudiante/DocumentoFinal" element={<DocumentoFinal></DocumentoFinal>} />
                     <Route path="/Estudiante/Consulta" element={<Consulta></Consulta>} />
+                    <Route path="/Estudiante/CambiarPasswordEst" element={<CambiarPasswordEst></CambiarPasswordEst>} />
+
                    
                 </Route>
             </Routes>
