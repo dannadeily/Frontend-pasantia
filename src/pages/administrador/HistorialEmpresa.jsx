@@ -1,72 +1,104 @@
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Typography from '@material-ui/core/Typography';
-import IconButton from "@mui/material/IconButton";
+import React, {useState} from "react";
+import ReactDOM from "react-dom";
+import MUIDataTable from "mui-datatables";
 import InfoIcon from '@mui/icons-material/Info';
-import EditIcon from '@mui/icons-material/Edit';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 
-function createData(nombreEmpresa, convenio) {
-  return {nombreEmpresa, convenio};
-}
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+function Example() {
 
-export default function BasicTable() {
+  const [responsive, setResponsive] = useState("horizontal");
+  const [tableBodyHeight, setTableBodyHeight] = useState("400px");
+  const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
+  const [transitionTime, setTransitionTime] = useState(300);
+  const [selectableRows, setSelectableRows] = useState('none');
+
+  
+
+  const columns = [{
+    name:'Nombre de la empresa',
+    
+  },  {
+    name: 'Fecha de convenio',
+   
+  },
+   
+  {
+    name: 'Informacion',
+    
+    options: {
+     
+      customBodyRenderLite: (dataIndex, rowIndex) => {
+        return (
+          <button onClick={() => window.alert(`Clicked "Edit" for row ${rowIndex} with dataIndex of ${dataIndex}`)}>
+            <InfoIcon />
+          </button>
+        );
+      }
+    }
+   
+  }, ];
+
+  const options = {
+    filter: true,
+    filterType: 'dropdown',
+    responsive,
+    tableBodyHeight,
+    tableBodyMaxHeight,
+    draggableColumns: {
+      enabled: true,
+      transitionTime
+    },
+    selectableRows: selectableRows,
+  };
+
+  const data = [
+    ["Gabby George", "Business Analyst", "Minneapolis", 30, 100000],
+    ["Business Analyst", "Business Consultant", "Dallas",  55, 200000],
+    ["Jaden Collins", "Attorney", "Santa Ana", 27, 500000],
+    ["Franky Rees", "Business Analyst", "St. Petersburg", 22, 50000],
+    ["Aaren Rose", "Business Consultant", "Toledo", 28, 75000],
+    ["Blake Duncan", "Business Management Analyst", "San Diego", 65, 94000],
+    ["Frankie Parry", "Agency Legal Counsel", "Jacksonville", 71, 210000],
+    ["Lane Wilson", "Commercial Specialist", "Omaha", 19, 65000],
+    ["Robin Duncan", "Business Analyst", "Los Angeles", 20, 77000],
+    ["Mel Brooks", "Business Consultant", "Oklahoma City", 37, 135000],
+    ["Harper White", "Attorney", "Pittsburgh", 52, 420000],
+    ["Kris Humphrey", "Agency Legal Counsel", "Laredo", 30, 150000],
+    ["Frankie Long", "Industrial Analyst", "Austin", 31, 170000],
+    ["Brynn Robbins", "Business Analyst", "Norfolk", 22, 90000],
+    ["Justice Mann", "Business Consultant", "Chicago", 24, 133000],
+    ["Addison Navarro", "Business Management Analyst", "New York", 50, 295000],
+    ["Jesse Welch", "Agency Legal Counsel", "Seattle", 28, 200000],
+    ["Eli Mejia", "Commercial Specialist", "Long Beach", 65, 400000],
+    ["Gene Leblanc", "Industrial Analyst", "Hartford", 34, 110000],
+    ["Danny Leon", "Computer Scientist", "Newark", 60, 220000],
+    ["Lane Lee", "Corporate Counselor", "Cincinnati", 52, 180000],
+    ["Jesse Hall", "Business Analyst", "Baltimore", 44, 99000],
+    ["Danni Hudson", "Agency Legal Counsel", "Tampa", 37, 90000],
+    ["Terry Macdonald", "Commercial Specialist", "Miami", 39, 140000],
+    ["Justice Mccarthy", "Attorney", "Tucson", 26, 330000],
+    ["Silver Carey", "Computer Scientist", "Memphis", 47, 250000],
+    ["Franky Miles", "Industrial Analyst", "Buffalo", 49, 190000],
+    ["Glen Nixon", "Corporate Counselor", "Arlington", 44, 80000],
+    ["Gabby Strickland", "Business Process Consultant", "Scottsdale", 26, 45000],
+    ["Mason Ray", "Computer Scientist", "San Francisco", 39, 142000]
+  ];
+
   return (
-    <TableContainer component={Paper}>
-     <Typography>HISTORIAL DE ESTUDIANTES</Typography>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Empresa</TableCell>
-            <TableCell align="right">convenio</TableCell>
-            <TableCell align="right">accion</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.nombreEmpresa}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.nombreEmpresa}
-              </TableCell>
-              <TableCell align="right">{row.convenio}</TableCell>
-              <TableCell align="right">
-              <IconButton
-                  color="primary"
-                  aria-label="upload picture"
-                  component="label"
-                >
-                
-                  <EditIcon />
-                  </IconButton>
-                <IconButton
-                  color="primary"
-                  aria-label="upload picture"
-                  component="label"
-                >
-                
-                  <InfoIcon />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      
+      <MUIDataTable  title={"Historial Empresas"} data={data} columns={columns} options={options}  />
+      
+    </>
   );
 }
+
+export default Example;

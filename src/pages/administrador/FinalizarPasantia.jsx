@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@material-ui/core/Button';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import { Link } from "react-router-dom";
 
 function Example() {
@@ -38,14 +38,14 @@ function Example() {
    
   },
   {
-    name: 'Informacion',
+    name: 'Finalizar pasantia',
     
     options: {
      
       customBodyRenderLite: (dataIndex, rowIndex) => {
         return (
           <button >
-            <Link to="/Administrador/InfoEstudiante"><InfoIcon /></Link>
+        <CheckBoxOutlineBlankIcon />
           </button>
         );
       }
@@ -102,9 +102,9 @@ function Example() {
   return (
     <>
       
-      <MUIDataTable  title={"Estudiantes activos"} data={data} columns={columns} options={options} />
+      <MUIDataTable  title={"Fianlizar pasantia"} data={data} columns={columns} options={options} />
       <br></br>
-      <Button variant="contained" color="primary"> <Link to='/Administrador/FinalizarPasantia'>Finalizar pasantia</Link></Button>
+      <Button variant="contained" color="primary"> <Link to='/Administrador'>Actualizar</Link></Button>
     </>
   );
 }
