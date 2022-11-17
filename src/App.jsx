@@ -11,7 +11,7 @@ import RegistrarEmpresa from "./pages/RegistrarEmpresa";
 import EstudianteActivo from "./pages/administrador/EstudianteActivo";
 import AsignarEmpresa from "./pages/administrador/AsignarEmpresa";
 import AsignarJurado from "./pages/administrador/AsignarJurado";
-import RecuperarContraseña from "./pages/RecuperarPassword";
+import RecuperarPassword from "./pages/RecuperarPassword";
 import HistorialEstudiante from "./pages/administrador/HistorialEstudiante";
 import CargarConvenio from "./pages/administrador/CargarConvenio";
 import DocumentosEmpresa from "./pages/administrador/DocumentosEmpresa";
@@ -26,7 +26,10 @@ import ReporteEstudiante from "./pages/administrador/ReporteEstudiante";
 import ReporteEmpresa from "./pages/administrador/ReporteEmpresa";
 import InfoEstudiante from "./pages/administrador/InfoEstudiante";
 import FinalizarPasantia from "./pages/administrador/FinalizarPasantia";
-import Evaluacion from './pages/administrador/Evaluacion'
+import Evaluacion from "./pages/administrador/Evaluacion";
+import Documento from "./pages/administrador/Documento";
+import EvaluarEstudiante from "./pages/administrador/EvaluarEstudiante";
+import Puntuacion from "./pages/administrador/Puntuacion";
 //Estudiante
 import DrawerEstudiante from "./components/DrawerEstudiante";
 import EstadoPasantia from "./pages/estudiante/EstadoPasantia";
@@ -35,7 +38,6 @@ import CargarDocumentos from "./pages/estudiante/CargarDocumentos";
 import CargarAvances from "./pages/estudiante/CargarAvances";
 import DocumentoFinal from "./pages/estudiante/DocumentoFinal";
 import Consulta from "./pages/estudiante/Consulta";
-import RecuperarPassword from "./pages/RecuperarPassword";
 import EditarDatos from "./pages/estudiante/EditarDatos";
 import DocumentoCargado from "./pages/estudiante/DocumentoCargado";
 import AvanceCargado from "./pages/estudiante/AvanceCargado";
@@ -106,6 +108,10 @@ function App() {
             element={<DocumentoEvaluado></DocumentoEvaluado>}
           />
           <Route
+            path="/Administrador/Documento"
+            element={<Documento></Documento>}
+          />
+          <Route
             path="/Administrador/EstudianteEvaluado"
             element={<EstudianteEvaluado></EstudianteEvaluado>}
           />
@@ -119,8 +125,16 @@ function App() {
           />
           <Route path="/Administrador/Evaluar" element={<Evaluar></Evaluar>} />
           <Route
+            path="/Administrador/EvaluarEstudiante"
+            element={<EvaluarEstudiante></EvaluarEstudiante>}
+          />
+          <Route
             path="/Administrador/HistorialCalificacion"
             element={<HistorialCalificacion></HistorialCalificacion>}
+          />
+          <Route
+            path="/Administrador/Puntuacion"
+            element={<Puntuacion></Puntuacion>}
           />
           <Route
             path="/Administrador/ReporteEstudiante"

@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import React from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -36,7 +36,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `nav-tab-${index}`,
-    'aria-controls': `nav-tabpanel-${index}`,
+    "aria-controls": `nav-tabpanel-${index}`,
   };
 }
 
@@ -76,8 +76,16 @@ export default function NavTabs() {
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <LinkTab label="Informacion General" href="/drafts" {...a11yProps(0)} />
-          <LinkTab label="Documentos de aceptacion" href="/trash" {...a11yProps(1)} />
+          <LinkTab
+            label="Informacion General"
+            href="/drafts"
+            {...a11yProps(0)}
+          />
+          <LinkTab
+            label="Documentos de aceptacion"
+            href="/trash"
+            {...a11yProps(1)}
+          />
           <LinkTab label="Avances" href="/spam" {...a11yProps(2)} />
           <LinkTab label="Documentos Finales" href="/spam" {...a11yProps(3)} />
         </Tabs>

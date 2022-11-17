@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -10,13 +9,7 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import {
-  FormControl,
-  FormHelperText,
-  Input,
-  InputLabel,
-  Select,
-} from "@material-ui/core";
+import { FormControl, Input, InputLabel, Select } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    
   },
   avatar: {
     margin: theme.spacing(1),
@@ -72,7 +64,7 @@ export default function RegistrarEmpresa() {
           alignItems: "center",
         }}
         className={classes.paper}
-       >
+      >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
@@ -130,7 +122,6 @@ export default function RegistrarEmpresa() {
               </FormControl>
             </Grid>
 
-
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="direccion">Direccion</InputLabel>
@@ -156,7 +147,6 @@ export default function RegistrarEmpresa() {
               </FormControl>
             </Grid>
 
-           
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="contraseña">contraseña</InputLabel>

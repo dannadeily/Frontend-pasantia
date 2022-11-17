@@ -26,10 +26,10 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Box from '@material-ui/core/Box';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import Box from "@material-ui/core/Box";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 
 const drawerWidth = 240;
 
@@ -206,9 +206,15 @@ export default function PersistentDrawerLeft() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}><Link to="/Estudiante/DatosPersonales">Perfil</Link></MenuItem>
-      <MenuItem onClick={handleMenuClose}><Link to="/Estudiante/CambiarPasswordEst">Cambiar Contraseña</Link></MenuItem>
-      <MenuItem onClick={handleMenuClose}><Link to="/">Cerrar sesion</Link></MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link to="/Estudiante/DatosPersonales">Perfil</Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link to="/Estudiante/CambiarPasswordEst">Cambiar Contraseña</Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link to="/">Cerrar sesion</Link>
+      </MenuItem>
     </Menu>
   );
 
@@ -330,7 +336,7 @@ export default function PersistentDrawerLeft() {
         <List>
           {[
             <Link to="/Estudiante">Estado de la pasantia</Link>,
-           
+
             <Link to="/Estudiante/DocumentoCargado">Cargar documentos</Link>,
             <Link to="/Estudiante/AvanceCargado">Cargar avances</Link>,
             <Link to="/Estudiante/DocumentoFinalCargado">
@@ -349,12 +355,10 @@ export default function PersistentDrawerLeft() {
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
-
       >
         <div className={classes.drawerContent} />
-        
+
         <Outlet></Outlet>
-       
       </main>
     </div>
   );

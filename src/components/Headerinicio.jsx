@@ -10,7 +10,7 @@ import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
-import {Outlet} from 'react-router-dom'
+import { Outlet } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -104,7 +104,7 @@ export default function HeaderInicio() {
         <Link to="/RegistrarEstudiante">registrarse como estudiante</Link>
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
-      <Link to="/RegistrarEmpresa">registrarse como Empresa</Link>
+        <Link to="/RegistrarEmpresa">registrarse como Empresa</Link>
       </MenuItem>
     </Menu>
   );
@@ -126,25 +126,23 @@ export default function HeaderInicio() {
           </Typography>
 
           <div className={classes.grow} />
-          
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <div className={classes.grow} />
-              <Button variant="contained" color="primary" disableElevation>
-                REGISTRARSE
-              </Button>
-                
-            </IconButton>
+
+          <IconButton
+            edge="end"
+            aria-label="account of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={handleProfileMenuOpen}
+            color="inherit"
+          >
+            <div className={classes.grow} />
+            <Button variant="contained" color="primary" disableElevation>
+              REGISTRARSE
+            </Button>
+          </IconButton>
         </Toolbar>
       </AppBar>
 
-      
       {renderMenu}
       <Outlet></Outlet>
     </div>

@@ -1,76 +1,71 @@
-
-import React, {useState} from "react";
+import React, { useState } from "react";
 import MUIDataTable from "mui-datatables";
-import EditIcon from '@mui/icons-material/Edit';
-
+import EditIcon from "@mui/icons-material/Edit";
 
 function Example() {
-
   const [responsive, setResponsive] = useState("horizontal");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);
-  const [selectableRows, setSelectableRows] = useState('none');
+  const [selectableRows, setSelectableRows] = useState("none");
 
-  
+  const columns = [
+    {
+      name: "Nombre del estudiante",
+    },
+    {
+      name: "Jurado 1",
+      editComponent: (props) => (
+        <input
+          type="text"
+          value={props.value}
+          onChange={(e) => props.onChange(e.target.value)}
+        />
+      ),
+    },
+    {
+      name: "Jurado 2",
+    },
+    {
+      name: "Jurado 3",
+    },
+    {
+      name: "Editar",
 
-  const columns = [{
-    name:'Nombre del estudiante',
-    
-  },
-  {
-    name: 'Jurado 1',
-    editComponent: props => (
-      <input
-        type="text"
-        value={props.value}
-        onChange={e => props.onChange(e.target.value)}
-      />
-    )
-   
-  },
-   {
-    name: 'Jurado 2',
-    
-   
-  },
-  {
-    name: 'Jurado 3',
-    
-   
-  },
-  {
-    name: 'Editar',
-    
-    options: {
-     
-      customBodyRenderLite: (dataIndex, rowIndex) => {
-        return (
-          <button onClick={() => window.alert(`Clicked "Edit" for row ${rowIndex} with dataIndex of ${dataIndex}`)}>
-            <EditIcon /> 
-          </button>
-        );
-      }
-    }
-   
-  }, ];
+      options: {
+        customBodyRenderLite: (dataIndex, rowIndex) => {
+          return (
+            <button
+              onClick={() =>
+                window.alert(
+                  `Clicked "Edit" for row ${rowIndex} with dataIndex of ${dataIndex}`
+                )
+              }
+            >
+              <EditIcon />
+            </button>
+          );
+        },
+      },
+    },
+  ];
 
   const options = {
     filter: true,
-    filterType: 'dropdown',
+    filterType: "dropdown",
     responsive,
     tableBodyHeight,
     tableBodyMaxHeight,
     draggableColumns: {
       enabled: true,
-      transitionTime
+      transitionTime,
     },
     selectableRows: selectableRows,
   };
 
   const data = [
     ["Gabby George", "Business Analyst", "Minneapolis", 30, 100000],
-    ["Business Analyst", "Business Consultant", "Dallas",  55, 200000],
+    ["Business Analyst", "Business Consultant", "Dallas", 55, 200000],
     ["Jaden Collins", "Attorney", "Santa Ana", 27, 500000],
     ["Franky Rees", "Business Analyst", "St. Petersburg", 22, 50000],
     ["Aaren Rose", "Business Consultant", "Toledo", 28, 75000],
@@ -97,15 +92,24 @@ function Example() {
     ["Silver Carey", "Computer Scientist", "Memphis", 47, 250000],
     ["Franky Miles", "Industrial Analyst", "Buffalo", 49, 190000],
     ["Glen Nixon", "Corporate Counselor", "Arlington", 44, 80000],
-    ["Gabby Strickland", "Business Process Consultant", "Scottsdale", 26, 45000],
-    ["Mason Ray", "Computer Scientist", "San Francisco", 39, 142000]
+    [
+      "Gabby Strickland",
+      "Business Process Consultant",
+      "Scottsdale",
+      26,
+      45000,
+    ],
+    ["Mason Ray", "Computer Scientist", "San Francisco", 39, 142000],
   ];
 
   return (
     <>
-      
-      <MUIDataTable  title={"Asignar jurados"} data={data} columns={columns} options={options}
-       />
+      <MUIDataTable
+        title={"Asignar jurados"}
+        data={data}
+        columns={columns}
+        options={options}
+      />
     </>
   );
 }

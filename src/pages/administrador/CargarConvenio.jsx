@@ -1,69 +1,69 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import MUIDataTable from "mui-datatables";
-import InfoIcon from '@mui/icons-material/Info';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
+import InfoIcon from "@mui/icons-material/Info";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 
 function Example() {
-
   const [responsive, setResponsive] = useState("horizontal");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);
-  const [selectableRows, setSelectableRows] = useState('none');
+  const [selectableRows, setSelectableRows] = useState("none");
 
-  
+  const columns = [
+    {
+      name: "Nombre de la empresa",
+    },
+    {
+      name: "Convenio",
+    },
 
-  const columns = [{
-    name:'Nombre de la empresa',
-    
-  },
-  {
-    name: 'Convenio',
-   
-  },
-  
-  {
-    name: 'Cargar',
-    
-    options: {
-     
-      customBodyRenderLite: (dataIndex, rowIndex) => {
-        return (
-          <button onClick={() => window.alert(`Clicked "Edit" for row ${rowIndex} with dataIndex of ${dataIndex}`)}>
-            <FileUploadIcon />
-          </button>
-        );
-      }
-    }
-   
-  }, ];
+    {
+      name: "Cargar",
+
+      options: {
+        customBodyRenderLite: (dataIndex, rowIndex) => {
+          return (
+            <button
+              onClick={() =>
+                window.alert(
+                  `Clicked "Edit" for row ${rowIndex} with dataIndex of ${dataIndex}`
+                )
+              }
+            >
+              <FileUploadIcon />
+            </button>
+          );
+        },
+      },
+    },
+  ];
 
   const options = {
     filter: true,
-    filterType: 'dropdown',
+    filterType: "dropdown",
     responsive,
     tableBodyHeight,
     tableBodyMaxHeight,
     draggableColumns: {
       enabled: true,
-      transitionTime
+      transitionTime,
     },
     selectableRows: selectableRows,
   };
 
   const data = [
     ["Gabby George", "Business Analyst", "Minneapolis", 30, 100000],
-    ["Business Analyst", "Business Consultant", "Dallas",  55, 200000],
+    ["Business Analyst", "Business Consultant", "Dallas", 55, 200000],
     ["Jaden Collins", "Attorney", "Santa Ana", 27, 500000],
     ["Franky Rees", "Business Analyst", "St. Petersburg", 22, 50000],
     ["Aaren Rose", "Business Consultant", "Toledo", 28, 75000],
@@ -90,14 +90,24 @@ function Example() {
     ["Silver Carey", "Computer Scientist", "Memphis", 47, 250000],
     ["Franky Miles", "Industrial Analyst", "Buffalo", 49, 190000],
     ["Glen Nixon", "Corporate Counselor", "Arlington", 44, 80000],
-    ["Gabby Strickland", "Business Process Consultant", "Scottsdale", 26, 45000],
-    ["Mason Ray", "Computer Scientist", "San Francisco", 39, 142000]
+    [
+      "Gabby Strickland",
+      "Business Process Consultant",
+      "Scottsdale",
+      26,
+      45000,
+    ],
+    ["Mason Ray", "Computer Scientist", "San Francisco", 39, 142000],
   ];
 
   return (
     <>
-      
-      <MUIDataTable  title={"Cargar convenios"} data={data} columns={columns} options={options} />
+      <MUIDataTable
+        title={"Cargar convenios"}
+        data={data}
+        columns={columns}
+        options={options}
+      />
     </>
   );
 }

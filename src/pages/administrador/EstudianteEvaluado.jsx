@@ -46,7 +46,7 @@ function Example() {
         customBodyRenderLite: (dataIndex, rowIndex) => {
           return (
             <Button variant="contained" color="primary">
-             <Link to='/Administrador/Evaluacion'>Ver evaluacion</Link> 
+              <Link to="/Administrador/Evaluacion">Ver evaluacion</Link>
             </Button>
           );
         },
@@ -115,7 +115,6 @@ function Example() {
         options={options}
       />
       <br></br>
-    
     </>
   );
 }

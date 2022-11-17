@@ -29,11 +29,23 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(nombreEmpresa, nombreTutor) {
-  return { nombreEmpresa, nombreTutor };
+function createData(evaluador, nota) {
+  return { evaluador, nota };
 }
 
-const rows = [createData("Frozen yoghurt", "Luis Perez")];
+const rows = [
+  createData("Jurado 1", 5),
+  createData("Jurado 2", 4),
+  createData("Jurado 3", 3),
+  createData("empresa", 4),
+  createData("Coordinador", 5),
+];
+
+function ccyFormat(num) {
+  return `${num.toFixed(2)}`;
+}
+
+const invoiceTotal = 0;
 
 const useStyles = makeStyles({
   table: {
@@ -45,60 +57,37 @@ export default function CustomizedTables() {
   const classes = useStyles();
 
   return (
-    <Container fixed>
+    <Container maxWidth="md">
       <TableContainer component={Paper}>
-        <Typography variant="h6">Empresa Asignada</Typography>
+        <Typography variant="h6">Puntuacion del estudiante: ""</Typography>
+        <br></br>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell component="th" scope="row">
-                Empresa
+                Evaluador
               </StyledTableCell>
-              <StyledTableCell>Tutor</StyledTableCell>
-              <StyledTableCell>Ver informacion</StyledTableCell>
+              <StyledTableCell align="right">Nota</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <StyledTableRow key={row.nombreEmpresa}>
+              <StyledTableRow key={row.evaluador}>
                 <StyledTableCell component="th" scope="row">
-                  {row.nombreEmpresa}
+                  {row.evaluador}
                 </StyledTableCell>
-                <StyledTableCell>{row.nombreTutor}</StyledTableCell>
-                <StyledTableCell>
-                  <InfoIcon />
-                </StyledTableCell>
+                <StyledTableCell align="right">{row.nota}</StyledTableCell>
               </StyledTableRow>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
 
-      <br></br>
-      <br></br>
-
-      <TableContainer component={Paper}>
-        <Typography variant="h6">Jurados Asignado</Typography>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
+            <StyledTableRow>
               <StyledTableCell component="th" scope="row">
-                Jurado 1
+                Nota
               </StyledTableCell>
-              <StyledTableCell>Jurado 2</StyledTableCell>
-              <StyledTableCell>Jurado 3</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.nombreEmpresa}>
-                <StyledTableCell component="th" scope="row">
-                  {row.nombreEmpresa}
-                </StyledTableCell>
-                <StyledTableCell>{row.nombreTutor}</StyledTableCell>
-                <StyledTableCell>{row.nombreTutor}</StyledTableCell>
-              </StyledTableRow>
-            ))}
+              <StyledTableCell align="right">
+                {ccyFormat(invoiceTotal)}
+              </StyledTableCell>
+            </StyledTableRow>
           </TableBody>
         </Table>
       </TableContainer>

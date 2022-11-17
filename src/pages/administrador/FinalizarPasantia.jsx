@@ -1,74 +1,67 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import MUIDataTable from "mui-datatables";
-import InfoIcon from '@mui/icons-material/Info';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import Button from '@material-ui/core/Button';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import InfoIcon from "@mui/icons-material/Info";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import Button from "@material-ui/core/Button";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import { Link } from "react-router-dom";
 
 function Example() {
-
   const [responsive, setResponsive] = useState("horizontal");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);
-  const [selectableRows, setSelectableRows] = useState('none');
+  const [selectableRows, setSelectableRows] = useState("none");
 
-  
+  const columns = [
+    {
+      name: "Nombre del estudiante",
+    },
+    {
+      name: "Empresa",
+    },
+    {
+      name: "Fecha inicio de la pasantia",
+    },
+    {
+      name: "Finalizar pasantia",
 
-  const columns = [{
-    name:'Nombre del estudiante',
-    
-  },
-  {
-    name: 'Empresa',
-   
-  },
-   {
-    name: 'Fecha inicio de la pasantia',
-    
-   
-  },
-  {
-    name: 'Finalizar pasantia',
-    
-    options: {
-     
-      customBodyRenderLite: (dataIndex, rowIndex) => {
-        return (
-          <button >
-        <CheckBoxOutlineBlankIcon />
-          </button>
-        );
-      }
-    }
-   
-  }, ];
+      options: {
+        customBodyRenderLite: (dataIndex, rowIndex) => {
+          return (
+            <button>
+              <CheckBoxOutlineBlankIcon />
+            </button>
+          );
+        },
+      },
+    },
+  ];
 
   const options = {
     filter: true,
-    filterType: 'dropdown',
+    filterType: "dropdown",
     responsive,
     tableBodyHeight,
     tableBodyMaxHeight,
     draggableColumns: {
       enabled: true,
-      transitionTime
+      transitionTime,
     },
     selectableRows: selectableRows,
   };
 
   const data = [
     ["Gabby George", "Business Analyst", "Minneapolis", 30, 100000],
-    ["Business Analyst", "Business Consultant", "Dallas",  55, 200000],
+    ["Business Analyst", "Business Consultant", "Dallas", 55, 200000],
     ["Jaden Collins", "Attorney", "Santa Ana", 27, 500000],
     ["Franky Rees", "Business Analyst", "St. Petersburg", 22, 50000],
     ["Aaren Rose", "Business Consultant", "Toledo", 28, 75000],
@@ -95,16 +88,29 @@ function Example() {
     ["Silver Carey", "Computer Scientist", "Memphis", 47, 250000],
     ["Franky Miles", "Industrial Analyst", "Buffalo", 49, 190000],
     ["Glen Nixon", "Corporate Counselor", "Arlington", 44, 80000],
-    ["Gabby Strickland", "Business Process Consultant", "Scottsdale", 26, 45000],
-    ["Mason Ray", "Computer Scientist", "San Francisco", 39, 142000]
+    [
+      "Gabby Strickland",
+      "Business Process Consultant",
+      "Scottsdale",
+      26,
+      45000,
+    ],
+    ["Mason Ray", "Computer Scientist", "San Francisco", 39, 142000],
   ];
 
   return (
     <>
-      
-      <MUIDataTable  title={"Fianlizar pasantia"} data={data} columns={columns} options={options} />
+      <MUIDataTable
+        title={"Fianlizar pasantia"}
+        data={data}
+        columns={columns}
+        options={options}
+      />
       <br></br>
-      <Button variant="contained" color="primary"> <Link to='/Administrador'>Actualizar</Link></Button>
+      <Button variant="contained" color="primary">
+        {" "}
+        <Link to="/Administrador">Actualizar</Link>
+      </Button>
     </>
   );
 }

@@ -96,14 +96,14 @@ const StyledTableCellE = withStyles((theme) => ({
   },
 }))(TableCell);
 
-function createDataI(indicador, rango, valoracion) {
-  return { indicador, rango, valoracion };
+function createDataD(documento, estado, observacion) {
+  return { documento, estado, observacion };
 }
-const rowsInd = [
-  createDataI("Cumplimiento de los objetivos propuestos", "0-5", 5),
-  createDataI("Calidad de los entregables (hitos) desarrollados", "0-5", 4),
-  createDataI("Sustentacion de las actividades desarrolladas", "0-5", 3),
-  createDataI("Presentacion documento-con el desarrollo", "0-5", 5),
+const rowsDoc = [
+  createDataD("Plan de trabajo", "Aprobado"),
+  createDataD("Avance 1", "pendiente", "faltan fechas"),
+  createDataD("Avance 2", "rechazado", "faltan actividades"),
+  createDataD("Informe Final", "aprobado"),
 ];
 function ccyFormat(num) {
   return `${num.toFixed(2)}`;
@@ -135,7 +135,7 @@ export default function Evaluacion(params) {
     <Container fixed>
       <TableContainer component={Paper}>
         <Typography variant="h6">
-          Evaluacion por parte de los jurados al estudiante ""
+          Documentos aprobados por pate de los jurados al estudiante ""
         </Typography>
         <br></br>
         <Table className={classes.table} aria-label="customized table">
@@ -180,23 +180,19 @@ export default function Evaluacion(params) {
           <Table className={classes.table} aria-label="spanning table">
             <TableHead>
               <TableRow>
-                <StyledTableCellE>Indicador</StyledTableCellE>
-                <StyledTableCellE align="right">Rango</StyledTableCellE>
-                <StyledTableCellE align="right">valoración</StyledTableCellE>
+                <StyledTableCellE>Documentos</StyledTableCellE>
+                <StyledTableCellE align="right">Estado</StyledTableCellE>
+                <StyledTableCellE align="right">Observaciones</StyledTableCellE>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rowsInd.map((rowsInd) => (
+              {rowsDoc.map((rowsDoc) => (
                 <TableRow>
-                  <TableCell>{rowsInd.indicador}</TableCell>
-                  <TableCell align="right">{rowsInd.rango}</TableCell>
+                  <TableCell>{rowsDoc.documento}</TableCell>
+                  <TableCell align="right">{rowsDoc.estado}</TableCell>
+                  <TableCell align="right">{rowsDoc.observacion}</TableCell>
                 </TableRow>
               ))}
-
-              <TableRow>
-                <TableCell colSpan={2}>Total</TableCell>
-                <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
-              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
@@ -206,23 +202,19 @@ export default function Evaluacion(params) {
           <Table className={classes.table} aria-label="spanning table">
             <TableHead>
               <TableRow>
-                <StyledTableCellE>Indicador</StyledTableCellE>
-                <StyledTableCellE align="right">Rango</StyledTableCellE>
-                <StyledTableCellE align="right">valoración</StyledTableCellE>
+                <StyledTableCellE>Documentos</StyledTableCellE>
+                <StyledTableCellE align="right">Estado</StyledTableCellE>
+                <StyledTableCellE align="right">Observaciones</StyledTableCellE>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rowsInd.map((rowsInd) => (
+              {rowsDoc.map((rowsDoc) => (
                 <TableRow>
-                  <TableCell>{rowsInd.indicador}</TableCell>
-                  <TableCell align="right">{rowsInd.rango}</TableCell>
+                  <TableCell>{rowsDoc.documento}</TableCell>
+                  <TableCell align="right">{rowsDoc.estado}</TableCell>
+                  <TableCell align="right">{rowsDoc.observacion}</TableCell>
                 </TableRow>
               ))}
-
-              <TableRow>
-                <TableCell colSpan={2}>Total</TableCell>
-                <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
-              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
@@ -232,23 +224,19 @@ export default function Evaluacion(params) {
           <Table className={classes.table} aria-label="spanning table">
             <TableHead>
               <TableRow>
-                <StyledTableCellE>Indicador</StyledTableCellE>
-                <StyledTableCellE align="right">Rango</StyledTableCellE>
-                <StyledTableCellE align="right">valoración</StyledTableCellE>
+                <StyledTableCellE>Documentos</StyledTableCellE>
+                <StyledTableCellE align="right">Estado</StyledTableCellE>
+                <StyledTableCellE align="right">Observaciones</StyledTableCellE>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rowsInd.map((rowsInd) => (
+              {rowsDoc.map((rowsDoc) => (
                 <TableRow>
-                  <TableCell>{rowsInd.indicador}</TableCell>
-                  <TableCell align="right">{rowsInd.rango}</TableCell>
+                  <TableCell>{rowsDoc.documento}</TableCell>
+                  <TableCell align="right">{rowsDoc.estado}</TableCell>
+                  <TableCell align="right">{rowsDoc.observacion}</TableCell>
                 </TableRow>
               ))}
-
-              <TableRow>
-                <TableCell colSpan={2}>Total</TableCell>
-                <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
-              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
