@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import conexionAxios from "../config/axios";
 import {
   FormControl,
   FormHelperText,
@@ -49,6 +50,46 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RegistrarEstudiante() {
+  // cliente = state, guardarcliente = funcion para guardar el state
+  const [estudiante, guardarEstudiante] = useState({
+    nombres: "",
+    apellidos: "",
+    numeroIdentificacion: "",
+    idTipoDocumento: "",
+    codigo: "",
+    email: "",
+    password: "",
+    telefono: "",
+    semestre: "",
+    direccion: "",
+  });
+
+  // leer los datos del formulario
+  const actualizarState = (e) => {
+    // Almacenar lo que el usuario escribe en el state
+    guardarEstudiante({
+      // obtener una copia del state actual
+      ...estudiante,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const agregarEstudiante = (e) => {
+    e.preventDefault();
+
+    // enviar petición
+    conexionAxios.post("/user", estudiante).then((res) => {
+      // validar si hay errores de mongo
+      if (res.data.code === 11000) {
+        console.log("algo");
+      } else {
+        console.log("algo 2");
+      }
+      // Redireccionar
+      // history.push('/');
+    });
+  };
+
   const classes = useStyles();
 
   return (
@@ -71,12 +112,17 @@ export default function RegistrarEstudiante() {
           REGISTRARSE COMO ESTUDIANTE
         </Typography>
         <CssBaseline></CssBaseline>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={agregarEstudiante}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="nombre">Nombres</InputLabel>
-                <Input id="nombre" type="TextField"></Input>
+                <Input
+                  name="nombres"
+                  id="nombre"
+                  type="TextField"
+                  onChange={actualizarState}
+                ></Input>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -84,26 +130,30 @@ export default function RegistrarEstudiante() {
                 <InputLabel htmlFor="apellido">Apellidos</InputLabel>
                 <Input
                   id="apellido"
+                  name="apellidos"
                   type="TextField"
                   aria-describedby="email-helper"
+                  onChange={actualizarState}
                 ></Input>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl>
-                <InputLabel htmlFor="cedula">Cedula</InputLabel>
+                <InputLabel htmlFor="cedula">Número documento</InputLabel>
                 <Input
+                  name="numeroIdentificacion"
                   id="cedula"
                   type="number"
                   aria-describedby="email-helper"
+                  onChange={actualizarState}
                 ></Input>
               </FormControl>
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
-                <InputLabel>Tipo de cedula</InputLabel>
-                <Select>
+                <InputLabel>Tipo de documento</InputLabel>
+                <Select name="idTipoDocumento" onChange={actualizarState}>
                   <MenuItem value={10}>Cedula de ciudadania</MenuItem>
                   <MenuItem value={20}>Tarjeta de identidad</MenuItem>
                   <MenuItem value={30}>Cedula Extranjeria</MenuItem>
@@ -120,6 +170,7 @@ export default function RegistrarEstudiante() {
                   id="expedicion"
                   type="TextField"
                   aria-describedby="expedicion-helper"
+                  onChange={actualizarState}
                 ></Input>
                 <FormHelperText id="expedicion-helper">
                   de la cedula
@@ -137,6 +188,7 @@ export default function RegistrarEstudiante() {
                 id="date"
                 label="Fecha nacimiento"
                 type="date"
+                onChange={actualizarState}
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,
@@ -145,20 +197,9 @@ export default function RegistrarEstudiante() {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <FormControl>
-                <InputLabel htmlFor="cedula">Cedula</InputLabel>
-                <Input
-                  id="cedula"
-                  type="number"
-                  aria-describedby="email-helper"
-                ></Input>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="sexo">Sexo</InputLabel>
-                <Select native id="sexo">
+                <Select native id="sexo" onChange={actualizarState}>
                   <option aria-label="None" value="" />
                   <option value={10}>Femenino</option>
                   <option value={20}>Masculino</option>
@@ -169,14 +210,24 @@ export default function RegistrarEstudiante() {
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="direccion">Direccion</InputLabel>
-                <Input id="direccion" type="TextField"></Input>
+                <Input
+                  id="direccion"
+                  name="direccion"
+                  type="TextField"
+                  onChange={actualizarState}
+                ></Input>
               </FormControl>
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="telefono">Telefono</InputLabel>
-                <Input id="telefono" type="number"></Input>
+                <Input
+                  name="telefono"
+                  id="telefono"
+                  type="number"
+                  onChange={actualizarState}
+                ></Input>
               </FormControl>
             </Grid>
 
@@ -185,7 +236,9 @@ export default function RegistrarEstudiante() {
                 <InputLabel htmlFor="email">Email</InputLabel>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
+                  onChange={actualizarState}
                   aria-describedby="email-helper"
                 ></Input>
                 <FormHelperText id="email-helper">
@@ -197,19 +250,34 @@ export default function RegistrarEstudiante() {
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="codigo">Codigo estudiantil</InputLabel>
-                <Input id="codigo" type="number"></Input>
+                <Input
+                name="codigo"
+                  id="codigo"
+                  type="number"
+                  onChange={actualizarState}
+                ></Input>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="semestre">Semestre</InputLabel>
-                <Input id="semestre" type="number"></Input>
+                <Input
+                name="semestre"
+                  id="semestre"
+                  type="number"
+                  onChange={actualizarState}
+                ></Input>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="contraseña">contraseña</InputLabel>
-                <Input id="contraseña" type="password"></Input>
+                <Input
+                name="password"
+                  id="contraseña"
+                  type="password"
+                  onChange={actualizarState}
+                ></Input>
               </FormControl>
             </Grid>
           </Grid>
