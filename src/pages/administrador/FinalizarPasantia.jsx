@@ -8,9 +8,11 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import Button from "@material-ui/core/Button";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import { Link } from "react-router-dom";
 
 function Example() {
   const [responsive, setResponsive] = useState("horizontal");
@@ -21,26 +23,22 @@ function Example() {
 
   const columns = [
     {
-      name: "Nombre de la empresa",
+      name: "Nombre del estudiante",
     },
     {
-      name: "Convenio",
+      name: "Empresa",
     },
-
     {
-      name: "Cargar",
+      name: "Fecha inicio de la pasantia",
+    },
+    {
+      name: "Finalizar pasantia",
 
       options: {
         customBodyRenderLite: (dataIndex, rowIndex) => {
           return (
-            <button
-              onClick={() =>
-                window.alert(
-                  `Clicked "Edit" for row ${rowIndex} with dataIndex of ${dataIndex}`
-                )
-              }
-            >
-              <FileUploadIcon />
+            <button>
+              <CheckBoxOutlineBlankIcon />
             </button>
           );
         },
@@ -103,11 +101,16 @@ function Example() {
   return (
     <>
       <MUIDataTable
-        title={"Cargar convenios"}
+        title={"Fianlizar pasantia"}
         data={data}
         columns={columns}
         options={options}
       />
+      <br></br>
+      <Button variant="contained" color="primary">
+        {" "}
+        <Link to="/Administrador">Actualizar</Link>
+      </Button>
     </>
   );
 }

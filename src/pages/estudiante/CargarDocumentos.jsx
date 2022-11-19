@@ -19,7 +19,6 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import PublishIcon from "@material-ui/icons/Publish";
 import { Link } from "react-router-dom";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -66,7 +65,6 @@ export default function CargarDocumentos() {
                     </IconButton>
                   </label>
                 </TableCell>
-              
               </TableRow>
               <TableRow>
                 <TableCell>
@@ -93,7 +91,6 @@ export default function CargarDocumentos() {
                     </IconButton>
                   </label>
                 </TableCell>
-              
               </TableRow>
               <TableRow>
                 <TableCell>
@@ -120,7 +117,6 @@ export default function CargarDocumentos() {
                     </IconButton>
                   </label>
                 </TableCell>
-               
               </TableRow>
             </TableBody>
           </Table>
@@ -130,10 +126,10 @@ export default function CargarDocumentos() {
             tamaño
           </h6>
           <Grid item>
-        <Button variant="contained" color="primary">
-          <Link to="/Estudiante/DocumentoCargado">Editar datos</Link>
-        </Button>
-      </Grid>
+            <Button variant="contained" color="primary">
+              <Link to="/Estudiante/DocumentoCargado">Editar datos</Link>
+            </Button>
+          </Grid>
         </form>
       </Typography>
     </Container>

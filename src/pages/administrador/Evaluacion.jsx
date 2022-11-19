@@ -1,0 +1,258 @@
+import React from "react";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`nav-tabpanel-${index}`}
+      aria-labelledby={`nav-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `nav-tab-${index}`,
+    "aria-controls": `nav-tabpanel-${index}`,
+  };
+}
+
+function LinkTab(props) {
+  return (
+    <Tab
+      component="a"
+      onClick={(event) => {
+        event.preventDefault();
+      }}
+      {...props}
+    />
+  );
+}
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: "#EC6E66",
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
+
+function createData(nombreEmpresa, nombreTutor) {
+  return { nombreEmpresa, nombreTutor };
+}
+
+const rows = [createData("Frozen yoghurt", "Luis Perez")];
+
+// tabla de la evaluacion de los jurados
+
+const StyledTableCellE = withStyles((theme) => ({
+  head: {
+    backgroundColor: "#6FB2F5",
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+function createDataI(indicador, rango, valoracion) {
+  return { indicador, rango, valoracion };
+}
+const rowsInd = [
+  createDataI("Cumplimiento de los objetivos propuestos", "0-5", 5),
+  createDataI("Calidad de los entregables (hitos) desarrollados", "0-5", 4),
+  createDataI("Sustentacion de las actividades desarrolladas", "0-5", 3),
+  createDataI("Presentacion documento-con el desarrollo", "0-5", 5),
+];
+function ccyFormat(num) {
+  return `${num.toFixed(2)}`;
+}
+
+const invoiceTotal = 0;
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+  },
+  table: {
+    minWidth: 700,
+  },
+  appbar: {
+    backgroundColor: "#EC6E66",
+  },
+});
+
+export default function Evaluacion(params) {
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Container fixed>
+      <TableContainer component={Paper}>
+        <Typography variant="h6">
+          Evaluacion por parte de los jurados al estudiante ""
+        </Typography>
+        <br></br>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell component="th" scope="row">
+                Jurado 1
+              </StyledTableCell>
+              <StyledTableCell>Jurado 2</StyledTableCell>
+              <StyledTableCell>Jurado 3</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <StyledTableRow key={row.nombreEmpresa}>
+                <StyledTableCell component="th" scope="row">
+                  {row.nombreEmpresa}
+                </StyledTableCell>
+                <StyledTableCell>{row.nombreTutor}</StyledTableCell>
+                <StyledTableCell>{row.nombreTutor}</StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <br></br>
+
+      <AppBar className={classes.appbar} position="static">
+        <Tabs
+          variant="fullWidth"
+          value={value}
+          onChange={handleChange}
+          aria-label="nav tabs example"
+        >
+          <LinkTab label="Jurado 1" {...a11yProps(0)} />
+          <LinkTab label="Jurado 2" {...a11yProps(1)} />
+          <LinkTab label="Jurado 3" {...a11yProps(2)} />
+        </Tabs>
+      </AppBar>
+      <TabPanel value={value} index={0}>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="spanning table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCellE>Indicador</StyledTableCellE>
+                <StyledTableCellE align="right">Rango</StyledTableCellE>
+                <StyledTableCellE align="right">valoración</StyledTableCellE>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rowsInd.map((rowsInd) => (
+                <TableRow>
+                  <TableCell>{rowsInd.indicador}</TableCell>
+                  <TableCell align="right">{rowsInd.rango}</TableCell>
+                </TableRow>
+              ))}
+
+              <TableRow>
+                <TableCell colSpan={2}>Total</TableCell>
+                <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="spanning table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCellE>Indicador</StyledTableCellE>
+                <StyledTableCellE align="right">Rango</StyledTableCellE>
+                <StyledTableCellE align="right">valoración</StyledTableCellE>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rowsInd.map((rowsInd) => (
+                <TableRow>
+                  <TableCell>{rowsInd.indicador}</TableCell>
+                  <TableCell align="right">{rowsInd.rango}</TableCell>
+                </TableRow>
+              ))}
+
+              <TableRow>
+                <TableCell colSpan={2}>Total</TableCell>
+                <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="spanning table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCellE>Indicador</StyledTableCellE>
+                <StyledTableCellE align="right">Rango</StyledTableCellE>
+                <StyledTableCellE align="right">valoración</StyledTableCellE>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rowsInd.map((rowsInd) => (
+                <TableRow>
+                  <TableCell>{rowsInd.indicador}</TableCell>
+                  <TableCell align="right">{rowsInd.rango}</TableCell>
+                </TableRow>
+              ))}
+
+              <TableRow>
+                <TableCell colSpan={2}>Total</TableCell>
+                <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </TabPanel>
+    </Container>
+  );
+}
