@@ -43,11 +43,17 @@ import DocumentoCargado from "./pages/estudiante/DocumentoCargado";
 import AvanceCargado from "./pages/estudiante/AvanceCargado";
 import DocumentoFinalCargado from "./pages/estudiante/DocumentoFinalCargado";
 import CambiarPasswordEst from "./pages/estudiante/CambiarPasswordEst";
+//Jurado
+import AppbarJurado from "./components/AppbarJurado";
+import EstudianteAsignado from "./pages/jurado/EstudianteAsignado"
+import InformacionEstudiante from "./pages/jurado/InformacionEstudiante"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/** rutas de Inicio */}
         <Route path="/" element={<HeaderInicio></HeaderInicio>}>
           <Route index element={<IniciarSesion></IniciarSesion>} />
           <Route
@@ -63,7 +69,7 @@ function App() {
             element={<RecuperarPassword></RecuperarPassword>}
           />
         </Route>
-
+        {/** rutas de modulo Administrador */}
         <Route path="/Administrador" element={<DrawerAdminsitrador />}>
           <Route index element={<EstudianteActivo></EstudianteActivo>} />
 
@@ -145,6 +151,8 @@ function App() {
             element={<ReporteEmpresa></ReporteEmpresa>}
           />
         </Route>
+
+        {/** rutas de modulo Estudiante*/}
         <Route path="/Estudiante" element={<DrawerEstudiante />}>
           <Route index element={<EstadoPasantia></EstadoPasantia>} />
           <Route
@@ -184,6 +192,11 @@ function App() {
             path="/Estudiante/CambiarPasswordEst"
             element={<CambiarPasswordEst></CambiarPasswordEst>}
           />
+        </Route >
+        {/** rutas de modulo jurado */}
+        <Route path="/Jurado" element={<AppbarJurado />}>
+          <Route index element={<EstudianteAsignado></EstudianteAsignado>}/>
+          <Route path="/Jurado/InformacionEstudiante" element={<InformacionEstudiante></InformacionEstudiante>}/>
         </Route>
       </Routes>
     </BrowserRouter>
