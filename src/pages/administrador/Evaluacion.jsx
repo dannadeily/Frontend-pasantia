@@ -62,7 +62,7 @@ function LinkTab(props) {
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#EC6E66",
+    backgroundColor: "#159ED6",
     color: theme.palette.common.white,
   },
   body: {
@@ -88,7 +88,7 @@ const rows = [createData("Frozen yoghurt", "Luis Perez")];
 
 const StyledTableCellE = withStyles((theme) => ({
   head: {
-    backgroundColor: "#6FB2F5",
+    backgroundColor: "#65D2BD",
     color: theme.palette.common.white,
   },
   body: {
@@ -119,7 +119,10 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
   appbar: {
-    backgroundColor: "#EC6E66",
+    backgroundColor: "#159ED6",
+  },
+  tabPanel: {
+    backgroundColor: "#D5D8D8",
   },
 });
 
@@ -175,7 +178,7 @@ export default function Evaluacion(params) {
           <LinkTab label="Jurado 3" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel className={classes.tabPanel} value={value} index={0}>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="spanning table">
             <TableHead>
@@ -201,7 +204,7 @@ export default function Evaluacion(params) {
           </Table>
         </TableContainer>
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel className={classes.tabPanel} value={value} index={1}>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="spanning table">
             <TableHead>
@@ -227,7 +230,7 @@ export default function Evaluacion(params) {
           </Table>
         </TableContainer>
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel className={classes.tabPanel} value={value} index={2}>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="spanning table">
             <TableHead>
