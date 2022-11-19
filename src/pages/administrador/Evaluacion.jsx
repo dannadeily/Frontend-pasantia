@@ -88,7 +88,7 @@ const rows = [createData("Frozen yoghurt", "Luis Perez")];
 
 const StyledTableCellE = withStyles((theme) => ({
   head: {
-    backgroundColor: "#65D2BD",
+    backgroundColor: "#5050FF",
     color: theme.palette.common.white,
   },
   body: {
