@@ -19,6 +19,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -80,17 +87,28 @@ export default function RegistrarEstudiante() {
     // enviar petición
     conexionAxios.post("/user", estudiante).then((res) => {
       // validar si hay errores de mongo
-      if (res.data.code === 11000) {
-        console.log("algo");
-      } else {
-        console.log("algo 2");
-      }
+      console.log(res);
+      <Alert severity="success">This is a success message!</Alert>
       // Redireccionar
       // history.push('/');
     });
   };
 
+   //Alert
   const classes = useStyles();
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  //
 
   return (
     <Container component="main" maxWidth="xs">
