@@ -88,14 +88,19 @@ export default function RegistrarEstudiante() {
     conexionAxios.post("/user", estudiante).then((res) => {
       // validar si hay errores de mongo
       console.log(res);
-      <Alert severity="success">This is a success message!</Alert>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="success">
+        This is a success message!
+      </Alert>
+    </Snackbar>
       // Redireccionar
       // history.push('/');
     });
   };
 
-   //Alert
+  
   const classes = useStyles();
+ //Alert
 
   const handleClick = () => {
     setOpen(true);
@@ -172,9 +177,9 @@ export default function RegistrarEstudiante() {
               <FormControl className={classes.formControl}>
                 <InputLabel>Tipo de documento</InputLabel>
                 <Select name="idTipoDocumento" onChange={actualizarState}>
-                  <MenuItem value={10}>Cedula de ciudadania</MenuItem>
-                  <MenuItem value={20}>Tarjeta de identidad</MenuItem>
-                  <MenuItem value={30}>Cedula Extranjeria</MenuItem>
+                  <MenuItem value={1}>Cedula de ciudadania</MenuItem>
+                  <MenuItem value={2}>Tarjeta de identidad</MenuItem>
+                  <MenuItem value={3}>Cedula Extranjeria</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
