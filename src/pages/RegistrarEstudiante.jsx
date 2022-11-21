@@ -70,15 +70,7 @@ export default function RegistrarEstudiante() {
     semestre: "",
     semestre: "",
   });
-  // const [nombres,setNombres] = useState('')
-  // const [apellidos,setApellidos] = useState('')
-  // const [numeroIdentificacion,setNumeroIdentificacion] = useState('')
-  // const [codigo,setCodigo] = useState('')
-  // const [email,setEmail] = useState('')
-  // const [password,setPassword] = useState('')
-  // const [telefono,setTelefono] = useState('')
-  // const [semestre,setSemestre] = useState('')
-  // const [direccion,setDireccion] = useState('')
+
   const [alerta,setAlerta] =useState({})
 
   // leer los datos del formulario
@@ -120,33 +112,10 @@ export default function RegistrarEstudiante() {
     if (reason === 'clickaway') {
       return;
     }
-
-    // // enviar petición
-    // conexionAxios.post("/user", estudiante).then((res) => {
-    //   // validar si hay errores de mongo
-    //   console.log(res);
-   
-    //   // Redireccionar
-    //   // history.push('/');
-    // });
   };
 
   
  
-//  //Alert
-
-//   const handleClick = () => {
-//     setOpen(true);
-//   };
-
-//   const handleClose = (event, reason) => {
-//     if (reason === 'clickaway') {
-//       return;
-//     }
-
-//     setOpen(false);
-//   };
-  //
 
   const {msg} = alerta
 
