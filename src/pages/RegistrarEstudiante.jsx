@@ -83,8 +83,7 @@ export default function RegistrarEstudiante() {
     direccion: "",
   });
 
-  const [alerta,setAlerta] = useState({})
-
+  const [alerta, setAlerta] = useState({});
 
   // leer los datos del formulario
   const actualizarState = (e) => {
@@ -99,36 +98,29 @@ export default function RegistrarEstudiante() {
   const agregarEstudiante = (e) => {
     e.preventDefault();
 
-    if([estudiante].includes('')==('')){
+    if ([estudiante].includes("")) {
       setAlerta({
-        
         msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
-      
-      })
-      return
+      });
+      return;
     }
 
-    
-
     // enviar petición
-    
+
     conexionAxios.post("/user", estudiante).then((res) => {
       // validar si hay errores de mongo
       console.log(res);
       setAlerta({
-        
         msg: <Alert severity="success">registrado correctamente</Alert>,
-        
-      })
-      return
+      });
+      return;
       // Redireccionar
       // history.push('/');
     });
   };
-  const {msg} = alerta
-   //Alert
+  const { msg } = alerta;
+  //Alert
   const classes = useStyles();
-
 
   return (
     <Container component="main" maxWidth="xs">
@@ -149,7 +141,7 @@ export default function RegistrarEstudiante() {
         <Typography component="h1" variant="h5" align="center">
           REGISTRARSE COMO ESTUDIANTE
         </Typography>
-        {msg && <Alerta alerta={alerta}/>}
+        {msg && <Alerta alerta={alerta} />}
         <CssBaseline></CssBaseline>
         <form className={classes.form} noValidate onSubmit={agregarEstudiante}>
           <Grid container spacing={3}>
@@ -194,7 +186,12 @@ export default function RegistrarEstudiante() {
                 <InputLabel>Tipo de documento</InputLabel>
                 <Select name="idTipoDocumento" onChange={actualizarState}>
                   {tiposDocumentos.map((tipoDocumento) => {
-                    return <MenuItem value={tipoDocumento.idtipo_documento}> {tipoDocumento.tipo_documento} </MenuItem>;
+                    return (
+                      <MenuItem value={tipoDocumento.idtipo_documento}>
+                        {" "}
+                        {tipoDocumento.tipo_documento}{" "}
+                      </MenuItem>
+                    );
                   })}
                 </Select>
               </FormControl>
@@ -329,7 +326,7 @@ export default function RegistrarEstudiante() {
           >
             Registrarse
           </Button>
-        
+
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to="/">Iniciar Sesion</Link>

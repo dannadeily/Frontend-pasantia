@@ -1,6 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import "./index.css";
 import HeaderInicio from "./components/Headerinicio";
 //Administrador
@@ -45,162 +43,176 @@ import DocumentoFinalCargado from "./pages/estudiante/DocumentoFinalCargado";
 import CambiarPasswordEst from "./pages/estudiante/CambiarPasswordEst";
 //Jurado
 import AppbarJurado from "./components/AppbarJurado";
-import EstudianteAsignado from "./pages/jurado/EstudianteAsignado"
-import InformacionEstudiante from "./pages/jurado/InformacionEstudiante"
-import Alerta from "./components/alerta"
+import EstudianteAsignado from "./pages/jurado/EstudianteAsignado";
+import InformacionEstudiante from "./pages/jurado/InformacionEstudiante";
+import Alerta from "./components/alerta";
+
+//
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/Alerta" element={<Alerta></Alerta>}></Route>
+      <AuthProvider>
+        <Routes>
+          <Route path="/Alerta" element={<Alerta></Alerta>}></Route>
 
-        {/** rutas de Inicio */}
-        <Route path="/" element={<HeaderInicio></HeaderInicio>}>
-          <Route index element={<IniciarSesion></IniciarSesion>} />
-          <Route
-            path="/RegistrarEstudiante"
-            element={<RegistrarEstudiante></RegistrarEstudiante>}
-          />
-          <Route
-            path="/RegistrarEmpresa"
-            element={<RegistrarEmpresa></RegistrarEmpresa>}
-          />
-          <Route
-            path="/RecuperarPassword"
-            element={<RecuperarPassword></RecuperarPassword>}
-          />
-        </Route>
-        {/** rutas de modulo Administrador */}
-        <Route path="/Administrador" element={<DrawerAdminsitrador />}>
-          <Route index element={<EstudianteActivo></EstudianteActivo>} />
+          {/** rutas de Inicio */}
+          <Route path="/" element={<HeaderInicio></HeaderInicio>}>
+            <Route index element={<IniciarSesion></IniciarSesion>} />
+            <Route
+              path="/RegistrarEstudiante"
+              element={<RegistrarEstudiante></RegistrarEstudiante>}
+            />
+            <Route
+              path="/RegistrarEmpresa"
+              element={<RegistrarEmpresa></RegistrarEmpresa>}
+            />
+            <Route
+              path="/RecuperarPassword"
+              element={<RecuperarPassword></RecuperarPassword>}
+            />
+          </Route>
+          {/** rutas de modulo Administrador */}
+          <Route path="/Administrador" element={<DrawerAdminsitrador />}>
+            <Route index element={<EstudianteActivo></EstudianteActivo>} />
 
-          <Route
-            path="/Administrador/FinalizarPasantia"
-            element={<FinalizarPasantia></FinalizarPasantia>}
-          />
-          <Route
-            path="/Administrador/InfoEstudiante"
-            element={<InfoEstudiante></InfoEstudiante>}
-          />
-          <Route
-            path="/Administrador/AsignarEmpresa"
-            element={<AsignarEmpresa></AsignarEmpresa>}
-          />
-          <Route
-            path="/Administrador/AsignarJurado"
-            element={<AsignarJurado></AsignarJurado>}
-          />
-          <Route
-            path="/Administrador/HistorialEstudiante"
-            element={<HistorialEstudiante></HistorialEstudiante>}
-          />
-          <Route
-            path="/Administrador/CargarConvenio"
-            element={<CargarConvenio></CargarConvenio>}
-          />
-          <Route
-            path="/Administrador/DocumentosEmpresa"
-            element={<DocumentosEmpresa></DocumentosEmpresa>}
-          />
-          <Route
-            path="/Administrador/HistorialEmpresa"
-            element={<HistorialEmpresa></HistorialEmpresa>}
-          />
-          <Route
-            path="/Administrador/RegistrarJurado"
-            element={<RegistrarJurado></RegistrarJurado>}
-          />
-          <Route
-            path="/Administrador/DocumentoEvaluado"
-            element={<DocumentoEvaluado></DocumentoEvaluado>}
-          />
-          <Route
-            path="/Administrador/Documento"
-            element={<Documento></Documento>}
-          />
-          <Route
-            path="/Administrador/EstudianteEvaluado"
-            element={<EstudianteEvaluado></EstudianteEvaluado>}
-          />
-          <Route
-            path="/Administrador/Evaluacion"
-            element={<Evaluacion></Evaluacion>}
-          />
-          <Route
-            path="/Administrador/HistorialJurado"
-            element={<HistorialJurado></HistorialJurado>}
-          />
-          <Route path="/Administrador/Evaluar" element={<Evaluar></Evaluar>} />
-          <Route
-            path="/Administrador/EvaluarEstudiante"
-            element={<EvaluarEstudiante></EvaluarEstudiante>}
-          />
-          <Route
-            path="/Administrador/HistorialCalificacion"
-            element={<HistorialCalificacion></HistorialCalificacion>}
-          />
-          <Route
-            path="/Administrador/Puntuacion"
-            element={<Puntuacion></Puntuacion>}
-          />
-          <Route
-            path="/Administrador/ReporteEstudiante"
-            element={<ReporteEstudiante></ReporteEstudiante>}
-          />
-          <Route
-            path="/Administrador/ReporteEmpresa"
-            element={<ReporteEmpresa></ReporteEmpresa>}
-          />
-        </Route>
+            <Route
+              path="/Administrador/FinalizarPasantia"
+              element={<FinalizarPasantia></FinalizarPasantia>}
+            />
+            <Route
+              path="/Administrador/InfoEstudiante"
+              element={<InfoEstudiante></InfoEstudiante>}
+            />
+            <Route
+              path="/Administrador/AsignarEmpresa"
+              element={<AsignarEmpresa></AsignarEmpresa>}
+            />
+            <Route
+              path="/Administrador/AsignarJurado"
+              element={<AsignarJurado></AsignarJurado>}
+            />
+            <Route
+              path="/Administrador/HistorialEstudiante"
+              element={<HistorialEstudiante></HistorialEstudiante>}
+            />
+            <Route
+              path="/Administrador/CargarConvenio"
+              element={<CargarConvenio></CargarConvenio>}
+            />
+            <Route
+              path="/Administrador/DocumentosEmpresa"
+              element={<DocumentosEmpresa></DocumentosEmpresa>}
+            />
+            <Route
+              path="/Administrador/HistorialEmpresa"
+              element={<HistorialEmpresa></HistorialEmpresa>}
+            />
+            <Route
+              path="/Administrador/RegistrarJurado"
+              element={<RegistrarJurado></RegistrarJurado>}
+            />
+            <Route
+              path="/Administrador/DocumentoEvaluado"
+              element={<DocumentoEvaluado></DocumentoEvaluado>}
+            />
+            <Route
+              path="/Administrador/Documento"
+              element={<Documento></Documento>}
+            />
+            <Route
+              path="/Administrador/EstudianteEvaluado"
+              element={<EstudianteEvaluado></EstudianteEvaluado>}
+            />
+            <Route
+              path="/Administrador/Evaluacion"
+              element={<Evaluacion></Evaluacion>}
+            />
+            <Route
+              path="/Administrador/HistorialJurado"
+              element={<HistorialJurado></HistorialJurado>}
+            />
+            <Route
+              path="/Administrador/Evaluar"
+              element={<Evaluar></Evaluar>}
+            />
+            <Route
+              path="/Administrador/EvaluarEstudiante"
+              element={<EvaluarEstudiante></EvaluarEstudiante>}
+            />
+            <Route
+              path="/Administrador/HistorialCalificacion"
+              element={<HistorialCalificacion></HistorialCalificacion>}
+            />
+            <Route
+              path="/Administrador/Puntuacion"
+              element={<Puntuacion></Puntuacion>}
+            />
+            <Route
+              path="/Administrador/ReporteEstudiante"
+              element={<ReporteEstudiante></ReporteEstudiante>}
+            />
+            <Route
+              path="/Administrador/ReporteEmpresa"
+              element={<ReporteEmpresa></ReporteEmpresa>}
+            />
+          </Route>
 
-        {/** rutas de modulo Estudiante*/}
-        <Route path="/Estudiante" element={<DrawerEstudiante />}>
-          <Route index element={<EstadoPasantia></EstadoPasantia>} />
-          <Route
-            path="/Estudiante/DatosPersonales"
-            element={<DatosPersonales></DatosPersonales>}
-          />
-          <Route
-            path="/Estudiante/EditarDatos"
-            element={<EditarDatos></EditarDatos>}
-          />
-          <Route
-            path="/Estudiante/DocumentoCargado"
-            element={<DocumentoCargado></DocumentoCargado>}
-          />
-          <Route
-            path="/Estudiante/CargarDocumentos"
-            element={<CargarDocumentos></CargarDocumentos>}
-          />
-          <Route
-            path="/Estudiante/AvanceCargado"
-            element={<AvanceCargado></AvanceCargado>}
-          />
-          <Route
-            path="/Estudiante/CargarAvances"
-            element={<CargarAvances></CargarAvances>}
-          />
-          <Route
-            path="/Estudiante/DocumentoFinalCargado"
-            element={<DocumentoFinalCargado></DocumentoFinalCargado>}
-          />
-          <Route
-            path="/Estudiante/DocumentoFinal"
-            element={<DocumentoFinal></DocumentoFinal>}
-          />
-          <Route path="/Estudiante/Consulta" element={<Consulta></Consulta>} />
-          <Route
-            path="/Estudiante/CambiarPasswordEst"
-            element={<CambiarPasswordEst></CambiarPasswordEst>}
-          />
-        </Route >
-        {/** rutas de modulo jurado */}
-        <Route path="/Jurado" element={<AppbarJurado />}>
-          <Route index element={<EstudianteAsignado></EstudianteAsignado>}/>
-          <Route path="/Jurado/InformacionEstudiante" element={<InformacionEstudiante></InformacionEstudiante>}/>
-        </Route>
-      </Routes>
+          {/** rutas de modulo Estudiante*/}
+          <Route path="/Estudiante" element={<DrawerEstudiante />}>
+            <Route index element={<EstadoPasantia></EstadoPasantia>} />
+            <Route
+              path="/Estudiante/DatosPersonales"
+              element={<DatosPersonales></DatosPersonales>}
+            />
+            <Route
+              path="/Estudiante/EditarDatos"
+              element={<EditarDatos></EditarDatos>}
+            />
+            <Route
+              path="/Estudiante/DocumentoCargado"
+              element={<DocumentoCargado></DocumentoCargado>}
+            />
+            <Route
+              path="/Estudiante/CargarDocumentos"
+              element={<CargarDocumentos></CargarDocumentos>}
+            />
+            <Route
+              path="/Estudiante/AvanceCargado"
+              element={<AvanceCargado></AvanceCargado>}
+            />
+            <Route
+              path="/Estudiante/CargarAvances"
+              element={<CargarAvances></CargarAvances>}
+            />
+            <Route
+              path="/Estudiante/DocumentoFinalCargado"
+              element={<DocumentoFinalCargado></DocumentoFinalCargado>}
+            />
+            <Route
+              path="/Estudiante/DocumentoFinal"
+              element={<DocumentoFinal></DocumentoFinal>}
+            />
+            <Route
+              path="/Estudiante/Consulta"
+              element={<Consulta></Consulta>}
+            />
+            <Route
+              path="/Estudiante/CambiarPasswordEst"
+              element={<CambiarPasswordEst></CambiarPasswordEst>}
+            />
+          </Route>
+          {/** rutas de modulo jurado */}
+          <Route path="/Jurado" element={<AppbarJurado />}>
+            <Route index element={<EstudianteAsignado></EstudianteAsignado>} />
+            <Route
+              path="/Jurado/InformacionEstudiante"
+              element={<InformacionEstudiante></InformacionEstudiante>}
+            />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

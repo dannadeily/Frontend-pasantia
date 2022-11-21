@@ -1,13 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -16,6 +13,8 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import useAuth from "../hooks/useAuth";
+import conexionAxios from "../config/axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +57,22 @@ export default function IniciarSesion() {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
+  const { setAuth } = useAuth();
+
+  useEffect(() => {
+    const autenticarUsuario = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        return;
+      }
+      try {
+      } catch (error) {}
+    };
+    autenticarUsuario();
+  }, []);
+
+
+  
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -70,7 +85,23 @@ export default function IniciarSesion() {
           <Typography component="h1" variant="h5">
             INICIAR SESION
           </Typography>
+
           <form className={classes.form} noValidate>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="demo-simple-select-outlined-label">
+                Rol
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="rol"
+                label="Rol"
+              >
+                <MenuItem value={1}>Administrador</MenuItem>
+                <MenuItem value={2}>Empresa</MenuItem>
+                <MenuItem value={3}>Estudiante</MenuItem>
+                <MenuItem value={4}>Jurado</MenuItem>
+              </Select>
+            </FormControl>
             <TextField
               variant="outlined"
               margin="normal"
