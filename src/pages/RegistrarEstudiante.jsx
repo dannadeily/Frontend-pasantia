@@ -99,14 +99,19 @@ export default function RegistrarEstudiante() {
     conexionAxios.post("/user", estudiante).then((res) => {
       // validar si hay errores de mongo
       console.log(res);
-      <Alert severity="success">This is a success message!</Alert>;
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="success">
+        This is a success message!
+      </Alert>
+    </Snackbar>
       // Redireccionar
       // history.push('/');
     });
   };
 
-  //Alert
+   //Alert
   const classes = useStyles();
+ //Alert
 
   const handleClick = () => {
     setOpen(true);
