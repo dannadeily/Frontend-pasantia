@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -19,9 +19,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -57,6 +56,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RegistrarEstudiante() {
+  const [tiposDocumentos, listaTiposDocumentos] = useState([]);
+
+  const consultarTiposDocumentos = async () => {
+    const tiposDocumentosConsulta = await conexionAxios.get("/tipoDocumento");
+    //volovar en el state
+    listaTiposDocumentos(tiposDocumentosConsulta.data.tiposDocumentos);
+  };
+
+  useEffect(() => {
+    consultarTiposDocumentos();
+  }, []);
+
   // cliente = state, guardarcliente = funcion para guardar el state
   const [estudiante, guardarEstudiante] = useState({
     nombres: "",
@@ -88,13 +99,13 @@ export default function RegistrarEstudiante() {
     conexionAxios.post("/user", estudiante).then((res) => {
       // validar si hay errores de mongo
       console.log(res);
-      <Alert severity="success">This is a success message!</Alert>
+      <Alert severity="success">This is a success message!</Alert>;
       // Redireccionar
       // history.push('/');
     });
   };
 
-   //Alert
+  //Alert
   const classes = useStyles();
 
   const handleClick = () => {
@@ -102,7 +113,7 @@ export default function RegistrarEstudiante() {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -172,9 +183,9 @@ export default function RegistrarEstudiante() {
               <FormControl className={classes.formControl}>
                 <InputLabel>Tipo de documento</InputLabel>
                 <Select name="idTipoDocumento" onChange={actualizarState}>
-                  <MenuItem value={10}>Cedula de ciudadania</MenuItem>
-                  <MenuItem value={20}>Tarjeta de identidad</MenuItem>
-                  <MenuItem value={30}>Cedula Extranjeria</MenuItem>
+                  {tiposDocumentos.map((tipoDocumento) => {
+                    return <MenuItem value={tipoDocumento.idtipo_documento}> {tipoDocumento.tipo_documento} </MenuItem>;
+                  })}
                 </Select>
               </FormControl>
             </Grid>
@@ -269,7 +280,7 @@ export default function RegistrarEstudiante() {
               <FormControl>
                 <InputLabel htmlFor="codigo">Codigo estudiantil</InputLabel>
                 <Input
-                name="codigo"
+                  name="codigo"
                   id="codigo"
                   type="number"
                   onChange={actualizarState}
@@ -280,7 +291,7 @@ export default function RegistrarEstudiante() {
               <FormControl>
                 <InputLabel htmlFor="semestre">Semestre</InputLabel>
                 <Input
-                name="semestre"
+                  name="semestre"
                   id="semestre"
                   type="number"
                   onChange={actualizarState}
@@ -291,7 +302,7 @@ export default function RegistrarEstudiante() {
               <FormControl>
                 <InputLabel htmlFor="contraseña">contraseña</InputLabel>
                 <Input
-                name="password"
+                  name="password"
                   id="contraseña"
                   type="password"
                   onChange={actualizarState}
