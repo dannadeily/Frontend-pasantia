@@ -47,11 +47,13 @@ import CambiarPasswordEst from "./pages/estudiante/CambiarPasswordEst";
 import AppbarJurado from "./components/AppbarJurado";
 import EstudianteAsignado from "./pages/jurado/EstudianteAsignado"
 import InformacionEstudiante from "./pages/jurado/InformacionEstudiante"
+import Alerta from "./components/alerta"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/Alerta" element={<Alerta></Alerta>}></Route>
 
         {/** rutas de Inicio */}
         <Route path="/" element={<HeaderInicio></HeaderInicio>}>
