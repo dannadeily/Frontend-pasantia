@@ -21,7 +21,6 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import Alerta from "../components/alerta";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -57,6 +56,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RegistrarEstudiante() {
+  const [tiposDocumentos, listaTiposDocumentos] = useState([]);
+
+  const consultarTiposDocumentos = async () => {
+    const tiposDocumentosConsulta = await conexionAxios.get("/tipoDocumento");
+    //volovar en el state
+    listaTiposDocumentos(tiposDocumentosConsulta.data.tiposDocumentos);
+  };
+
+  useEffect(() => {
+    consultarTiposDocumentos();
+  }, []);
+
   // cliente = state, guardarcliente = funcion para guardar el state
   const [estudiante, guardarEstudiante] = useState({
     nombres: "",
@@ -68,10 +79,8 @@ export default function RegistrarEstudiante() {
     password: "",
     telefono: "",
     semestre: "",
-    semestre: "",
+    direccion: "",
   });
-
-  const [alerta, setAlerta] = useState({});
 
   // leer los datos del formulario
   const actualizarState = (e) => {
@@ -91,17 +100,18 @@ export default function RegistrarEstudiante() {
       // validar si hay errores de mongo
       console.log(res);
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          This is a success message!
-        </Alert>
-      </Snackbar>;
+      <Alert onClose={handleClose} severity="success">
+        This is a success message!
+      </Alert>
+    </Snackbar>
       // Redireccionar
       // history.push('/');
     });
   };
 
+   //Alert
   const classes = useStyles();
-  //Alert
+ //Alert
 
   const handleClick = () => {
     setOpen(true);
@@ -111,14 +121,14 @@ export default function RegistrarEstudiante() {
     if (reason === "clickaway") {
       return;
     }
-  };
 
-  const { msg } = alerta;
+    setOpen(false);
+  };
+  //
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-
       <Box
         sx={{
           marginTop: 8,
@@ -135,13 +145,12 @@ export default function RegistrarEstudiante() {
         <Typography component="h1" variant="h5" align="center">
           REGISTRARSE COMO ESTUDIANTE
         </Typography>
-        {msg && <Alerta alerta={alerta} />}
         <CssBaseline></CssBaseline>
         <form className={classes.form} noValidate onSubmit={agregarEstudiante}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <FormControl>
-                <InputLabel htmlFor="nombres">Nombres</InputLabel>
+                <InputLabel htmlFor="nombre">Nombres</InputLabel>
                 <Input
                   name="nombres"
                   id="nombre"
@@ -180,17 +189,28 @@ export default function RegistrarEstudiante() {
                 <InputLabel>Tipo de documento</InputLabel>
                 <Select name="idTipoDocumento" onChange={actualizarState}>
                   {tiposDocumentos.map((tipoDocumento) => {
-                    return (
-                      <MenuItem value={tipoDocumento.idtipo_documento}>
-                        {" "}
-                        {tipoDocumento.tipo_documento}{" "}
-                      </MenuItem>
-                    );
+                    return <MenuItem value={tipoDocumento.idtipo_documento}> {tipoDocumento.tipo_documento} </MenuItem>;
                   })}
                 </Select>
               </FormControl>
             </Grid>
 
+            <Grid item xs={12} sm={6}>
+              <FormControl>
+                <InputLabel htmlFor="expedicion">
+                  Lugar de expedicion
+                </InputLabel>
+                <Input
+                  id="expedicion"
+                  type="TextField"
+                  aria-describedby="expedicion-helper"
+                  onChange={actualizarState}
+                ></Input>
+                <FormHelperText id="expedicion-helper">
+                  de la cedula
+                </FormHelperText>
+              </FormControl>
+            </Grid>
             <Grid item xs={12} sm={6}>
               {/** <FormControl>
                     <InputLabel >Fecha de nacimiento</InputLabel>
