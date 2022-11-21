@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -57,9 +57,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RegistrarEstudiante() {
-  const classes = useStyles();
-
-
   // cliente = state, guardarcliente = funcion para guardar el state
   const [estudiante, guardarEstudiante] = useState({
     nombres: "",
@@ -97,12 +94,31 @@ export default function RegistrarEstudiante() {
   const agregarEstudiante = (e) => {
     e.preventDefault();
 
-    if([estudiante].includes('')){
-      setAlerta({
-        msg:'Todos los campos son obligatorios',
-        error:true
-      })
-      return 
+    // enviar petición
+    conexionAxios.post("/user", estudiante).then((res) => {
+      // validar si hay errores de mongo
+      console.log(res);
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="success">
+        This is a success message!
+      </Alert>
+    </Snackbar>
+      // Redireccionar
+      // history.push('/');
+    });
+  };
+
+  
+  const classes = useStyles();
+ //Alert
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
     }
 
     // // enviar petición
@@ -201,9 +217,9 @@ export default function RegistrarEstudiante() {
               <FormControl className={classes.formControl}>
                 <InputLabel>Tipo de documento</InputLabel>
                 <Select name="idTipoDocumento" value={idTipoDocumento} onChange={actualizarState}>
-                  <MenuItem value={1}>Cedula de ciudadania</MenuItem>
-                  <MenuItem value={2}>Tarjeta de identidad</MenuItem>
-                  <MenuItem value={3}>Cedula Extranjeria</MenuItem>
+                  {tiposDocumentos.map((tipoDocumento) => {
+                    return <MenuItem value={tipoDocumento.idtipo_documento}> {tipoDocumento.tipo_documento} </MenuItem>;
+                  })}
                 </Select>
               </FormControl>
             </Grid>
@@ -286,7 +302,7 @@ export default function RegistrarEstudiante() {
               <FormControl>
                 <InputLabel htmlFor="codigo">Codigo estudiantil</InputLabel>
                 <Input
-                name="codigo"
+                  name="codigo"
                   id="codigo"
                   type="number"
                   value={codigo}
@@ -298,7 +314,7 @@ export default function RegistrarEstudiante() {
               <FormControl>
                 <InputLabel htmlFor="semestre">Semestre</InputLabel>
                 <Input
-                name="semestre"
+                  name="semestre"
                   id="semestre"
                   type="number"
                   value={semestre}
@@ -310,7 +326,7 @@ export default function RegistrarEstudiante() {
               <FormControl>
                 <InputLabel htmlFor="contraseña">contraseña</InputLabel>
                 <Input
-                name="password"
+                  name="password"
                   id="contraseña"
                   type="password"
                   value={password}
