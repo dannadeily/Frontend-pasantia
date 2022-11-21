@@ -21,7 +21,7 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-
+import Alerta from "../components/alerta";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -57,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RegistrarEstudiante() {
+  const classes = useStyles();
+
+
   // cliente = state, guardarcliente = funcion para guardar el state
   const [estudiante, guardarEstudiante] = useState({
     nombres: "",
@@ -68,8 +71,18 @@ export default function RegistrarEstudiante() {
     password: "",
     telefono: "",
     semestre: "",
-    direccion: "",
+    semestre: "",
   });
+  // const [nombres,setNombres] = useState('')
+  // const [apellidos,setApellidos] = useState('')
+  // const [numeroIdentificacion,setNumeroIdentificacion] = useState('')
+  // const [codigo,setCodigo] = useState('')
+  // const [email,setEmail] = useState('')
+  // const [password,setPassword] = useState('')
+  // const [telefono,setTelefono] = useState('')
+  // const [semestre,setSemestre] = useState('')
+  // const [direccion,setDireccion] = useState('')
+  const [alerta,setAlerta] =useState({})
 
   // leer los datos del formulario
   const actualizarState = (e) => {
@@ -84,40 +97,47 @@ export default function RegistrarEstudiante() {
   const agregarEstudiante = (e) => {
     e.preventDefault();
 
-    // enviar petición
-    conexionAxios.post("/user", estudiante).then((res) => {
-      // validar si hay errores de mongo
-      console.log(res);
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="success">
-        This is a success message!
-      </Alert>
-    </Snackbar>
-      // Redireccionar
-      // history.push('/');
-    });
+    if([estudiante].includes('')){
+      setAlerta({
+        msg:'Todos los campos son obligatorios',
+        error:true
+      })
+      return 
+    }
+
+    // // enviar petición
+    // conexionAxios.post("/user", estudiante).then((res) => {
+    //   // validar si hay errores de mongo
+    //   console.log(res);
+   
+    //   // Redireccionar
+    //   // history.push('/');
+    // });
   };
 
   
-  const classes = useStyles();
- //Alert
+ 
+//  //Alert
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+//   const handleClick = () => {
+//     setOpen(true);
+//   };
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+//   const handleClose = (event, reason) => {
+//     if (reason === 'clickaway') {
+//       return;
+//     }
 
-    setOpen(false);
-  };
+//     setOpen(false);
+//   };
   //
+
+  const {msg} = alerta
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      
       <Box
         sx={{
           marginTop: 8,
@@ -134,16 +154,18 @@ export default function RegistrarEstudiante() {
         <Typography component="h1" variant="h5" align="center">
           REGISTRARSE COMO ESTUDIANTE
         </Typography>
+        {msg && <Alerta alerta={alerta}/>}
         <CssBaseline></CssBaseline>
         <form className={classes.form} noValidate onSubmit={agregarEstudiante}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <FormControl>
-                <InputLabel htmlFor="nombre">Nombres</InputLabel>
+                <InputLabel htmlFor="nombres">Nombres</InputLabel>
                 <Input
                   name="nombres"
                   id="nombre"
                   type="TextField"
+                  value ={nombres}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -156,6 +178,7 @@ export default function RegistrarEstudiante() {
                   name="apellidos"
                   type="TextField"
                   aria-describedby="email-helper"
+                  value ={apellidos}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -168,6 +191,7 @@ export default function RegistrarEstudiante() {
                   id="cedula"
                   type="number"
                   aria-describedby="email-helper"
+                  value={numeroIdentificacion}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -176,7 +200,7 @@ export default function RegistrarEstudiante() {
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <InputLabel>Tipo de documento</InputLabel>
-                <Select name="idTipoDocumento" onChange={actualizarState}>
+                <Select name="idTipoDocumento" value={idTipoDocumento} onChange={actualizarState}>
                   <MenuItem value={1}>Cedula de ciudadania</MenuItem>
                   <MenuItem value={2}>Tarjeta de identidad</MenuItem>
                   <MenuItem value={3}>Cedula Extranjeria</MenuItem>
@@ -184,22 +208,7 @@ export default function RegistrarEstudiante() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <FormControl>
-                <InputLabel htmlFor="expedicion">
-                  Lugar de expedicion
-                </InputLabel>
-                <Input
-                  id="expedicion"
-                  type="TextField"
-                  aria-describedby="expedicion-helper"
-                  onChange={actualizarState}
-                ></Input>
-                <FormHelperText id="expedicion-helper">
-                  de la cedula
-                </FormHelperText>
-              </FormControl>
-            </Grid>
+            
             <Grid item xs={12} sm={6}>
               {/** <FormControl>
                     <InputLabel >Fecha de nacimiento</InputLabel>
@@ -237,6 +246,7 @@ export default function RegistrarEstudiante() {
                   id="direccion"
                   name="direccion"
                   type="TextField"
+                  value={direccion}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -249,6 +259,7 @@ export default function RegistrarEstudiante() {
                   name="telefono"
                   id="telefono"
                   type="number"
+                  value={telefono}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -261,6 +272,7 @@ export default function RegistrarEstudiante() {
                   id="email"
                   name="email"
                   type="email"
+                  value={email}
                   onChange={actualizarState}
                   aria-describedby="email-helper"
                 ></Input>
@@ -277,6 +289,7 @@ export default function RegistrarEstudiante() {
                 name="codigo"
                   id="codigo"
                   type="number"
+                  value={codigo}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -288,6 +301,7 @@ export default function RegistrarEstudiante() {
                 name="semestre"
                   id="semestre"
                   type="number"
+                  value={semestre}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -299,6 +313,7 @@ export default function RegistrarEstudiante() {
                 name="password"
                   id="contraseña"
                   type="password"
+                  value={password}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
