@@ -19,8 +19,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import Alerta from "../components/alerta";
 
 function Alert(props) {
@@ -71,7 +71,7 @@ export default function RegistrarEstudiante() {
     semestre: "",
   });
 
-  const [alerta,setAlerta] =useState({})
+  const [alerta, setAlerta] = useState({});
 
   // leer los datos del formulario
   const actualizarState = (e) => {
@@ -91,38 +91,34 @@ export default function RegistrarEstudiante() {
       // validar si hay errores de mongo
       console.log(res);
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="success">
-        This is a success message!
-      </Alert>
-    </Snackbar>
+        <Alert onClose={handleClose} severity="success">
+          This is a success message!
+        </Alert>
+      </Snackbar>;
       // Redireccionar
       // history.push('/');
     });
   };
 
-  
   const classes = useStyles();
- //Alert
+  //Alert
 
   const handleClick = () => {
     setOpen(true);
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
   };
 
-  
- 
-
-  const {msg} = alerta
+  const { msg } = alerta;
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      
+
       <Box
         sx={{
           marginTop: 8,
@@ -139,7 +135,7 @@ export default function RegistrarEstudiante() {
         <Typography component="h1" variant="h5" align="center">
           REGISTRARSE COMO ESTUDIANTE
         </Typography>
-        {msg && <Alerta alerta={alerta}/>}
+        {msg && <Alerta alerta={alerta} />}
         <CssBaseline></CssBaseline>
         <form className={classes.form} noValidate onSubmit={agregarEstudiante}>
           <Grid container spacing={3}>
@@ -150,7 +146,6 @@ export default function RegistrarEstudiante() {
                   name="nombres"
                   id="nombre"
                   type="TextField"
-                  value ={nombres}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -163,7 +158,6 @@ export default function RegistrarEstudiante() {
                   name="apellidos"
                   type="TextField"
                   aria-describedby="email-helper"
-                  value ={apellidos}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -176,7 +170,6 @@ export default function RegistrarEstudiante() {
                   id="cedula"
                   type="number"
                   aria-describedby="email-helper"
-                  value={numeroIdentificacion}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -185,15 +178,19 @@ export default function RegistrarEstudiante() {
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <InputLabel>Tipo de documento</InputLabel>
-                <Select name="idTipoDocumento" value={idTipoDocumento} onChange={actualizarState}>
+                <Select name="idTipoDocumento" onChange={actualizarState}>
                   {tiposDocumentos.map((tipoDocumento) => {
-                    return <MenuItem value={tipoDocumento.idtipo_documento}> {tipoDocumento.tipo_documento} </MenuItem>;
+                    return (
+                      <MenuItem value={tipoDocumento.idtipo_documento}>
+                        {" "}
+                        {tipoDocumento.tipo_documento}{" "}
+                      </MenuItem>
+                    );
                   })}
                 </Select>
               </FormControl>
             </Grid>
 
-            
             <Grid item xs={12} sm={6}>
               {/** <FormControl>
                     <InputLabel >Fecha de nacimiento</InputLabel>
@@ -231,7 +228,6 @@ export default function RegistrarEstudiante() {
                   id="direccion"
                   name="direccion"
                   type="TextField"
-                  value={direccion}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -244,7 +240,6 @@ export default function RegistrarEstudiante() {
                   name="telefono"
                   id="telefono"
                   type="number"
-                  value={telefono}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -257,7 +252,6 @@ export default function RegistrarEstudiante() {
                   id="email"
                   name="email"
                   type="email"
-                  value={email}
                   onChange={actualizarState}
                   aria-describedby="email-helper"
                 ></Input>
@@ -274,7 +268,6 @@ export default function RegistrarEstudiante() {
                   name="codigo"
                   id="codigo"
                   type="number"
-                  value={codigo}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -286,7 +279,6 @@ export default function RegistrarEstudiante() {
                   name="semestre"
                   id="semestre"
                   type="number"
-                  value={semestre}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
@@ -298,7 +290,6 @@ export default function RegistrarEstudiante() {
                   name="password"
                   id="contraseña"
                   type="password"
-                  value={password}
                   onChange={actualizarState}
                 ></Input>
               </FormControl>
