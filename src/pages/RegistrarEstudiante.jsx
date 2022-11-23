@@ -122,7 +122,8 @@ export default function RegistrarEstudiante() {
 
     // enviar petición
 
-    conexionAxios.post("/user", estudiante).then((res) => {
+    conexionAxios.post("/user", {nombres,apellidos,numeroIdentificacion,idTipoDocumento,
+      codigo,email,password,telefono,semestre,direccion}).then((res) => {
       // validar si hay errores de mongo
       if(res.data.status===201){
       setAlerta({
