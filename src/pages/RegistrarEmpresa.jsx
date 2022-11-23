@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -42,6 +42,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RegistrarEmpresa() {
+  // const [tiposDocumentos, listaTiposDocumentos] = useState([]);
+
+  // const consultarTiposDocumentos = async () => {
+  //   const tiposDocumentosConsulta = await conexionAxios.get("/tipoDocumento");
+  //   //volovar en el state
+  //   listaTiposDocumentos(tiposDocumentosConsulta.data.tiposDocumentos);
+  // };
+
+  // useEffect(() => {
+  //   consultarTiposDocumentos();
+  // }, []);
+
+  // const [tiposDocumentos, listaTiposDocumentos] = useState([]);
+
+  // const consultarTiposDocumentos = async () => {
+  //   const tiposDocumentosConsulta = await conexionAxios.get("/tipoDocumento");
+  //   //volovar en el state
+  //   listaTiposDocumentos(tiposDocumentosConsulta.data.tiposDocumentos);
+  // };
+
+  // useEffect(() => {
+  //   consultarTiposDocumentos();
+  // }, []);
+
   const classes = useStyles();
 
   const handleSubmit = (event) => {
