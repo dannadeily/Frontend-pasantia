@@ -71,42 +71,54 @@ export default function RegistrarEstudiante() {
   }, []);
 
   // cliente = state, guardarcliente = funcion para guardar el state
-  const [estudiante, guardarEstudiante] = useState({
-    nombres: "",
-    apellidos: "",
-    numeroIdentificacion: "",
-    idTipoDocumento: "",
-    codigo: "",
-    email: "",
-    password: "",
-    telefono: "",
-    semestre: "",
-    direccion: "",
-  });
+  // const [estudiante, guardarEstudiante] = useState({
+  //   nombres: "",
+  //   apellidos: "",
+  //   numeroIdentificacion: "",
+  //   idTipoDocumento: "",
+  //   codigo: "",
+  //   email: "",
+  //   password: "",
+  //   telefono: "",
+  //   semestre: "",
+  //   direccion: "",
+  // });
+
+  const [nombres,setNombres] = useState('');
+  const [apellidos,setApellidos] = useState('');
+  const [numeroIdentificacion,setNumeroIdentificacion] = useState('');
+  const [idTipoDocumento,setDdTipoDocumento] = useState('');
+  const [codigo,setCodigo] = useState('');
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const [telefono,setTelefono] = useState('');
+  const [semestre,setSemestre] = useState('');
+  const [direccion,setDireccion] = useState('');
  //--------------------Alerta--------------------------
 
   const [alerta, setAlerta] = useState({});
   const { msg } = alerta;
   //-----------------------------------------------
   // leer los datos del formulario
-  const actualizarState = (e) => {
-    // Almacenar lo que el usuario escribe en el state
-    guardarEstudiante({
-      // obtener una copia del state actual
-      ...estudiante,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const actualizarState = (e) => {
+  //   // Almacenar lo que el usuario escribe en el state
+  //   guardarEstudiante({
+  //     // obtener una copia del state actual
+  //     ...estudiante,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   const agregarEstudiante = (e) => {
     e.preventDefault();
 
-    // if ([estudiante].includes('') ==('')) {
-    //   setAlerta({
-    //     msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
-    //   });
-    //   return;
-    // }
+    if ([nombres,apellidos,numeroIdentificacion,idTipoDocumento,
+    codigo,email,password,telefono,semestre,direccion].includes('')) {
+     setAlerta({
+      msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
+    });
+     return;
+     }
 
     // enviar petición
 
@@ -160,7 +172,8 @@ export default function RegistrarEstudiante() {
                   name="nombres"
                   id="nombre"
                   type="TextField"
-                  onChange={actualizarState}
+                  value={nombres}
+                    onChange={e => setNombres(e.target.value)}
                 ></Input>
               </FormControl>
             </Grid>
@@ -172,7 +185,8 @@ export default function RegistrarEstudiante() {
                   name="apellidos"
                   type="TextField"
                   aria-describedby="email-helper"
-                  onChange={actualizarState}
+                  value={apellidos}
+                  onChange={e => setApellidos(e.target.value)}
                 ></Input>
               </FormControl>
             </Grid>
@@ -184,7 +198,8 @@ export default function RegistrarEstudiante() {
                   id="cedula"
                   type="number"
                   aria-describedby="email-helper"
-                  onChange={actualizarState}
+                  value={numeroIdentificacion}
+                  onChange={e => setNumeroIdentificacion(e.target.value)}
                 ></Input>
               </FormControl>
             </Grid>
@@ -192,7 +207,8 @@ export default function RegistrarEstudiante() {
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <InputLabel>Tipo de documento</InputLabel>
-                <Select name="idTipoDocumento" onChange={actualizarState}>
+                <Select name="idTipoDocumento"  value={idTipoDocumento}
+                    onChange={e => setDdTipoDocumento(e.target.value)}>
                   {tiposDocumentos.map((tipoDocumento) => {
                     return (
                       <MenuItem value={tipoDocumento.idtipo_documento}>
@@ -204,51 +220,9 @@ export default function RegistrarEstudiante() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <FormControl>
-                <InputLabel htmlFor="expedicion">
-                  Lugar de expedicion
-                </InputLabel>
-                <Input
-                  id="expedicion"
-                  type="TextField"
-                  aria-describedby="expedicion-helper"
-                  onChange={actualizarState}
-                ></Input>
-                <FormHelperText id="expedicion-helper">
-                  de la cedula
-                </FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              {/** <FormControl>
-                    <InputLabel >Fecha de nacimiento</InputLabel>
-                    <Input id="date" label="Birthday" type="date"></Input>
-                </FormControl>
-              */}
 
-              <TextField
-                id="date"
-                label="Fecha nacimiento"
-                type="date"
-                onChange={actualizarState}
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="sexo">Sexo</InputLabel>
-                <Select native id="sexo" onChange={actualizarState}>
-                  <option aria-label="None" value="" />
-                  <option value={10}>Femenino</option>
-                  <option value={20}>Masculino</option>
-                </Select>
-              </FormControl>
-            </Grid>
+            
+            
 
             <Grid item xs={12} sm={6}>
               <FormControl>
@@ -257,7 +231,8 @@ export default function RegistrarEstudiante() {
                   id="direccion"
                   name="direccion"
                   type="TextField"
-                  onChange={actualizarState}
+                  value={direccion}
+                  onChange={e => setDireccion(e.target.value)}
                 ></Input>
               </FormControl>
             </Grid>
@@ -269,7 +244,8 @@ export default function RegistrarEstudiante() {
                   name="telefono"
                   id="telefono"
                   type="number"
-                  onChange={actualizarState}
+                  value={telefono}
+                  onChange={e => setTelefono(e.target.value)}
                 ></Input>
               </FormControl>
             </Grid>
@@ -281,7 +257,8 @@ export default function RegistrarEstudiante() {
                   id="email"
                   name="email"
                   type="email"
-                  onChange={actualizarState}
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                   aria-describedby="email-helper"
                 ></Input>
                 <FormHelperText id="email-helper">
@@ -297,7 +274,8 @@ export default function RegistrarEstudiante() {
                   name="codigo"
                   id="codigo"
                   type="number"
-                  onChange={actualizarState}
+                  value={codigo}
+                  onChange={e => setCodigo(e.target.value)}
                 ></Input>
               </FormControl>
             </Grid>
@@ -308,7 +286,8 @@ export default function RegistrarEstudiante() {
                   name="semestre"
                   id="semestre"
                   type="number"
-                  onChange={actualizarState}
+                  value={semestre}
+                  onChange={e => setSemestre(e.target.value)}
                 ></Input>
               </FormControl>
             </Grid>
@@ -319,7 +298,8 @@ export default function RegistrarEstudiante() {
                   name="password"
                   id="contraseña"
                   type="password"
-                  onChange={actualizarState}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
                 ></Input>
               </FormControl>
             </Grid>
