@@ -82,9 +82,11 @@ export default function RegistrarEstudiante() {
     semestre: "",
     direccion: "",
   });
+ //--------------------Alerta--------------------------
 
   const [alerta, setAlerta] = useState({});
-
+  const { msg } = alerta;
+  //-----------------------------------------------
   // leer los datos del formulario
   const actualizarState = (e) => {
     // Almacenar lo que el usuario escribe en el state
@@ -98,7 +100,7 @@ export default function RegistrarEstudiante() {
   const agregarEstudiante = (e) => {
     e.preventDefault();
 
-    if ([estudiante].includes("")) {
+    if ([estudiante].includes('') ==('')) {
       setAlerta({
         msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
       });
@@ -118,8 +120,8 @@ export default function RegistrarEstudiante() {
       // history.push('/');
     });
   };
-  const { msg } = alerta;
-  //Alert
+  
+  
   const classes = useStyles();
 
   return (

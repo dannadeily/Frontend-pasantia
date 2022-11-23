@@ -49,6 +49,7 @@ import Alerta from "./components/alerta";
 
 //
 import { AuthProvider } from "./context/AuthProvider";
+import RutaProtegida from "./layouts/RutaProtegida";
 
 function App() {
   return (
@@ -74,7 +75,7 @@ function App() {
             />
           </Route>
           {/** rutas de modulo Administrador */}
-          <Route path="/Administrador" element={<DrawerAdminsitrador />}>
+          <Route path="/Administrador" element={<RutaProtegida></RutaProtegida>}>
             <Route index element={<EstudianteActivo></EstudianteActivo>} />
 
             <Route
@@ -211,6 +212,10 @@ function App() {
               element={<InformacionEstudiante></InformacionEstudiante>}
             />
           </Route>
+
+          {/* <Route path="/Proyectos" element={}>
+          <Route index element={<EstudianteActivo></EstudianteActivo>} />
+          </Route> */}
         </Routes>
       </AuthProvider>
     </BrowserRouter>
