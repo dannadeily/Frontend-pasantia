@@ -22,6 +22,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import Alerta from "../components/alerta";
+import { data } from "autoprefixer";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -100,21 +101,26 @@ export default function RegistrarEstudiante() {
   const agregarEstudiante = (e) => {
     e.preventDefault();
 
-    if ([estudiante].includes('') ==('')) {
-      setAlerta({
-        msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
-      });
-      return;
-    }
+    // if ([estudiante].includes('') ==('')) {
+    //   setAlerta({
+    //     msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
+    //   });
+    //   return;
+    // }
 
     // enviar petición
 
     conexionAxios.post("/user", estudiante).then((res) => {
       // validar si hay errores de mongo
-      console.log(res);
+      if(res.data.status===201){
       setAlerta({
         msg: <Alert severity="success">registrado correctamente</Alert>,
       });
+    }else{
+      setAlerta({
+        msg: <Alert severity="error">{res.data.message}</Alert>,
+      });
+    }
       return;
       // Redireccionar
       // history.push('/');
@@ -190,8 +196,7 @@ export default function RegistrarEstudiante() {
                   {tiposDocumentos.map((tipoDocumento) => {
                     return (
                       <MenuItem value={tipoDocumento.idtipo_documento}>
-                        {" "}
-                        {tipoDocumento.tipo_documento}{" "}
+                        {tipoDocumento.tipo_documento}
                       </MenuItem>
                     );
                   })}
