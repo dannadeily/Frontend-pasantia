@@ -21,6 +21,7 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import Alerta from "../components/alerta";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -81,7 +82,11 @@ export default function RegistrarEstudiante() {
     semestre: "",
     direccion: "",
   });
+ //--------------------Alerta--------------------------
 
+  const [alerta, setAlerta] = useState({});
+  const { msg } = alerta;
+  //-----------------------------------------------
   // leer los datos del formulario
   const actualizarState = (e) => {
     // Almacenar lo que el usuario escribe en el state
@@ -95,36 +100,29 @@ export default function RegistrarEstudiante() {
   const agregarEstudiante = (e) => {
     e.preventDefault();
 
+    if ([estudiante].includes('') ==('')) {
+      setAlerta({
+        msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
+      });
+      return;
+    }
+
     // enviar petición
+
     conexionAxios.post("/user", estudiante).then((res) => {
       // validar si hay errores de mongo
       console.log(res);
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="success">
-        This is a success message!
-      </Alert>
-    </Snackbar>
+      setAlerta({
+        msg: <Alert severity="success">registrado correctamente</Alert>,
+      });
+      return;
       // Redireccionar
       // history.push('/');
     });
   };
-
-   //Alert
+  
+  
   const classes = useStyles();
- //Alert
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-  //
 
   return (
     <Container component="main" maxWidth="xs">
@@ -145,6 +143,7 @@ export default function RegistrarEstudiante() {
         <Typography component="h1" variant="h5" align="center">
           REGISTRARSE COMO ESTUDIANTE
         </Typography>
+        {msg && <Alerta alerta={alerta} />}
         <CssBaseline></CssBaseline>
         <form className={classes.form} noValidate onSubmit={agregarEstudiante}>
           <Grid container spacing={3}>
@@ -189,7 +188,12 @@ export default function RegistrarEstudiante() {
                 <InputLabel>Tipo de documento</InputLabel>
                 <Select name="idTipoDocumento" onChange={actualizarState}>
                   {tiposDocumentos.map((tipoDocumento) => {
-                    return <MenuItem value={tipoDocumento.idtipo_documento}> {tipoDocumento.tipo_documento} </MenuItem>;
+                    return (
+                      <MenuItem value={tipoDocumento.idtipo_documento}>
+                        {" "}
+                        {tipoDocumento.tipo_documento}{" "}
+                      </MenuItem>
+                    );
                   })}
                 </Select>
               </FormControl>
@@ -324,6 +328,7 @@ export default function RegistrarEstudiante() {
           >
             Registrarse
           </Button>
+
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to="/">Iniciar Sesion</Link>

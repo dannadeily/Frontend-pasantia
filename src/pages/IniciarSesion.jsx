@@ -1,13 +1,10 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -16,6 +13,8 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import useAuth from "../hooks/useAuth";
+import conexionAxios from "../config/axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,8 +57,47 @@ export default function IniciarSesion() {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
+
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const {setAuth, } = useAuth();
+
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    // if([email, password].includes('')) {
+    //     setAlerta({
+    //         msg: 'Todos los campos son obligatorios',
+    //         error: true
+    //     });
+    //     return
+    // }
+
+
+
+    try { 
+        const { data } = await conexionAxios.post('/login', {email, password})
+        // setAlerta({})
+        localStorage.setItem('token', data.token)
+        setAuth(data)
+       
+    } catch (error) {
+        // setAlerta({
+        //     msg: error.response.data.msg,
+        //     error: true
+        // })
+    }
+
+}
+
+  const [alerta, setAlerta] = useState({});
+  const { msg } = alerta;
+
   return (
-    <Grid container component="main" className={classes.root}>
+    <Grid container component="main" className={classes.root} >
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -70,7 +108,24 @@ export default function IniciarSesion() {
           <Typography component="h1" variant="h5">
             INICIAR SESION
           </Typography>
-          <form className={classes.form} noValidate>
+
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            {/* <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="demo-simple-select-outlined-label">
+                Rol
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="rol"
+                label="Rol"
+              >
+                <MenuItem value={1}>Administrador</MenuItem>
+                <MenuItem value={2}>Empresa</MenuItem>
+                <MenuItem value={3}>Estudiante</MenuItem>
+                <MenuItem value={4}>Jurado</MenuItem>
+              </Select>
+            </FormControl> */}
+            
             <TextField
               variant="outlined"
               margin="normal"
@@ -81,6 +136,9 @@ export default function IniciarSesion() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={ e => setEmail(e.target.value)}
+             
             />
             <TextField
               variant="outlined"
@@ -92,6 +150,9 @@ export default function IniciarSesion() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+                    onChange={ e => setPassword(e.target.value)}
+              
             />
 
             <Button
