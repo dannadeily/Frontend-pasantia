@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function IniciarSesion() {
   const classes = useStyles();
-  const preventDefault = (event) => event.preventDefault();
 
 
 
