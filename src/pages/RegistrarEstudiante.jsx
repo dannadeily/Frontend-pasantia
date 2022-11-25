@@ -21,12 +21,10 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import Alerta from "../components/alerta";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import { data } from "autoprefixer";
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -84,17 +82,17 @@ export default function RegistrarEstudiante() {
   //   direccion: "",
   // });
 
-  const [nombres,setNombres] = useState('');
-  const [apellidos,setApellidos] = useState('');
-  const [numeroIdentificacion,setNumeroIdentificacion] = useState('');
-  const [idTipoDocumento,setDdTipoDocumento] = useState('');
-  const [codigo,setCodigo] = useState('');
-  const [email,setEmail] = useState('');
-  const [password,setPassword] = useState('');
-  const [telefono,setTelefono] = useState('');
-  const [semestre,setSemestre] = useState('');
-  const [direccion,setDireccion] = useState('');
- //--------------------Alerta--------------------------
+  const [nombres, setNombres] = useState("");
+  const [apellidos, setApellidos] = useState("");
+  const [numeroIdentificacion, setNumeroIdentificacion] = useState("");
+  const [idTipoDocumento, setDdTipoDocumento] = useState("");
+  const [codigo, setCodigo] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [semestre, setSemestre] = useState("");
+  const [direccion, setDireccion] = useState("");
+  //--------------------Alerta--------------------------
 
   const [alerta, setAlerta] = useState({});
   const { msg } = alerta;
@@ -109,38 +107,93 @@ export default function RegistrarEstudiante() {
   //   });
   // };
 
+  //formulario con validacion con formik ------------------------------
+
+  const formik = useFormik({
+    initialValues: {
+      nombres: "",
+      apellidos: "",
+      numeroIdentificacion: "",
+      idTipoDocumento: "",
+      codigo: "",
+      email: "",
+      password: "",
+      telefono: "",
+      semestre: "",
+      direccion: "",
+    },
+    validationSchema: Yup.object({
+      nombres: Yup.string().required("Campo Obligatorio"),
+      apellidos: Yup.string().required("Campo Obligatorio"),
+      numeroIdentificacion: Yup.string().required("Campo Obligatorio"),
+      idTipoDocumento: Yup.string().required("Campo Obligatorio"),
+      codigo: Yup.string().required("Campo Obligatorio").length(7,"El codigo debe contener 7 digitos"),
+      email: Yup.string().required("Campo Obligatorio"),
+      password: Yup.string().required("Campo Obligatorio").min(8,"La contraseña debe tener al menos 8 caracteres"),
+      telefono: Yup.string().required("Campo Obligatorio"),
+      semestre: Yup.string().required("Campo Obligatorio"),
+      direccion: Yup.string().required("Campo Obligatorio"),
+    }),
+    onSubmit: (valores) => {
+      console.log(valores);
+    },
+  });
+
   const agregarEstudiante = (e) => {
     e.preventDefault();
 
-    if ([nombres,apellidos,numeroIdentificacion,idTipoDocumento,
-    codigo,email,password,telefono,semestre,direccion].includes('')) {
-     setAlerta({
-      msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
-    });
-     return;
-     }
-
+    if (
+      [
+        nombres,
+        apellidos,
+        numeroIdentificacion,
+        idTipoDocumento,
+        codigo,
+        email,
+        password,
+        telefono,
+        semestre,
+        direccion,
+      ].includes("")
+    ) {
+      setAlerta({
+        msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
+      });
+      return;
+    }
+    setAlerta({});
     // enviar petición
 
-    conexionAxios.post("/user", {nombres,apellidos,numeroIdentificacion,idTipoDocumento,
-      codigo,email,password,telefono,semestre,direccion}).then((res) => {
-      // validar si hay errores de mongo
-      if(res.data.status===201){
-      setAlerta({
-        msg: <Alert severity="success">registrado correctamente</Alert>,
+    conexionAxios
+      .post("/user", {
+        nombres,
+        apellidos,
+        numeroIdentificacion,
+        idTipoDocumento,
+        codigo,
+        email,
+        password,
+        telefono,
+        semestre,
+        direccion,
+      })
+      .then((res) => {
+        // validar si hay errores de mongo
+        if (res.data.status === 201) {
+          setAlerta({
+            msg: <Alert severity="success">registrado correctamente</Alert>,
+          });
+        } else {
+          setAlerta({
+            msg: <Alert severity="error">{res.data.message}</Alert>,
+          });
+        }
+        return;
+        // Redireccionar
+        // history.push('/');
       });
-    }else{
-      setAlerta({
-        msg: <Alert severity="error">{res.data.message}</Alert>,
-      });
-    }
-      return;
-      // Redireccionar
-      // history.push('/');
-    });
   };
-  
-  
+
   const classes = useStyles();
 
   return (
@@ -164,7 +217,11 @@ export default function RegistrarEstudiante() {
         </Typography>
         {msg && <Alerta alerta={alerta} />}
         <CssBaseline></CssBaseline>
-        <form className={classes.form} noValidate onSubmit={agregarEstudiante}>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={formik.handleSubmit}
+        >
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <FormControl>
@@ -173,9 +230,17 @@ export default function RegistrarEstudiante() {
                   name="nombres"
                   id="nombre"
                   type="TextField"
-                  value={nombres}
-                    onChange={e => setNombres(e.target.value)}
+                  value={formik.values.nombres}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Input>
+
+                {formik.touched.nombres && formik.errors.nombres ? (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {formik.errors.nombres}
+                  </Alert>
+                ) : null}
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -186,9 +251,17 @@ export default function RegistrarEstudiante() {
                   name="apellidos"
                   type="TextField"
                   aria-describedby="email-helper"
-                  value={apellidos}
-                  onChange={e => setApellidos(e.target.value)}
+                  value={formik.values.apellidos}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Input>
+
+                {formik.touched.apellidos && formik.errors.apellidos ? (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {formik.errors.apellidos}
+                  </Alert>
+                ) : null}
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -199,17 +272,28 @@ export default function RegistrarEstudiante() {
                   id="cedula"
                   type="number"
                   aria-describedby="email-helper"
-                  value={numeroIdentificacion}
-                  onChange={e => setNumeroIdentificacion(e.target.value)}
+                  value={formik.values.numeroIdentificacion}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Input>
+                  {formik.touched.numeroIdentificacion && formik.errors.numeroIdentificacion ? (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {formik.errors.numeroIdentificacion}
+                  </Alert>
+                ) : null}
               </FormControl>
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <InputLabel>Tipo de documento</InputLabel>
-                <Select name="idTipoDocumento"  value={idTipoDocumento}
-                    onChange={e => setDdTipoDocumento(e.target.value)}>
+                <Select
+                  name="idTipoDocumento"
+                  value={formik.values.idTipoDocumento}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                >
                   {tiposDocumentos.map((tipoDocumento) => {
                     return (
                       <MenuItem value={tipoDocumento.idtipo_documento}>
@@ -218,12 +302,14 @@ export default function RegistrarEstudiante() {
                     );
                   })}
                 </Select>
+                {formik.touched.idTipoDocumento && formik.errors.idTipoDocumento ? (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {formik.errors.idTipoDocumento}
+                  </Alert>
+                ) : null}
               </FormControl>
             </Grid>
-
-
-            
-            
 
             <Grid item xs={12} sm={6}>
               <FormControl>
@@ -232,9 +318,16 @@ export default function RegistrarEstudiante() {
                   id="direccion"
                   name="direccion"
                   type="TextField"
-                  value={direccion}
-                  onChange={e => setDireccion(e.target.value)}
+                  value={formik.values.direccion}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Input>
+                  {formik.touched.direccion && formik.errors.direccion ? (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {formik.errors.direccion}
+                  </Alert>
+                ) : null}
               </FormControl>
             </Grid>
 
@@ -245,9 +338,16 @@ export default function RegistrarEstudiante() {
                   name="telefono"
                   id="telefono"
                   type="number"
-                  value={telefono}
-                  onChange={e => setTelefono(e.target.value)}
+                  value={formik.values.telefono}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Input>
+                  {formik.touched.telefono && formik.errors.telefono ? (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {formik.errors.telefono}
+                  </Alert>
+                ) : null}
               </FormControl>
             </Grid>
 
@@ -258,13 +358,20 @@ export default function RegistrarEstudiante() {
                   id="email"
                   name="email"
                   type="email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   aria-describedby="email-helper"
                 ></Input>
                 <FormHelperText id="email-helper">
                   email institucional
                 </FormHelperText>
+                {formik.touched.email && formik.errors.email ? (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {formik.errors.email}
+                  </Alert>
+                ) : null}
               </FormControl>
             </Grid>
 
@@ -275,9 +382,16 @@ export default function RegistrarEstudiante() {
                   name="codigo"
                   id="codigo"
                   type="number"
-                  value={codigo}
-                  onChange={e => setCodigo(e.target.value)}
+                  value={formik.values.codigo}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Input>
+                  {formik.touched.codigo && formik.errors.codigo ? (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {formik.errors.codigo}
+                  </Alert>
+                ) : null}
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -287,9 +401,16 @@ export default function RegistrarEstudiante() {
                   name="semestre"
                   id="semestre"
                   type="number"
-                  value={semestre}
-                  onChange={e => setSemestre(e.target.value)}
+                  value={formik.values.semestre}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Input>
+                  {formik.touched.semestre && formik.errors.semestre ? (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {formik.errors.semestre}
+                  </Alert>
+                ) : null}
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -299,9 +420,16 @@ export default function RegistrarEstudiante() {
                   name="password"
                   id="contraseña"
                   type="password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Input>
+                  {formik.touched.password && formik.errors.password ? (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {formik.errors.password}
+                  </Alert>
+                ) : null}
               </FormControl>
             </Grid>
           </Grid>
