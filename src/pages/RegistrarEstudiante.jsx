@@ -69,99 +69,43 @@ export default function RegistrarEstudiante() {
   }, []);
 
   // cliente = state, guardarcliente = funcion para guardar el state
-  // const [estudiante, guardarEstudiante] = useState({
-  //   nombres: "",
-  //   apellidos: "",
-  //   numeroIdentificacion: "",
-  //   idTipoDocumento: "",
-  //   codigo: "",
-  //   email: "",
-  //   password: "",
-  //   telefono: "",
-  //   semestre: "",
-  //   direccion: "",
-  // });
-
-  const [nombres, setNombres] = useState("");
-  const [apellidos, setApellidos] = useState("");
-  const [numeroIdentificacion, setNumeroIdentificacion] = useState("");
-  const [idTipoDocumento, setDdTipoDocumento] = useState("");
-  const [codigo, setCodigo] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [semestre, setSemestre] = useState("");
-  const [direccion, setDireccion] = useState("");
-  //--------------------Alerta--------------------------
+  const [estudiante, guardarEstudiante] = useState({
+    nombres: "",
+    apellidos: "",
+    numeroIdentificacion: "",
+    idTipoDocumento: "",
+    codigo: "",
+    email: "",
+    password: "",
+    telefono: "",
+    semestre: "",
+    direccion: "",
+  });
+ //--------------------Alerta--------------------------
 
   const [alerta, setAlerta] = useState({});
   const { msg } = alerta;
   //-----------------------------------------------
   // leer los datos del formulario
-  // const actualizarState = (e) => {
-  //   // Almacenar lo que el usuario escribe en el state
-  //   guardarEstudiante({
-  //     // obtener una copia del state actual
-  //     ...estudiante,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
-  //formulario con validacion con formik ------------------------------
-
-  const formik = useFormik({
-    initialValues: {
-      nombres: "",
-      apellidos: "",
-      numeroIdentificacion: "",
-      idTipoDocumento: "",
-      codigo: "",
-      email: "",
-      password: "",
-      telefono: "",
-      semestre: "",
-      direccion: "",
-    },
-    validationSchema: Yup.object({
-      nombres: Yup.string().required("Campo Obligatorio"),
-      apellidos: Yup.string().required("Campo Obligatorio"),
-      numeroIdentificacion: Yup.string().required("Campo Obligatorio"),
-      idTipoDocumento: Yup.string().required("Campo Obligatorio"),
-      codigo: Yup.string().required("Campo Obligatorio").length(7,"El codigo debe contener 7 digitos"),
-      email: Yup.string().required("Campo Obligatorio"),
-      password: Yup.string().required("Campo Obligatorio").min(8,"La contraseña debe tener al menos 8 caracteres"),
-      telefono: Yup.string().required("Campo Obligatorio"),
-      semestre: Yup.string().required("Campo Obligatorio"),
-      direccion: Yup.string().required("Campo Obligatorio"),
-    }),
-    onSubmit: (valores) => {
-      console.log(valores);
-    },
-  });
+  const actualizarState = (e) => {
+    // Almacenar lo que el usuario escribe en el state
+    guardarEstudiante({
+      // obtener una copia del state actual
+      ...estudiante,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const agregarEstudiante = (e) => {
     e.preventDefault();
 
-    if (
-      [
-        nombres,
-        apellidos,
-        numeroIdentificacion,
-        idTipoDocumento,
-        codigo,
-        email,
-        password,
-        telefono,
-        semestre,
-        direccion,
-      ].includes("")
-    ) {
-      setAlerta({
-        msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
-      });
-      return;
-    }
-    setAlerta({});
+    // if ([estudiante].includes('') ==('')) {
+    //   setAlerta({
+    //     msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
+    //   });
+    //   return;
+    // }
+
     // enviar petición
 
     conexionAxios
@@ -230,9 +174,7 @@ export default function RegistrarEstudiante() {
                   name="nombres"
                   id="nombre"
                   type="TextField"
-                  value={formik.values.nombres}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onChange={actualizarState}
                 ></Input>
 
                 {formik.touched.nombres && formik.errors.nombres ? (
@@ -251,9 +193,7 @@ export default function RegistrarEstudiante() {
                   name="apellidos"
                   type="TextField"
                   aria-describedby="email-helper"
-                  value={formik.values.apellidos}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onChange={actualizarState}
                 ></Input>
 
                 {formik.touched.apellidos && formik.errors.apellidos ? (
@@ -272,9 +212,7 @@ export default function RegistrarEstudiante() {
                   id="cedula"
                   type="number"
                   aria-describedby="email-helper"
-                  value={formik.values.numeroIdentificacion}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onChange={actualizarState}
                 ></Input>
                   {formik.touched.numeroIdentificacion && formik.errors.numeroIdentificacion ? (
                   <Alert severity="error">
@@ -288,12 +226,7 @@ export default function RegistrarEstudiante() {
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <InputLabel>Tipo de documento</InputLabel>
-                <Select
-                  name="idTipoDocumento"
-                  value={formik.values.idTipoDocumento}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                >
+                <Select name="idTipoDocumento" onChange={actualizarState}>
                   {tiposDocumentos.map((tipoDocumento) => {
                     return (
                       <MenuItem value={tipoDocumento.idtipo_documento}>
@@ -313,14 +246,58 @@ export default function RegistrarEstudiante() {
 
             <Grid item xs={12} sm={6}>
               <FormControl>
+                <InputLabel htmlFor="expedicion">
+                  Lugar de expedicion
+                </InputLabel>
+                <Input
+                  id="expedicion"
+                  type="TextField"
+                  aria-describedby="expedicion-helper"
+                  onChange={actualizarState}
+                ></Input>
+                <FormHelperText id="expedicion-helper">
+                  de la cedula
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              {/** <FormControl>
+                    <InputLabel >Fecha de nacimiento</InputLabel>
+                    <Input id="date" label="Birthday" type="date"></Input>
+                </FormControl>
+              */}
+
+              <TextField
+                id="date"
+                label="Fecha nacimiento"
+                type="date"
+                onChange={actualizarState}
+                className={classes.textField}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="sexo">Sexo</InputLabel>
+                <Select native id="sexo" onChange={actualizarState}>
+                  <option aria-label="None" value="" />
+                  <option value={10}>Femenino</option>
+                  <option value={20}>Masculino</option>
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <FormControl>
                 <InputLabel htmlFor="direccion">Direccion</InputLabel>
                 <Input
                   id="direccion"
                   name="direccion"
                   type="TextField"
-                  value={formik.values.direccion}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onChange={actualizarState}
                 ></Input>
                   {formik.touched.direccion && formik.errors.direccion ? (
                   <Alert severity="error">
@@ -338,9 +315,7 @@ export default function RegistrarEstudiante() {
                   name="telefono"
                   id="telefono"
                   type="number"
-                  value={formik.values.telefono}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onChange={actualizarState}
                 ></Input>
                   {formik.touched.telefono && formik.errors.telefono ? (
                   <Alert severity="error">
@@ -358,9 +333,7 @@ export default function RegistrarEstudiante() {
                   id="email"
                   name="email"
                   type="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onChange={actualizarState}
                   aria-describedby="email-helper"
                 ></Input>
                 <FormHelperText id="email-helper">
@@ -382,9 +355,7 @@ export default function RegistrarEstudiante() {
                   name="codigo"
                   id="codigo"
                   type="number"
-                  value={formik.values.codigo}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onChange={actualizarState}
                 ></Input>
                   {formik.touched.codigo && formik.errors.codigo ? (
                   <Alert severity="error">
@@ -401,9 +372,7 @@ export default function RegistrarEstudiante() {
                   name="semestre"
                   id="semestre"
                   type="number"
-                  value={formik.values.semestre}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onChange={actualizarState}
                 ></Input>
                   {formik.touched.semestre && formik.errors.semestre ? (
                   <Alert severity="error">
@@ -420,9 +389,7 @@ export default function RegistrarEstudiante() {
                   name="password"
                   id="contraseña"
                   type="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onChange={actualizarState}
                 ></Input>
                   {formik.touched.password && formik.errors.password ? (
                   <Alert severity="error">
