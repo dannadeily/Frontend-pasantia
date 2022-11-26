@@ -23,8 +23,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { data } from "autoprefixer";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+// import { useFormik } from "formik";
+// import * as Yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -81,7 +81,7 @@ export default function RegistrarEstudiante() {
     semestre: "",
     direccion: "",
   });
- //--------------------Alerta--------------------------
+  //--------------------Alerta--------------------------
 
   const [alerta, setAlerta] = useState({});
   const { msg } = alerta;
@@ -108,34 +108,21 @@ export default function RegistrarEstudiante() {
 
     // enviar petición
 
-    conexionAxios
-      .post("/user", {
-        nombres,
-        apellidos,
-        numeroIdentificacion,
-        idTipoDocumento,
-        codigo,
-        email,
-        password,
-        telefono,
-        semestre,
-        direccion,
-      })
-      .then((res) => {
-        // validar si hay errores de mongo
-        if (res.data.status === 201) {
-          setAlerta({
-            msg: <Alert severity="success">registrado correctamente</Alert>,
-          });
-        } else {
-          setAlerta({
-            msg: <Alert severity="error">{res.data.message}</Alert>,
-          });
-        }
-        return;
-        // Redireccionar
-        // history.push('/');
-      });
+    conexionAxios.post("/user", estudiante).then((res) => {
+      // validar si hay errores de mongo
+      // if (res.data.status === 201) {
+      //   setAlerta({
+      //     msg: <Alert severity="success">registrado correctamente</Alert>,
+      //   });
+      // } else {
+      //   setAlerta({
+      //     msg: <Alert severity="error">{res.data.message}</Alert>,
+      //   });
+      // }
+      // return;
+      // Redireccionar
+      // history.push('/');
+    });
   };
 
   const classes = useStyles();
@@ -161,11 +148,7 @@ export default function RegistrarEstudiante() {
         </Typography>
         {msg && <Alerta alerta={alerta} />}
         <CssBaseline></CssBaseline>
-        <form
-          className={classes.form}
-          noValidate
-          onSubmit={formik.handleSubmit}
-        >
+        <form className={classes.form} noValidate onSubmit={agregarEstudiante}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <FormControl>
@@ -176,13 +159,6 @@ export default function RegistrarEstudiante() {
                   type="TextField"
                   onChange={actualizarState}
                 ></Input>
-
-                {formik.touched.nombres && formik.errors.nombres ? (
-                  <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {formik.errors.nombres}
-                  </Alert>
-                ) : null}
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -195,13 +171,6 @@ export default function RegistrarEstudiante() {
                   aria-describedby="email-helper"
                   onChange={actualizarState}
                 ></Input>
-
-                {formik.touched.apellidos && formik.errors.apellidos ? (
-                  <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {formik.errors.apellidos}
-                  </Alert>
-                ) : null}
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -214,12 +183,6 @@ export default function RegistrarEstudiante() {
                   aria-describedby="email-helper"
                   onChange={actualizarState}
                 ></Input>
-                  {formik.touched.numeroIdentificacion && formik.errors.numeroIdentificacion ? (
-                  <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {formik.errors.numeroIdentificacion}
-                  </Alert>
-                ) : null}
               </FormControl>
             </Grid>
 
@@ -235,12 +198,6 @@ export default function RegistrarEstudiante() {
                     );
                   })}
                 </Select>
-                {formik.touched.idTipoDocumento && formik.errors.idTipoDocumento ? (
-                  <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {formik.errors.idTipoDocumento}
-                  </Alert>
-                ) : null}
               </FormControl>
             </Grid>
 
@@ -299,12 +256,6 @@ export default function RegistrarEstudiante() {
                   type="TextField"
                   onChange={actualizarState}
                 ></Input>
-                  {formik.touched.direccion && formik.errors.direccion ? (
-                  <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {formik.errors.direccion}
-                  </Alert>
-                ) : null}
               </FormControl>
             </Grid>
 
@@ -317,12 +268,6 @@ export default function RegistrarEstudiante() {
                   type="number"
                   onChange={actualizarState}
                 ></Input>
-                  {formik.touched.telefono && formik.errors.telefono ? (
-                  <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {formik.errors.telefono}
-                  </Alert>
-                ) : null}
               </FormControl>
             </Grid>
 
@@ -339,12 +284,6 @@ export default function RegistrarEstudiante() {
                 <FormHelperText id="email-helper">
                   email institucional
                 </FormHelperText>
-                {formik.touched.email && formik.errors.email ? (
-                  <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {formik.errors.email}
-                  </Alert>
-                ) : null}
               </FormControl>
             </Grid>
 
@@ -357,12 +296,6 @@ export default function RegistrarEstudiante() {
                   type="number"
                   onChange={actualizarState}
                 ></Input>
-                  {formik.touched.codigo && formik.errors.codigo ? (
-                  <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {formik.errors.codigo}
-                  </Alert>
-                ) : null}
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -374,12 +307,6 @@ export default function RegistrarEstudiante() {
                   type="number"
                   onChange={actualizarState}
                 ></Input>
-                  {formik.touched.semestre && formik.errors.semestre ? (
-                  <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {formik.errors.semestre}
-                  </Alert>
-                ) : null}
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -391,12 +318,6 @@ export default function RegistrarEstudiante() {
                   type="password"
                   onChange={actualizarState}
                 ></Input>
-                  {formik.touched.password && formik.errors.password ? (
-                  <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {formik.errors.password}
-                  </Alert>
-                ) : null}
               </FormControl>
             </Grid>
           </Grid>
