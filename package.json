@@ -20,12 +20,14 @@
     "axios": "^1.1.3",
     "datatables.net": "^1.12.1",
     "datatables.net-dt": "^1.12.1",
+    "formik": "^2.2.9",
     "material-table": "^2.0.3",
     "mui-datatables": "^4.2.2",
     "notistack": "^2.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.2"
+    "react-router-dom": "^6.4.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/react": "^18.0.22",

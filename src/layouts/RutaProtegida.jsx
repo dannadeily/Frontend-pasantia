@@ -6,6 +6,7 @@ import EstudianteActivo from "../pages/administrador/EstudianteActivo"
 const RutaProtegida = () => {
   const { auth ,cargando} = useAuth();
   if(cargando)return 'Cargando...'
+  
   return <>{auth.idusuario ? <div><DrawerAdministrador />
     
     
