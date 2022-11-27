@@ -15,7 +15,7 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import { Link } from "react-router-dom";
 
 function FinalizarPasantia() {
-  const [responsive, setResponsive] = useState("horizontal");
+  const [responsive, setResponsive] = useState("standard");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);

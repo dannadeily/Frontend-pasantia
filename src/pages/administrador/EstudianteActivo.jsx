@@ -14,7 +14,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { Link } from "react-router-dom";
 
 function EstudianteActivo() {
-  const [responsive, setResponsive] = useState("horizontal");
+  const [responsive, setResponsive] = useState("standard");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);

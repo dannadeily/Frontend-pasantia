@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import MUIDataTable from "mui-datatables";
 import ModalAsignarEmpresa from "../administrador/ModalAsignarEmpresa"
+import Button from "@material-ui/core/Button";
 
 function AsignarEmpresa() {
-  const [responsive, setResponsive] = useState("horizontal");
+  
+  const [responsive, setResponsive] = useState("standard");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);
@@ -25,9 +27,9 @@ function AsignarEmpresa() {
       options: {
         customBodyRenderLite: (dataIndex, rowIndex) => {
           return (
-            <button >
+            <Button >
               <ModalAsignarEmpresa/>
-            </button>
+            </Button>
           );
         },
       },

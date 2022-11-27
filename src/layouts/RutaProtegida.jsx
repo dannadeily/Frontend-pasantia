@@ -8,16 +8,17 @@ const RutaProtegida = () => {
   const { auth ,cargando} = useAuth();
   if(cargando)return <Cargando/>
   
-  return <>{auth.idusuario ? <div> <DrawerAdministrador>
+  return <>
 
-  </DrawerAdministrador>
-
-  <Outlet />
+  
+  
+  {auth.roles_idrol===1 ? <DrawerAdministrador></DrawerAdministrador>
     
     
     
     
-    </div> : <Navigate to="/" />}</>;
+     : <Navigate to="/" />}</>;
+     
 };
 
 export default RutaProtegida;

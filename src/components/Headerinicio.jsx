@@ -67,13 +67,7 @@ const useStyles = makeStyles((theme) => ({
 export default function HeaderInicio() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

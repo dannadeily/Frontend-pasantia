@@ -17,7 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from "@material-ui/core/IconButton";
 
 function CargarConvenio() {
-  const [responsive, setResponsive] = useState("horizontal");
+  const [responsive, setResponsive] = useState("standard");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);
