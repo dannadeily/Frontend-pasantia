@@ -159,7 +159,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
+export default function DrawerEstudiante() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
