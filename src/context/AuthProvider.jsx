@@ -10,11 +10,13 @@ const AuthProvider = ({ children }) => {
   const [cargando,setCargando] = useState(true)
 
   const navigate = useNavigate()
+  
   useEffect(() => {
     const autenticarUsuario = async () => {
       const token = localStorage.getItem("token");
       console.log(token);
       if (!token) {
+        setCargando(false)
         return;
       }
       console.log("si hay token");
