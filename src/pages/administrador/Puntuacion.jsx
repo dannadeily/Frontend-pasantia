@@ -53,7 +53,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables() {
+export default function Puntuacion() {
   const classes = useStyles();
 
   return (

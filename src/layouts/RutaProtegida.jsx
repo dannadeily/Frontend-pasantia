@@ -8,7 +8,12 @@ const RutaProtegida = () => {
   const { auth ,cargando} = useAuth();
   if(cargando)return <Cargando/>
   
-  return <>{auth.idusuario ? <div><DrawerAdministrador />
+  return <>{auth.idusuario ? <div> <DrawerAdministrador>
+
+  </DrawerAdministrador>
+
+  <Outlet />
+    
     
     
     

@@ -8,6 +8,7 @@ import RegistrarEstudiante from "./pages/RegistrarEstudiante";
 import RegistrarEmpresa from "./pages/RegistrarEmpresa";
 import EstudianteActivo from "./pages/administrador/EstudianteActivo";
 import AsignarEmpresa from "./pages/administrador/AsignarEmpresa";
+import ModalAsignarEmpresa from "./pages/administrador/ModalAsignarEmpresa"
 import AsignarJurado from "./pages/administrador/AsignarJurado";
 import RecuperarPassword from "./pages/RecuperarPassword";
 import HistorialEstudiante from "./pages/administrador/HistorialEstudiante";
@@ -94,6 +95,10 @@ function App() {
             <Route
               path="/Administrador/AsignarEmpresa"
               element={<AsignarEmpresa></AsignarEmpresa>}
+            />
+            <Route
+              path="/Administrador/AsignarEmpresa/ModalAsignarEmpresa"
+              element={<ModalAsignarEmpresa></ModalAsignarEmpresa>}
             />
             <Route
               path="/Administrador/AsignarJurado"

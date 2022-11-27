@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MUIDataTable from "mui-datatables";
 import EditIcon from "@mui/icons-material/Edit";
 
-function Example() {
+function AsignarJurado() {
   const [responsive, setResponsive] = useState("horizontal");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");

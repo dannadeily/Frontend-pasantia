@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import MUIDataTable from "mui-datatables";
-import EditIcon from "@mui/icons-material/Edit";
+import ModalAsignarEmpresa from "../administrador/ModalAsignarEmpresa"
 
-function Example() {
+function AsignarEmpresa() {
   const [responsive, setResponsive] = useState("horizontal");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
@@ -25,14 +25,8 @@ function Example() {
       options: {
         customBodyRenderLite: (dataIndex, rowIndex) => {
           return (
-            <button
-              onClick={() =>
-                window.alert(
-                  `Clicked "Edit" for row ${rowIndex} with dataIndex of ${dataIndex}`
-                )
-              }
-            >
-              <EditIcon />
+            <button >
+              <ModalAsignarEmpresa/>
             </button>
           );
         },

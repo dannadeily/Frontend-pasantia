@@ -15,7 +15,7 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 import { Link } from "react-router-dom";
 
-function Example() {
+function EstudianteEvaluado() {
   const [responsive, setResponsive] = useState("horizontal");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");

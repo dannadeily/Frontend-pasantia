@@ -13,7 +13,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Link } from "react-router-dom";
 
-function Example() {
+function EstudianteActivo() {
   const [responsive, setResponsive] = useState("horizontal");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");

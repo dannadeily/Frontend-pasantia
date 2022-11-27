@@ -29,7 +29,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(evaluador, nota) {
+function EvaluarEstudiante(evaluador, nota) {
   return { evaluador, nota };
 }
 

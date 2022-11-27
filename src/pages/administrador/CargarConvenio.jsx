@@ -12,7 +12,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 
-function Example() {
+function CargarConvenio() {
   const [responsive, setResponsive] = useState("horizontal");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
