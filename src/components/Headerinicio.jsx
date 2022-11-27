@@ -69,45 +69,19 @@ export default function HeaderInicio() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuClose = () => {
+  const handleClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/RegistrarEstudiante">registrarse como estudiante</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/RegistrarEmpresa">registrarse como Empresa</Link>
-      </MenuItem>
-    </Menu>
-  );
 
   return (
     <div className={classes.grow}>
@@ -125,25 +99,40 @@ export default function HeaderInicio() {
             Pasantias Ing sistemas
           </Typography>
 
-          <div className={classes.grow} />
+          
 
-          <IconButton
-            edge="end"
-            aria-label="account of current user"
-            aria-controls={menuId}
-            aria-haspopup="true"
-            onClick={handleProfileMenuOpen}
-            color="inherit"
-          >
             <div className={classes.grow} />
-            <Button variant="contained" color="primary" disableElevation>
-              REGISTRARSE
-            </Button>
-          </IconButton>
+
+            <div>
+              <Button
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+              >
+                Registrarse
+              </Button>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>
+                  <Link to="/RegistrarEstudiante">
+                    registrarse como estudiante
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link to="/RegistrarEmpresa">registrarse como Empresa</Link>
+                </MenuItem>
+              </Menu>
+            </div>
+         
         </Toolbar>
       </AppBar>
+      {/* {renderMenu} */}
 
-      {renderMenu}
       <Outlet></Outlet>
     </div>
   );
