@@ -53,7 +53,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables() {
+export default function EvaluarEstudiante() {
   const classes = useStyles();
 
   return (

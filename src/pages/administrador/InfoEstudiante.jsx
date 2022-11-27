@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavTabs() {
+export default function InfoEstudiante() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 

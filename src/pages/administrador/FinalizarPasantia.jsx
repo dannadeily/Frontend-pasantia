@@ -14,7 +14,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import { Link } from "react-router-dom";
 
-function Example() {
+function FinalizarPasantia() {
   const [responsive, setResponsive] = useState("horizontal");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
@@ -115,4 +115,4 @@ function Example() {
   );
 }
 
-export default Example;
+export default FinalizarPasantia;

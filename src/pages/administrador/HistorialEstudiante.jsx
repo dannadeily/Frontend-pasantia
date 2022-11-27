@@ -12,7 +12,7 @@ import TextField from "@mui/material/TextField";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-function Example() {
+function HistorialEstudiante() {
   const [responsive, setResponsive] = useState("horizontal");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
@@ -117,4 +117,4 @@ function Example() {
   );
 }
 
-export default Example;
+export default HistorialEstudiante;

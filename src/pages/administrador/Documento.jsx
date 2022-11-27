@@ -126,7 +126,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Evaluacion(params) {
+export default function Documento(params) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 

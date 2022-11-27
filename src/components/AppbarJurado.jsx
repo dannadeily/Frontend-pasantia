@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HeaderInicio() {
+export default function AppbarJurado() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
