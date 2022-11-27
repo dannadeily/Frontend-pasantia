@@ -50,6 +50,11 @@ import Alerta from "./components/alerta";
 //
 import { AuthProvider } from "./context/AuthProvider";
 import RutaProtegida from "./layouts/RutaProtegida";
+import RutaProtegidaEstudiante from "./layouts/RutaProtegidaEstudiante";
+import RutaProtegidaJurado from "./layouts/RutaProtegidaJurado";
+
+//cargando
+import Cargando from "./pages/Cargando"
 
 function App() {
   return (
@@ -161,7 +166,7 @@ function App() {
           </Route>
 
           {/** rutas de modulo Estudiante*/}
-          <Route path="/Estudiante" element={<DrawerEstudiante />}>
+          <Route path="/Estudiante" element={<RutaProtegidaEstudiante></RutaProtegidaEstudiante>}>
             <Route index element={<EstadoPasantia></EstadoPasantia>} />
             <Route
               path="/Estudiante/DatosPersonales"
@@ -204,13 +209,19 @@ function App() {
               element={<CambiarPasswordEst></CambiarPasswordEst>}
             />
           </Route>
+         
           {/** rutas de modulo jurado */}
-          <Route path="/Jurado" element={<AppbarJurado />}>
+          
+          <Route path="/Jurado" element={<RutaProtegidaJurado />}>
             <Route index element={<EstudianteAsignado></EstudianteAsignado>} />
             <Route
               path="/Jurado/InformacionEstudiante"
               element={<InformacionEstudiante></InformacionEstudiante>}
             />
+          </Route>
+
+          <Route path="/cargando" element={<Cargando></Cargando>}>
+
           </Route>
 
           {/* <Route path="/Proyectos" element={}>

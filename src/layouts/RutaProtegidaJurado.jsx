@@ -1,14 +1,13 @@
 import { Outlet, Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import DrawerAdministrador from '../components/DrawerAdministrador'
-import EstudianteActivo from "../pages/administrador/EstudianteActivo"
+import AppbarJurado from "../components/AppbarJurado"
 import Cargando from "../pages/Cargando"
 
 const RutaProtegida = () => {
   const { auth ,cargando} = useAuth();
   if(cargando)return <Cargando/>
   
-  return <>{auth.idusuario ? <div><DrawerAdministrador />
+  return <>{auth.idusuario ? <div><AppbarJurado />
     
     
     

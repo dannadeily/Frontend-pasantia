@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
   const [cargando,setCargando] = useState(true)
 
   const navigate = useNavigate()
-  
+
   useEffect(() => {
     const autenticarUsuario = async () => {
       const token = localStorage.getItem("token");
@@ -30,7 +30,12 @@ const AuthProvider = ({ children }) => {
       try {
         const { data } = await conexionAxios("/perfil", config);
          setAuth(data)
-         navigate('/Administrador')
+         if(data.roles_idrol===1){
+         navigate('/Administrador')}
+         else if(data.roles_idrol===2){
+          navigate('/Estudiante')}
+          else if(data.roles_idrol===3){
+            navigate('/Jurado')}
       
       } catch (error) {
           setAuth({})
