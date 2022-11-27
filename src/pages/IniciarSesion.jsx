@@ -10,13 +10,10 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
 import useAuth from "../hooks/useAuth";
 import conexionAxios from "../config/axios";
 import Alerta from "../components/alerta";
+import {ValidatorForm,TextValidator} from "react-material-ui-form-validator"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,8 +21,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
+    backgroundImage: '/public/fondoescritorio.jpg',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
@@ -55,6 +51,10 @@ export default function SignInSide() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [messageEmail,setMessageEmail] = useState('');
+    const [messagePassword,setMessagePassword] = useState('');
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [errorPassword, setErrorPassword] = useState(false);
     
     const {setAuth, } = useAuth();
       
@@ -64,7 +64,7 @@ export default function SignInSide() {
       e.preventDefault();
   
       try { 
-          const { data } = await conexionAxios.post('/login', {email, password})
+          const { data } = await  conexionAxios.post('/login', {email, password})
           // setAlerta({})
           localStorage.setItem('token', data.token)
           setAuth(data)
@@ -84,7 +84,8 @@ export default function SignInSide() {
   return (
     <Grid container component="main" className={classes.root} >
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={false} sm={4} md={7} className={classes.image}  />
+
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -94,8 +95,8 @@ export default function SignInSide() {
             INICIAR SESION
           </Typography>
           {msg && <Alerta alerta={alerta } />}
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
+          <ValidatorForm className={classes.form} noValidate onSubmit={handleSubmit}>
+            <TextValidator
               variant="outlined"
               margin="normal"
               required
@@ -105,10 +106,29 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              validators={['required']}
+              errorMessages={['Campo Obligatorio']}
               value={email}
-             onChange={ e => setEmail(e.target.value)}
+             onChange={ (e) => setEmail(e.target.value)
+             
+              // if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9_.+-]+$/.test(email)){
+              //   setErrorEmail(true);
+              //   setMessageEmail("Debe ser un correo valido");
+
+              // }else
+              // if(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9_.+-]+$/.test(email)){
+              //   setErrorEmail(false);
+              //   setMessageEmail("");
+              // }
+              
+              
+            
+            }
+             
+             error={errorEmail}
+             helperText={messageEmail}
             />
-            <TextField
+            <TextValidator
               variant="outlined"
               margin="normal"
               required
@@ -118,8 +138,22 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              validators={['required']}
+              errorMessages={['Campo Obligatorio']}
               value={password}
-              onChange={ e => setPassword(e.target.value)}
+              onChange={ e => {setPassword(e.target.value);
+                if(password.length<7){
+                  setErrorPassword(true);
+                  setMessagePassword("La contraseña debe tener minimo 8 digitos")
+                }else{
+                  setErrorPassword(false);
+                  setMessagePassword("")
+                }
+                
+              }
+            }
+              error={errorPassword}
+              helperText={messagePassword}
             />
            
             <Button
@@ -135,7 +169,7 @@ export default function SignInSide() {
              
               
             </Grid>
-          </form>
+          </ValidatorForm>
           <Grid item>
             <Button>
               <Link to="/RecuperarPassword">Recuperar contraseña</Link>
