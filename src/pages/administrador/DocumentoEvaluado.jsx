@@ -107,4 +107,4 @@ function DocumentoEvaluado() {
   );
 }
 
-export default Example;
+export default DocumentoEvaluado;

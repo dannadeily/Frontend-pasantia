@@ -119,4 +119,4 @@ function EstudianteEvaluado() {
   );
 }
 
-export default Example;
+export default EstudianteEvaluado;

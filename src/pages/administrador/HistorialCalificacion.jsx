@@ -107,4 +107,4 @@ function HistorialCalificacion() {
   );
 }
 
-export default Example;
+export default HistorialCalificacion;

@@ -116,4 +116,4 @@ function EstudianteActivo() {
   );
 }
 
-export default Example;
+export default EstudianteActivo;

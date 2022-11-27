@@ -115,4 +115,4 @@ function FinalizarPasantia() {
   );
 }
 
-export default Example;
+export default FinalizarPasantia;

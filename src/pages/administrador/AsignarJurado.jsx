@@ -114,4 +114,4 @@ function AsignarJurado() {
   );
 }
 
-export default Example;
+export default AsignarJurado;

@@ -29,7 +29,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function EvaluarEstudiante(evaluador, nota) {
+function createData(evaluador, nota) {
   return { evaluador, nota };
 }
 
@@ -53,7 +53,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables() {
+export default function EvaluarEstudiante() {
   const classes = useStyles();
 
   return (

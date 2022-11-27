@@ -98,4 +98,4 @@ function AsignarEmpresa() {
   );
 }
 
-export default Example;
+export default AsignarEmpresa;

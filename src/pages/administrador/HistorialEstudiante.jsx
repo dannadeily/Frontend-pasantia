@@ -117,4 +117,4 @@ function HistorialEstudiante() {
   );
 }
 
-export default Example;
+export default HistorialEstudiante;

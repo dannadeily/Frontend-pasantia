@@ -112,4 +112,4 @@ function CargarConvenio() {
   );
 }
 
-export default Example;
+export default CargarConvenio;

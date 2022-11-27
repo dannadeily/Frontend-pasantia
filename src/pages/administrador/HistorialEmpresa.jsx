@@ -112,4 +112,4 @@ function HistorialEmpresa() {
   );
 }
 
-export default Example;
+export default HistorialEmpresa;
