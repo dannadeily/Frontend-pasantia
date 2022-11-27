@@ -82,6 +82,7 @@ function App() {
           </Route>
           {/** rutas de modulo Administrador */}
           <Route path="/Administrador" element={<RutaProtegida></RutaProtegida>}>
+          <Route index element={<EstudianteActivo></EstudianteActivo>} />
             <Route index element={<EstudianteActivo></EstudianteActivo>} />
 
             <Route

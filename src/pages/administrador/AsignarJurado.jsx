@@ -3,7 +3,7 @@ import MUIDataTable from "mui-datatables";
 import EditIcon from "@mui/icons-material/Edit";
 
 function AsignarJurado() {
-  const [responsive, setResponsive] = useState("horizontal");
+  const [responsive, setResponsive] = useState("standard");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);

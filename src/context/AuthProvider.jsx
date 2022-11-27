@@ -2,10 +2,10 @@ import { useState, useEffect, createContext } from "react";
 import conexionAxios from "../config/axios";
 import { useNavigate } from "react-router-dom";
 
-
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+
   const [auth, setAuth] = useState({});
   const [cargando,setCargando] = useState(true)
 
@@ -14,12 +14,11 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const autenticarUsuario = async () => {
       const token = localStorage.getItem("token");
-      console.log(token);
+      
       if (!token) {
         setCargando(false)
         return;
       }
-      console.log("si hay token");
 
       const config = {
         headers: {
@@ -30,12 +29,12 @@ const AuthProvider = ({ children }) => {
       try {
         const { data } = await conexionAxios("/perfil", config);
          setAuth(data)
-         if(data.roles_idrol===1){
-         navigate('/Administrador')}
-         else if(data.roles_idrol===2){
-          navigate('/Estudiante')}
-          else if(data.roles_idrol===3){
-            navigate('/Jurado')}
+        //  if(data.roles_idrol===1){
+        //  navigate('/Administrador')}
+        //  else if(data.roles_idrol===2){
+        //   navigate('/Estudiante')}
+        //   else if(data.roles_idrol===3){
+        //     navigate('/Jurado')}
       
       } catch (error) {
           setAuth({})

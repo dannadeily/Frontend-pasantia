@@ -7,11 +7,14 @@ const RutaProtegida = () => {
   const { auth ,cargando} = useAuth();
   if(cargando)return <Cargando/>
   
-  return <>{auth.idusuario ? <div><AppbarJurado />
+  return <>
+  {auth.roles_idrol===3 ? <AppbarJurado/> 
     
     
     
-    </div> : <Navigate to="/" />}</>;
+    
+    : <Navigate to="/" />}
+    </>;
 };
 
 export default RutaProtegida;
