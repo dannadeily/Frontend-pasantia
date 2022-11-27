@@ -23,8 +23,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { data } from "autoprefixer";
-// import { useFormik } from "formik";
-// import * as Yup from "yup";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -99,29 +99,8 @@ export default function RegistrarEstudiante() {
   const agregarEstudiante = (e) => {
     e.preventDefault();
 
-    // if ([estudiante].includes('') ==('')) {
-    //   setAlerta({
-    //     msg: <Alert severity="error">todos los campos son abligatorios</Alert>,
-    //   });
-    //   return;
-    // }
-
-    // enviar petición
-
     conexionAxios.post("/user", estudiante).then((res) => {
-      // validar si hay errores de mongo
-      // if (res.data.status === 201) {
-      //   setAlerta({
-      //     msg: <Alert severity="success">registrado correctamente</Alert>,
-      //   });
-      // } else {
-      //   setAlerta({
-      //     msg: <Alert severity="error">{res.data.message}</Alert>,
-      //   });
-      // }
-      // return;
-      // Redireccionar
-      // history.push('/');
+
     });
   };
 
@@ -142,12 +121,12 @@ export default function RegistrarEstudiante() {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
-
         <Typography component="h1" variant="h5" align="center">
           REGISTRARSE COMO ESTUDIANTE
         </Typography>
         {msg && <Alerta alerta={alerta} />}
         <CssBaseline></CssBaseline>
+        
         <form className={classes.form} noValidate onSubmit={agregarEstudiante}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
@@ -185,7 +164,6 @@ export default function RegistrarEstudiante() {
                 ></Input>
               </FormControl>
             </Grid>
-
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <InputLabel>Tipo de documento</InputLabel>
@@ -200,7 +178,6 @@ export default function RegistrarEstudiante() {
                 </Select>
               </FormControl>
             </Grid>
-
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="expedicion">
