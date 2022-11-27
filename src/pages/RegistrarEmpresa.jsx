@@ -11,6 +11,8 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { FormControl, Input, InputLabel, Select } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
+import conexionAxios from "../config/axios";
+import * as Yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,40 +44,58 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RegistrarEmpresa() {
-  // const [tiposDocumentos, listaTiposDocumentos] = useState([]);
+  const [sectorEmpresas, listaSectoresEmpresa] = useState([]);
+  const [actividades, listaTiposActividades] = useState([]);
 
-  // const consultarTiposDocumentos = async () => {
-  //   const tiposDocumentosConsulta = await conexionAxios.get("/tipoDocumento");
-  //   //volovar en el state
-  //   listaTiposDocumentos(tiposDocumentosConsulta.data.tiposDocumentos);
-  // };
+  const consultarActividades = async () => {
+    const actividades = await conexionAxios.get("/actividades");
+    //volovar en el state
+    listaTiposActividades(actividades.data.actividades);
+  };
 
-  // useEffect(() => {
-  //   consultarTiposDocumentos();
-  // }, []);
+  const consultarSectorEmpresas = async () => {
+    const sectores = await conexionAxios.get("/sectorempresa");
+    //volovar en el state
+    listaSectoresEmpresa(sectores.data.sectoresEmpresa);
+  };
 
-  // const [tiposDocumentos, listaTiposDocumentos] = useState([]);
+  useEffect(() => {
+    consultarActividades();
+    consultarSectorEmpresas();
+  }, []);
 
-  // const consultarTiposDocumentos = async () => {
-  //   const tiposDocumentosConsulta = await conexionAxios.get("/tipoDocumento");
-  //   //volovar en el state
-  //   listaTiposDocumentos(tiposDocumentosConsulta.data.tiposDocumentos);
-  // };
+  const [empresa, guardarEmpresa] = useState({
+    sectorEmpresa: "",
+    actividad: "",
+    nombre: "",
+    razonSocial: "",
+    nit: "",
+    password: "",
+    email: "",
+    telefono: "",
+    semestre: "",
+    direccion: "",
+  });
+  const actualizarState = (e) => {
+    // Almacenar lo que el usuario escribe en el state
+    guardarEmpresa({
+      // obtener una copia del state actual
+      ...empresa,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  // useEffect(() => {
-  //   consultarTiposDocumentos();
-  // }, []);
+  const agregarEmpresa = (e) => {
+    e.preventDefault();
+
+    conexionAxios.post("/empresa", empresa).then((res) => {});
+  };
 
   const classes = useStyles();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const validationSchema = Yup.object({
+
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -95,30 +115,43 @@ export default function RegistrarEmpresa() {
         <Typography component="h1" variant="h5" align="center">
           REGISTRARSE COMO EMPRESA
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <form
+          className={classes.form}
+          validationSchema={validationSchema}
+          onSubmit={agregarEmpresa}
+        >
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="nombre">Nombre empresa</InputLabel>
-                <Input id="nombre" type="TextField"></Input>
+                <Input
+                  onChange={actualizarState}
+                  name="nombre"
+                  id="nombre"
+                  type="TextField"
+                ></Input>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl>
-                <InputLabel htmlFor="apellido">Razon social</InputLabel>
+                <InputLabel htmlFor="razonSocil">Razon social</InputLabel>
                 <Input
+                  onChange={actualizarState}
                   id="apellido"
                   type="TextField"
+                  name="razonSocial"
                   aria-describedby="email-helper"
                 ></Input>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl>
-                <InputLabel htmlFor="cedula">NIT</InputLabel>
+                <InputLabel htmlFor="nit">NIT</InputLabel>
                 <Input
+                  onChange={actualizarState}
                   id="cedula"
                   type="number"
+                  name="nit"
                   aria-describedby="email-helper"
                 ></Input>
               </FormControl>
@@ -127,21 +160,21 @@ export default function RegistrarEmpresa() {
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <InputLabel>Sector</InputLabel>
-                <Select>
-                  <MenuItem value={10}>Publico</MenuItem>
-                  <MenuItem value={20}>Privado</MenuItem>
-                  <MenuItem value={30}>Mixto</MenuItem>
+                <Select onChange={actualizarState} name="sectorEmpresa">
+                  <MenuItem value={1}>Publico</MenuItem>
+                  <MenuItem value={2}>Privado</MenuItem>
+                  <MenuItem value={3}>Mixto</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <InputLabel>Actividad</InputLabel>
-                <Select>
-                  <MenuItem value={10}>Industrial</MenuItem>
-                  <MenuItem value={20}>Comercial</MenuItem>
-                  <MenuItem value={30}>Educativo</MenuItem>
-                  <MenuItem value={40}>Estatal</MenuItem>
+                <Select onChange={actualizarState} name="actividad">
+                  <MenuItem value={1}>Industrial</MenuItem>
+                  <MenuItem value={2}>Comercial</MenuItem>
+                  <MenuItem value={3}>Educativo</MenuItem>
+                  <MenuItem value={4}>Estatal</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -149,14 +182,24 @@ export default function RegistrarEmpresa() {
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="direccion">Direccion</InputLabel>
-                <Input id="direccion" type="TextField"></Input>
+                <Input
+                  onChange={actualizarState}
+                  name="direccion"
+                  id="direccion"
+                  type="TextField"
+                ></Input>
               </FormControl>
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="telefono">Telefono</InputLabel>
-                <Input id="telefono" type="number"></Input>
+                <Input
+                  onChange={actualizarState}
+                  name="telefono"
+                  id="telefono"
+                  type="number"
+                ></Input>
               </FormControl>
             </Grid>
 
@@ -164,9 +207,11 @@ export default function RegistrarEmpresa() {
               <FormControl>
                 <InputLabel htmlFor="email">Email</InputLabel>
                 <Input
+                  onChange={actualizarState}
                   id="email"
                   type="email"
                   aria-describedby="email-helper"
+                  name="email"
                 ></Input>
               </FormControl>
             </Grid>
@@ -174,7 +219,12 @@ export default function RegistrarEmpresa() {
             <Grid item xs={12} sm={6}>
               <FormControl>
                 <InputLabel htmlFor="contraseña">contraseña</InputLabel>
-                <Input id="contraseña" type="password"></Input>
+                <Input
+                  onChange={actualizarState}
+                  id="contraseña"
+                  name="password"
+                  type="password"
+                ></Input>
               </FormControl>
             </Grid>
           </Grid>
@@ -192,7 +242,7 @@ export default function RegistrarEmpresa() {
               <Link to="/">Iniciar Sesion</Link>
             </Grid>
           </Grid>
-        </Box>
+        </form>
       </Box>
     </Container>
   );
