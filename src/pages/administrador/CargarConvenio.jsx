@@ -1,100 +1,11 @@
-// import React, { useState, useEffect } from "react";
-// import ReactDOM from "react-dom";
-// import MUIDataTable from "mui-datatables";
-// import InfoIcon from "@mui/icons-material/Info";
-// import InputLabel from "@mui/material/InputLabel";
-// import MenuItem from "@mui/material/MenuItem";
-// import FormHelperText from "@mui/material/FormHelperText";
-// import FormControl from "@mui/material/FormControl";
-// import Select from "@mui/material/Select";
-// import TextField from "@mui/material/TextField";
-// import { DndProvider } from "react-dnd";
-// import { HTML5Backend } from "react-dnd-html5-backend";
-// import FileUploadIcon from "@mui/icons-material/FileUpload";
 import conexionAxios from "../../config/axios";
-// import Button from "@material-ui/core/Button";
-// import { makeStyles } from "@material-ui/core/styles";
-// import IconButton from "@material-ui/core/IconButton";
-
-// function CargarConvenio() {
-//   const [responsive, setResponsive] = useState("horizontal");
-//   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
-//   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
-//   const [transitionTime, setTransitionTime] = useState(300);
-//   const [selectableRows, setSelectableRows] = useState("none");
-
-//   //Lista de empresas
-//   const [empresas, listaEmpresa] = useState([]);
-
-//   const consultarEmpresas = async () => {
-//     const empresas = await conexionAxios.get("/empresasinactivas");
-//     //volovar en el state
-//     listaEmpresa(empresas.data.empresa);
-//   };
-
-//   useEffect(() => {
-//     consultarEmpresas();
-//   }, []);
-
-//   const options = {
-//     filter: true,
-//     filterType: "dropdown",
-//     responsive,
-//     tableBodyHeight,
-//     tableBodyMaxHeight,
-//     draggableColumns: {
-//       enabled: true,
-//       transitionTime,
-//     },
-//     selectableRows: selectableRows,
-//   };
-
-//   const data = [];
-//   empresas.map((empresa) => {
-//     data.push(Object.values(empresa));
-//   });
-
-//   console.log(Object.values(empresas));
-
-//   const columns = [
-//     {
-//       name: "Nombre de la empresa",
-//     },
-//     {
-//       name: "Razón social",
-//     },
-
-//     {
-//       name: "Cargar",
-
-//       options: {
-//         customBodyRenderLite: () => {
-//           return <div>
-
-//           </div>;
-//         },
-//       },
-//     },
-//   ];
-
-//   return (
-//     <>
-//       <MUIDataTable
-//         title={"Cargar convenios"}
-//         data={Object.values(data)}
-//         columns={columns}
-//         options={options}
-//       />
-//     </>
-//   );
-// }
-
-// export default CargarConvenio;
-
 import React, { useEffect, useState } from "react";
-// import "./App.css";
 // import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
+// import Button from '@material-ui/core/Button';
+import IconButton from "@material-ui/core/IconButton";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+
 import {
   Table,
   TableContainer,
@@ -107,7 +18,6 @@ import {
   TextField,
 } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
-
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -127,6 +37,14 @@ const useStyles = makeStyles((theme) => ({
   inputMaterial: {
     width: "100%",
   },
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: "none",
+  },
 }));
 
 function CargarConvenio() {
@@ -135,20 +53,9 @@ function CargarConvenio() {
   const [modalEditar, setModalEditar] = useState(false);
 
   const [empresaSeleccionada, setEmpresaSeleccionada] = useState({
-    nombre: "",
-    empresa: "",
-    lanzamiento: "",
-    unidades_vendidas: "",
+    idempresa: "",
   });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEmpresaSeleccionada((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    console.log(EmpresaSeleccionada);
-  };
+  const [archivo, guardarArchivo] = useState('');
 
   const peticionGet = async () => {
     await conexionAxios.get("/empresasinactivas").then((response) => {
@@ -157,87 +64,77 @@ function CargarConvenio() {
   };
 
   const peticionPut = async () => {
+    const formData = new FormData();
+    formData.append('convenio', archivo);
+    formData.append('idempresa', empresaSeleccionada.idempresa)
     await conexionAxios
-      .put(baseUrl + consolaSeleccionada.id, consolaSeleccionada)
+      .put(
+        "cargarconvenio/" + empresaSeleccionada.idempresa,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((response) => {
         var dataNueva = data;
-        dataNueva.map((consola) => {
-          if (consolaSeleccionada.id === consola.id) {
-            consola.nombre = consolaSeleccionada.nombre;
-            consola.lanzamiento = consolaSeleccionada.lanzamiento;
-            consola.empresa = consolaSeleccionada.empresa;
-            consola.unidades_vendidas = consolaSeleccionada.unidades_vendidas;
-          }
-        });
         setData(dataNueva);
         abrirCerrarModalEditar();
       });
   };
 
-
   const abrirCerrarModalEditar = () => {
     setModalEditar(!modalEditar);
   };
 
-
   const seleccionarEmpresa = (empresa, caso) => {
     setEmpresaSeleccionada(empresa);
-    caso === "Editar" ? abrirCerrarModalEditar() : abrirCerrarModalEliminar();
+    abrirCerrarModalEditar();
   };
 
   useEffect(async () => {
     await peticionGet();
   }, []);
 
+  const leerArchivo = e => {
+    guardarArchivo( e.target.files[0] );
+}
+
   const bodyEditar = (
     <div className={styles.modal}>
-      <h3>Editar Consola</h3>
-      <TextField
-        name="nombre"
-        className={styles.inputMaterial}
-        label="Nombre"
-        onChange={handleChange}
-        value={empresaSeleccionada && empresaSeleccionada.nombre}
-      />
-      <br />
-      <TextField
-        name="empresa"
-        className={styles.inputMaterial}
-        label="Empresa"
-        onChange={handleChange}
-        value={empresaSeleccionada && empresaSeleccionada.empresa}
-      />
-      <br />
-      <TextField
-        name="lanzamiento"
-        className={styles.inputMaterial}
-        label="Lanzamiento"
-        onChange={handleChange}
-        value={empresaSeleccionada && empresaSeleccionada.nombre}
-      />
-      <br />
-      <TextField
-        name="unidades_vendidas"
-        className={styles.inputMaterial}
-        label="Unidades Vendidas"
-        onChange={handleChange}
-        value={empresaSeleccionada && empresaSeleccionada.nombre}
-      />
-      <br />
-      <br />
-      <div align="right">
-        <Button color="primary" onClick={() => peticionPut()}>
-          Editar
-        </Button>
-        <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
-      </div>
+        <h3>Añador convenio</h3>
+        <div className={styles.root}>
+          <input
+            name="convenio"
+            accept=".pdf"
+            className={styles.input}
+            id="contained-button-file"
+            multiple
+            type="file"
+            onChange={leerArchivo}
+          />
+          <label htmlFor="contained-button-file">
+            <Button variant="contained" color="primary" component="span">
+              Upload
+            </Button>
+          </label>
+        </div>
+        <br />
+        <br />
+        <div align="right">
+          <Button color="primary"  onClick={() => peticionPut()}>
+            Editar
+          </Button>
+          <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
+        </div>
+
     </div>
   );
 
   return (
     <div className="App">
       <br />
-      <Button onClick={() => abrirCerrarModalInsertar()}>Insertar</Button>
       <br />
       <br />
       <TableContainer>
@@ -251,8 +148,8 @@ function CargarConvenio() {
           </TableHead>
 
           <TableBody>
-            {data.map(empresa => (
-              <TableRow key={empresa.id}>
+            {data.map((empresa) => (
+              <TableRow key={empresa.idempresa}>
                 <TableCell>{empresa.nombre}</TableCell>
                 <TableCell>{empresa.razon_social}</TableCell>
                 <TableCell>
