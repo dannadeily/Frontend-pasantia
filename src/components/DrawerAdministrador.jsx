@@ -25,6 +25,8 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useAuth from '../hooks/useAuth'
+import Button from "@material-ui/core/Button";
 
 const drawerWidth = 240;
 
@@ -161,6 +163,12 @@ export default function DrawerAdministrador() {
   const classes = useStyles();
   const theme = useTheme();
 
+  //cerrar Sesion 
+  const { cerrarSesionAuth } = useAuth()
+  const handleCerrarSesion = () => {
+    cerrarSesionAuth()
+    localStorage.removeItem('token')
+}
   //Abrir Drawer
   const [open, setOpen] = React.useState(false);
 
@@ -184,55 +192,7 @@ export default function DrawerAdministrador() {
     setAnchorEl(null);
   };
 
-  // const menuId = "primary-search-account-menu";
-  // const renderMenu = (
-  //   <Menu
-  //     anchorEl={anchorEl}
-  //     anchorOrigin={{ vertical: "top", horizontal: "right" }}
-  //     id={menuId}
-  //     keepMounted
-  //     transformOrigin={{ vertical: "top", horizontal: "right" }}
-  //     open={isMenuOpen}
-  //     onClose={handleMenuClose}
-  //   >
-  //     <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-  //     <MenuItem onClick={handleMenuClose}>Cerrar Sesion</MenuItem>
-  //   </Menu>
-  // );
-
-  // const mobileMenuId = "primary-search-account-menu-mobile";
-  // const renderMobileMenu = (
-  //   <Menu
-  //     anchorEl={mobileMoreAnchorEl}
-  //     anchorOrigin={{ vertical: "top", horizontal: "right" }}
-  //     id={mobileMenuId}
-  //     keepMounted
-  //     transformOrigin={{ vertical: "top", horizontal: "right" }}
-  //     open={isMobileMenuOpen}
-  //     onClose={handleMobileMenuClose}
-  //   >
-  //     <MenuItem>
-  //       <IconButton aria-label="show 11 new notifications" color="inherit">
-  //         <Badge badgeContent={11} color="secondary">
-  //           <NotificationsIcon />
-  //         </Badge>
-  //       </IconButton>
-  //       <p>Notificaciones</p>
-  //     </MenuItem>
-  //     <MenuItem onClick={handleProfileMenuOpen}>
-  //       <IconButton
-  //         aria-label="account of current user"
-  //         aria-controls="primary-search-account-menu"
-  //         aria-haspopup="true"
-  //         color="inherit"
-  //       >
-  //         <AccountCircle />
-  //       </IconButton>
-  //       <p>Perfil</p>
-  //     </MenuItem>
-  //   </Menu>
-  // );
-
+  
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -290,7 +250,7 @@ export default function DrawerAdministrador() {
                  Perfil
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  Cerrar Sesion
+                  <Button onClick={handleCerrarSesion}>Cerrar Sesion</Button>
                 </MenuItem>
               </Menu>
             </div>

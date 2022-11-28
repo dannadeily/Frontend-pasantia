@@ -23,12 +23,15 @@ function EstudianteActivo() {
   const columns = [
     {
       name: "Nombre del estudiante",
+
     },
     {
       name: "Empresa",
+
     },
     {
       name: "Fecha inicio de la pasantia",
+
     },
     {
       name: "Informacion",

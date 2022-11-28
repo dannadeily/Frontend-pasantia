@@ -48,14 +48,12 @@ import EstudianteAsignado from "./pages/jurado/EstudianteAsignado";
 import InformacionEstudiante from "./pages/jurado/InformacionEstudiante";
 import Alerta from "./components/alerta";
 
-//
-import { AuthProvider } from "./context/AuthProvider";
+//AuthContext
+import {AuthProvider} from './context/AuthProvider'
 import RutaProtegida from "./layouts/RutaProtegida";
 import RutaProtegidaEstudiante from "./layouts/RutaProtegidaEstudiante";
 import RutaProtegidaJurado from "./layouts/RutaProtegidaJurado";
-
-//cargando
-import Cargando from "./pages/Cargando"
+import Proyectos from "./pages/Proyectos";
 
 function App() {
   return (
@@ -81,8 +79,8 @@ function App() {
             />
           </Route>
           {/** rutas de modulo Administrador */}
-          <Route path="/Administrador" element={<RutaProtegida></RutaProtegida>}>
-          <Route index element={<EstudianteActivo></EstudianteActivo>} />
+          <Route path="/Administrador" element={<RutaProtegida/>}>
+          
             <Route index element={<EstudianteActivo></EstudianteActivo>} />
 
             <Route
@@ -172,7 +170,7 @@ function App() {
           </Route>
 
           {/** rutas de modulo Estudiante*/}
-          <Route path="/Estudiante" element={<RutaProtegidaEstudiante></RutaProtegidaEstudiante>}>
+          <Route path="/Estudiante" element={<RutaProtegidaEstudiante/>}>
             <Route index element={<EstadoPasantia></EstadoPasantia>} />
             <Route
               path="/Estudiante/DatosPersonales"
@@ -218,7 +216,7 @@ function App() {
          
           {/** rutas de modulo jurado */}
           
-          <Route path="/Jurado" element={<RutaProtegidaJurado />}>
+          <Route path="/Jurado" element={<RutaProtegidaJurado/>}>
             <Route index element={<EstudianteAsignado></EstudianteAsignado>} />
             <Route
               path="/Jurado/InformacionEstudiante"
@@ -226,15 +224,10 @@ function App() {
             />
           </Route>
 
-          <Route path="/cargando" element={<Cargando></Cargando>}>
-
-          </Route>
-
-          {/* <Route path="/Proyectos" element={}>
-          <Route index element={<EstudianteActivo></EstudianteActivo>} />
-          </Route> */}
+         
+             
         </Routes>
-      </AuthProvider>
+        </AuthProvider>
     </BrowserRouter>
   );
 }

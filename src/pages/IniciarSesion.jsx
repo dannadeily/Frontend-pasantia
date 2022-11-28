@@ -1,20 +1,21 @@
 
+
 import React, { useEffect,useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom'
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import useAuth from "../hooks/useAuth";
+
 import conexionAxios from "../config/axios";
 import Alerta from "../components/alerta";
 import {ValidatorForm,TextValidator} from "react-material-ui-form-validator"
-
+import useAuth from "../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,30 +56,52 @@ export default function SignInSide() {
     const [messagePassword,setMessagePassword] = useState('');
     const [errorEmail, setErrorEmail] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
-    
-    const {setAuth, } = useAuth();
-      
-    
+    const [alerta, setAlerta] = useState({});
+    const {auth, setAuth ,cargando} = useAuth();
+ 
   
+   
+  
+
+   const navigate =useNavigate()
+
+   
+   
     const handleSubmit = async e => {
       e.preventDefault();
-  
+     
       try { 
           const { data } = await  conexionAxios.post('/login', {email, password})
-          // setAlerta({})
+          setAlerta({})
+          
           localStorage.setItem('token', data.token)
+          
           setAuth(data)
+          console.log(data)
+          if(data.usuario.rol===1){
+            navigate('/Administrador')
+          }
+          else
+          if(data.usuario.rol===2){
+            navigate('/Estudiante')
+          }
+          else
+          if(data.usuario.rol===3){
+            navigate('/Jurado')
+          }else{
+            navigate('/')
+          }
+          
+          
          
       } catch (error) {
-          // setAlerta({
-          //     msg: error.response.data.msg,
-          //     error: true
-          // })
+          console.log("error")
       }
+ 
   
   }
   
-    const [alerta, setAlerta] = useState({});
+    
     const { msg } = alerta;
 
   return (
@@ -95,7 +118,7 @@ export default function SignInSide() {
             INICIAR SESION
           </Typography>
           {msg && <Alerta alerta={alerta } />}
-          <ValidatorForm className={classes.form} noValidate onSubmit={handleSubmit}>
+          <ValidatorForm className={classes.form}  onSubmit={handleSubmit}>
             <TextValidator
               variant="outlined"
               margin="normal"
@@ -106,10 +129,10 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
-              validators={['required']}
-              errorMessages={['Campo Obligatorio']}
+              // validators={['required']}
+              // errorMessages={['Campo Obligatorio']}
               value={email}
-             onChange={ (e) => setEmail(e.target.value)
+              onChange={ (e) => setEmail(e.target.value)
              
               // if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9_.+-]+$/.test(email)){
               //   setErrorEmail(true);
@@ -138,19 +161,21 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
-              validators={['required']}
-              errorMessages={['Campo Obligatorio']}
+              // validators={['required']}
+              // errorMessages={['Campo Obligatorio']}
               value={password}
-              onChange={ e => {setPassword(e.target.value);
-                if(password.length<7){
-                  setErrorPassword(true);
-                  setMessagePassword("La contraseña debe tener minimo 8 digitos")
-                }else{
-                  setErrorPassword(false);
-                  setMessagePassword("")
-                }
+              onChange={ e => setPassword(e.target.value)
                 
-              }
+                // ;
+                // if(password.length<7){
+                //   setErrorPassword(true);
+                //   setMessagePassword("La contraseña debe tener minimo 8 digitos")
+                // }else{
+                //   setErrorPassword(false);
+                //   setMessagePassword("")
+                // }
+                
+              
             }
               error={errorPassword}
               helperText={messagePassword}
@@ -165,10 +190,7 @@ export default function SignInSide() {
             >
               Iniciar Sesion
             </Button>
-            <Grid container>
-             
-              
-            </Grid>
+            
           </ValidatorForm>
           <Grid item>
             <Button>

@@ -28,6 +28,7 @@ export default function CircularUnderLoad() {
   return (
     <Container maxWidth="xs">
     <div className="div">
+     <img src="/public/logo_sistemas.png" />
     <span className="loader"></span>
     </div>
     </Container>

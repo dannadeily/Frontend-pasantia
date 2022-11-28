@@ -1,20 +1,23 @@
-import { Outlet, Navigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import AppbarJurado from "../components/AppbarJurado"
+import { Outlet, Navigate } from 'react-router-dom'
+import AppbarJurado from '../components/AppbarJurado';
+import useAuth from '../hooks/useAuth'
 import Cargando from "../pages/Cargando"
 
-const RutaProtegida = () => {
-  const { auth ,cargando} = useAuth();
-  if(cargando)return <Cargando/>
-  
-  return <>
-  {auth.roles_idrol===3 ? <AppbarJurado/> 
-    
-    
-    
-    
-    : <Navigate to="/" />}
-    </>;
-};
+const RutaProtegidaJurado = () => {
 
-export default RutaProtegida;
+    const { auth, cargando } = useAuth();
+
+    if(cargando) return <Cargando/>
+
+    console.log(auth)
+    return (
+        <>
+              {auth.usuario.idusuario &&  auth.usuario.rol===3 ? 
+            (
+                <AppbarJurado></AppbarJurado>
+            ) :<Navigate to="/" />}
+        </>
+    )
+}
+
+export default RutaProtegidaJurado
