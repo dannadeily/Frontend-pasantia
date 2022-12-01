@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import conexionAxios from "../../config/axios";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +38,30 @@ const useStyles = makeStyles((theme) => ({
 export default function RegistrarJurado() {
   const classes = useStyles();
 
+  const [jurado, setJurado] = useState({
+    nombres: "",
+    apellidos: "",
+    email: "",
+    password: "",
+  });
+
+  const actualizarState = (e) => {
+    // Almacenar lo que el usuario escribe en el state
+    setJurado({
+      // obtener una copia del state actual
+      ...jurado,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const agregarJurado = (e) => {
+    e.preventDefault();
+
+    conexionAxios.post("/jurado", jurado).then((res) => {
+
+    });
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -44,18 +69,19 @@ export default function RegistrarJurado() {
         <Typography component="h1" variant="h5">
           Registrar Jurado
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={agregarJurado} >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstNameNo"
+                name="nombres"
                 variant="outlined"
                 required
                 fullWidth
                 id="firstName"
                 label="Nombre"
                 autoFocus
+                onChange={actualizarState}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -65,8 +91,9 @@ export default function RegistrarJurado() {
                 fullWidth
                 id="lastName"
                 label="Apellido"
-                name="lastName"
+                name="apellidos"
                 autoComplete="lname"
+                onChange={actualizarState}
               />
             </Grid>
             <Grid item xs={12}>
@@ -78,6 +105,7 @@ export default function RegistrarJurado() {
                 label="Email"
                 name="email"
                 autoComplete="email"
+                onChange={actualizarState}
               />
             </Grid>
             <Grid item xs={12}>
@@ -90,6 +118,7 @@ export default function RegistrarJurado() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={actualizarState}
               />
             </Grid>
           </Grid>
