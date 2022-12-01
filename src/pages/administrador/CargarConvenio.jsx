@@ -156,6 +156,7 @@ const columns = [
     options: {
       filter: true,
       sort: true,
+      display:false,
     },
   },
   {
@@ -202,6 +203,8 @@ const row = [
   ))
 
 ];
+
+
 
   return (
     <div className="App">
