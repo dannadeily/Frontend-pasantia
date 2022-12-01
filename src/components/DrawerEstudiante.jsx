@@ -7,7 +7,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
@@ -30,7 +30,8 @@ import Box from "@material-ui/core/Box";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-
+import useAuth from "../hooks/useAuth";
+import Button from "@material-ui/core/Button";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -162,6 +163,15 @@ const useStyles = makeStyles((theme) => ({
 export default function DrawerEstudiante() {
   const classes = useStyles();
   const theme = useTheme();
+
+  //cerrar Sesion
+  const { cerrarSesionAuth } = useAuth();
+  const handleCerrarSesion = () => {
+    cerrarSesionAuth();
+    localStorage.removeItem("token");
+  };
+
+  //Abrir Drawer
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -172,84 +182,17 @@ export default function DrawerEstudiante() {
     setOpen(false);
   };
 
+  //Abrir menu ---------------
+
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
+  const handleClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
   };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/Estudiante/DatosPersonales">Perfil</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/Estudiante/CambiarPasswordEst">Cambiar Contraseña</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/">Cerrar sesion</Link>
-      </MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notificaciones</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Perfil</p>
-      </MenuItem>
-    </Menu>
-  );
 
   const [expanded, setExpanded] = React.useState(false);
 
@@ -280,38 +223,42 @@ export default function DrawerEstudiante() {
           </Typography>
 
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
+          <div>
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+          </div>
+          <div>
             <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
+              aria-controls="simple-menu"
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
               color="inherit"
+              onClick={handleClick}
             >
               <AccountCircle />
             </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
             >
-              <MoreIcon />
-            </IconButton>
+              <Link to="/Estudiante/DatosPersonales">
+                <MenuItem onClick={handleClose}>
+                  <Button>Perfil</Button>
+                </MenuItem>
+              </Link>
+
+              <MenuItem onClick={handleClose}>
+                <Button onClick={handleCerrarSesion}>Cerrar Sesion</Button>
+              </MenuItem>
+            </Menu>
           </div>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
 
       <Drawer
         className={classes.drawer}
@@ -335,18 +282,17 @@ export default function DrawerEstudiante() {
 
         <List>
           {[
-            <Link to="/Estudiante">Estado de la pasantia</Link>,
-
-            <Link to="/Estudiante/DocumentoCargado">Cargar documentos</Link>,
-            <Link to="/Estudiante/AvanceCargado">Cargar avances</Link>,
-            <Link to="/Estudiante/DocumentoFinalCargado">
-              Cargar Documentos finales
-            </Link>,
-            <Link to="/Estudiante/Consulta">Consultas</Link>,
+            ["/Estudiante","Estado de la pasantia"],
+            ["/Estudiante/DocumentoCargado","Cargar documentos"],
+            ["/Estudiante/AvanceCargado","Cargar avances"],
+            ["/Estudiante/DocumentoFinalCargado","Cargar Documentos finales"],
+            ["/Estudiante/Consulta","Consultas"]
           ].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
+          <Link to={text[0]}>
+            <ListItem button>
+              <ListItemText primary={text[1]} />
             </ListItem>
+          </Link>
           ))}
         </List>
       </Drawer>

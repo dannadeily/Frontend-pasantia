@@ -23,6 +23,9 @@ function EstudianteActivo() {
   const columns = [
     {
       name: "Nombre del estudiante",
+      options:{
+        display:false,
+      }
 
     },
     {

@@ -21,10 +21,11 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import { Alert, AlertTitle } from "@material-ui/lab";
-import { data } from "autoprefixer";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import Alerta from "../components/alerta";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -64,6 +65,7 @@ export default function RegistrarEstudiante() {
     listaTiposDocumentos(tiposDocumentosConsulta.data.tiposDocumentos);
   };
 
+
   useEffect(() => {
     consultarTiposDocumentos();
   }, []);
@@ -84,7 +86,23 @@ export default function RegistrarEstudiante() {
   //--------------------Alerta--------------------------
 
   const [alerta, setAlerta] = useState({});
-  const { msg } = alerta;
+
+  
+    //ALERTA------------------------------------
+    const [open, setOpen] = React.useState(false);
+
+    const handleClick = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = (event, reason) => {
+      if (reason === "clickaway") {
+        return;
+      }
+  
+      setOpen(false);
+    };
+
   //-----------------------------------------------
   // leer los datos del formulario
   const actualizarState = (e) => {
@@ -98,11 +116,41 @@ export default function RegistrarEstudiante() {
 
   const agregarEstudiante = (e) => {
     e.preventDefault();
+    
+    if([estudiante].includes('')) {
+      setAlerta({
+          msg:  <Alert severity="sucess" onClose={handleClose} >Todos los campos son obligatorios</Alert>,
+          error: true
+      })
+      return
+   }
 
-    conexionAxios.post("/user", estudiante).then((res) => {
+     conexionAxios.post("/user", estudiante).then((res) => {
+      console.log(res)
 
+      if(res.data.status===201){
+        setAlerta(
+          {
+          
+            msg: <Alert severity="sucess" onClose={handleClose} >{res.data.message}</Alert>,
+            error: true
+          
+        });
+      } else 
+        setAlerta(
+          {
+          
+            msg: <Alert severity="error" onClose={handleClose} >{res.data.message}</Alert>,
+            error: true
+          
+        });
+      
     });
+
+
+    
   };
+  const { msg } = alerta;
 
   const classes = useStyles();
 
@@ -121,10 +169,13 @@ export default function RegistrarEstudiante() {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <div  >{msg && <Alerta alerta={alerta} />}</div>
+          </Snackbar>
         <Typography component="h1" variant="h5" align="center">
           REGISTRARSE COMO ESTUDIANTE
         </Typography>
-        {msg && <Alerta alerta={alerta} />}
+        
         <CssBaseline></CssBaseline>
         
         <form className={classes.form} noValidate onSubmit={agregarEstudiante}>
@@ -135,6 +186,7 @@ export default function RegistrarEstudiante() {
                 <Input
                   name="nombres"
                   id="nombre"
+                  required
                   type="TextField"
                   onChange={actualizarState}
                 ></Input>
@@ -166,8 +218,8 @@ export default function RegistrarEstudiante() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
-                <InputLabel>Tipo de documento</InputLabel>
-                <Select name="idTipoDocumento" onChange={actualizarState}>
+                <InputLabel htmlFor="idTipoDocumento">Tipo de documento</InputLabel>
+                <Select  id="idTipoDocumento"  onChange={actualizarState}>
                   {tiposDocumentos.map((tipoDocumento) => {
                     return (
                       <MenuItem value={tipoDocumento.idtipo_documento}>
@@ -178,51 +230,18 @@ export default function RegistrarEstudiante() {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl>
-                <InputLabel htmlFor="expedicion">
-                  Lugar de expedicion
-                </InputLabel>
-                <Input
-                  id="expedicion"
-                  type="TextField"
-                  aria-describedby="expedicion-helper"
-                  onChange={actualizarState}
-                ></Input>
-                <FormHelperText id="expedicion-helper">
-                  de la cedula
-                </FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              {/** <FormControl>
-                    <InputLabel >Fecha de nacimiento</InputLabel>
-                    <Input id="date" label="Birthday" type="date"></Input>
-                </FormControl>
-              */}
-
-              <TextField
-                id="date"
-                label="Fecha nacimiento"
-                type="date"
-                onChange={actualizarState}
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
+            
+           
+            {/* <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="sexo">Sexo</InputLabel>
                 <Select native id="sexo" onChange={actualizarState}>
-                  <option aria-label="None" value="" />
+                  
                   <option value={10}>Femenino</option>
                   <option value={20}>Masculino</option>
                 </Select>
               </FormControl>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} sm={6}>
               <FormControl>
@@ -304,6 +323,7 @@ export default function RegistrarEstudiante() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleClick}
           >
             Registrarse
           </Button>

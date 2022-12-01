@@ -5,7 +5,12 @@ import { makeStyles } from "@material-ui/core/styles";
 // import Button from '@material-ui/core/Button';
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import {
   Table,
   TableContainer,
@@ -103,8 +108,10 @@ function CargarConvenio() {
 
   const bodyEditar = (
     <div className={styles.modal}>
-        <h3>Añador convenio</h3>
+        <DialogTitle id="form-dialog-title">Cargar convenio</DialogTitle>
         <div className={styles.root}>
+        <DialogContent>
+          
           <input
             name="convenio"
             accept=".pdf"
@@ -116,17 +123,20 @@ function CargarConvenio() {
           />
           <label htmlFor="contained-button-file">
             <Button variant="contained" color="primary" component="span">
-              Upload
+            <CloudUploadIcon/>   Cargar Documento
             </Button>
           </label>
+          </DialogContent>
         </div>
         <br />
         <br />
         <div align="right">
+        <DialogActions>
           <Button color="primary"  onClick={() => peticionPut()}>
-            Editar
+            Subir
           </Button>
           <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
+          </DialogActions>
         </div>
 
     </div>
