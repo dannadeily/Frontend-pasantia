@@ -6,12 +6,12 @@ import MUIDataTable from "mui-datatables";
 // import Button from '@material-ui/core/Button';
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import {
   Table,
   TableContainer,
@@ -53,8 +53,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 function CargarConvenio() {
   const styles = useStyles();
   const [data, setData] = useState([]);
@@ -63,7 +61,7 @@ function CargarConvenio() {
   const [empresaSeleccionada, setEmpresaSeleccionada] = useState({
     idempresa: "",
   });
-  const [archivo, guardarArchivo] = useState('');
+  const [archivo, guardarArchivo] = useState("");
 
   const peticionGet = async () => {
     await conexionAxios.get("/empresasinactivas").then((response) => {
@@ -73,18 +71,14 @@ function CargarConvenio() {
 
   const peticionPut = async () => {
     const formData = new FormData();
-    formData.append('convenio', archivo);
-    formData.append('idempresa', empresaSeleccionada.idempresa)
+    formData.append("convenio", archivo);
+    formData.append("idempresa", empresaSeleccionada.idempresa);
     await conexionAxios
-      .put(
-        "cargarconvenio/" + empresaSeleccionada.idempresa,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
+      .put("cargarconvenio/" + empresaSeleccionada.idempresa, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         var dataNueva = data;
         setData(dataNueva);
@@ -105,16 +99,15 @@ function CargarConvenio() {
     await peticionGet();
   }, []);
 
-  const leerArchivo = e => {
-    guardarArchivo( e.target.files[0] );
-}
+  const leerArchivo = (e) => {
+    guardarArchivo(e.target.files[0]);
+  };
 
   const bodyEditar = (
     <div className={styles.modal}>
-        <DialogTitle id="form-dialog-title">Cargar convenio</DialogTitle>
-        <div className={styles.root}>
+      <DialogTitle id="form-dialog-title">Cargar convenio</DialogTitle>
+      <div className={styles.root}>
         <DialogContent>
-          
           <input
             name="convenio"
             accept=".pdf"
@@ -126,91 +119,71 @@ function CargarConvenio() {
           />
           <label htmlFor="contained-button-file">
             <Button variant="contained" color="primary" component="span">
-            <CloudUploadIcon/>   Cargar Documento
+              <CloudUploadIcon /> Cargar Documento
             </Button>
           </label>
-          </DialogContent>
-        </div>
-        <br />
-        <br />
-        <div align="right">
+        </DialogContent>
+      </div>
+      <br />
+      <br />
+      <div align="right">
         <DialogActions>
-          <Button color="primary"  onClick={() => peticionPut()}>
+          <Button color="primary" onClick={() => peticionPut()}>
             Subir
           </Button>
           <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
-          </DialogActions>
-        </div>
-
+        </DialogActions>
+      </div>
     </div>
   );
 
- 
-
-
-  
-const columns = [
-  {
-    name: "idEmpresa",
-    label: "IdEmpresa",
-    options: {
-      filter: true,
-      sort: true,
-      display:false,
+  const columns = [
+    {
+      name: "idEmpresa",
+      label: "IdEmpresa",
+      options: {
+        filter: true,
+        sort: true,
+        display: false,
+      },
     },
-  },
-  {
-    name: "nombre",
-    label: "Nombre",
-    options: {
-      filter: true,
-      sort: true,
+    {
+      name: "nombre",
+      label: "Nombre",
+      options: {
+        filter: true,
+        sort: true,
+      },
     },
-  },
-  {
-    name: "empresa",
-    label: "Empresa",
-    options: {
-      filter: true,
-      sort: true,
+    {
+      name: "empresa",
+      label: "Empresa",
+      options: {
+        filter: true,
+        sort: true,
+      },
     },
-  },
 
-  {
-    name: "Acciones",
-   
-  },
-];
+    {
+      name: "Acciones",
+    },
+  ];
 
-const row = [
-  
-  
-  data.map((empresa) => (
-    <TableRow key={empresa.idempresa} >
-      
-      <TableCell>{empresa.nombre}</TableCell>
-      <TableCell>{empresa.razon_social}</TableCell>
-      <TableCell>
-        <Edit
-          className={styles.iconos}
-          onClick={() => seleccionarEmpresa(empresa, "Editar")}
-        />
-        &nbsp;&nbsp;&nbsp;
-      </TableCell>
-    </TableRow>
-
-    
-  ))
-
-];
+  const row=[];
+    data.map((empresa) => (
+       row.push( [empresa.idempresa,empresa.nombre,empresa.razon_social,<Edit
+        className={styles.iconos}
+        onClick={() => seleccionarEmpresa(empresa, "Editar")}
+      />
+      ]
+)))
 
 
+  console.log(row);
 
   return (
     <div className="App">
-      
-
-      <MUIDataTable data={row}  columns={columns} />
+      <MUIDataTable data={row} columns={columns} />
 
       <Modal open={modalEditar} onClose={abrirCerrarModalEditar}>
         {bodyEditar}
@@ -220,7 +193,6 @@ const row = [
 }
 
 export default CargarConvenio;
-
 
 // import conexionAxios from "../../config/axios";
 // import React, { useEffect, useState } from "react";
@@ -335,7 +307,7 @@ export default CargarConvenio;
 //         <DialogTitle id="form-dialog-title">Cargar convenio</DialogTitle>
 //         <div className={styles.root}>
 //         <DialogContent>
-          
+
 //           <input
 //             name="convenio"
 //             accept=".pdf"
@@ -407,4 +379,3 @@ export default CargarConvenio;
 // }
 
 // export default CargarConvenio;
-
