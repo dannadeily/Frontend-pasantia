@@ -182,10 +182,9 @@ const columns = [
   },
 ];
 
-const row = [
-  
-  
-  data.map((empresa) => (
+
+const row = [data.map((empresa) => (
+
     <TableRow key={empresa.idempresa} >
       
       <TableCell>{empresa.nombre}</TableCell>
@@ -199,13 +198,10 @@ const row = [
       </TableCell>
     </TableRow>
 
-    
-  ))
+))
+]
 
-];
-
-
-
+console.log(data)
   return (
     <div className="App">
       
