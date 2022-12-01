@@ -179,8 +179,6 @@ function CargarConvenio() {
 )))
 
 
-  console.log(row);
-
   return (
     <div className="App">
       <MUIDataTable data={row} columns={columns} />
