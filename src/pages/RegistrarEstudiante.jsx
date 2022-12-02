@@ -126,7 +126,7 @@ export default function RegistrarEstudiante() {
    }
 
      conexionAxios.post("/user", estudiante).then((res) => {
-      console.log(res)
+      
 
       if(res.data.status===201){
         setAlerta(

@@ -90,7 +90,7 @@ export default function HeaderInicio() {
           </Link>
 
           <Typography className={classes.title} variant="h6" noWrap>
-            Pasantias Ing sistemas
+            PASANTIAS INGENIERIA DE SISTEMAS
           </Typography>
 
           
@@ -102,6 +102,8 @@ export default function HeaderInicio() {
                 aria-controls="simple-menu"
                 aria-haspopup="true"
                 onClick={handleClick}
+                variant="contained"
+                color="primary"
               >
                 Registrarse
               </Button>
@@ -114,6 +116,7 @@ export default function HeaderInicio() {
               >
                 <MenuItem onClick={handleClose}>
                   <Link to="/RegistrarEstudiante">
+                    
                     registrarse como estudiante
                   </Link>
                 </MenuItem>

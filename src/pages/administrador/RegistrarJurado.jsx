@@ -14,6 +14,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import conexionAxios from "../../config/axios";
 
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import Alerta from "../../components/alerta";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -54,13 +57,47 @@ export default function RegistrarJurado() {
     });
   };
 
+  const [alerta, setAlerta] = useState({});
+  //ALERTA------------------------------------
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const agregarJurado = (e) => {
     e.preventDefault();
 
     conexionAxios.post("/jurado", jurado).then((res) => {
-
+        
+      if(res.data.status===201){
+        setAlerta(
+          {
+          
+            msg: <Alert severity="sucess" onClose={handleClose} >{res.data.message}</Alert>,
+            error: true
+          
+        });
+      } else 
+      setAlerta(
+        {
+        
+          msg: <Alert severity="error" onClose={handleClose} >{res.data.message}</Alert>,
+          error: true
+        
+      });
     });
   };
+
+  const { msg } = alerta;
 
   return (
     <Container component="main" maxWidth="xs">
@@ -69,6 +106,9 @@ export default function RegistrarJurado() {
         <Typography component="h1" variant="h5">
           Registrar Jurado
         </Typography>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <div  >{msg && <Alerta alerta={alerta} />}</div>
+          </Snackbar>
         <form className={classes.form} noValidate onSubmit={agregarJurado} >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -128,6 +168,7 @@ export default function RegistrarJurado() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleClick}
           >
             Registrar
           </Button>

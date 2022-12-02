@@ -1,54 +1,57 @@
-import React, { useState } from "react";
+import React, { Component ,useState} from "react";
+import { Link } from "react-router-dom";
+import conexionAxios from "../../config/axios";
+import { makeStyles } from "@material-ui/core/styles";
 import MUIDataTable from "mui-datatables";
-import EditIcon from "@mui/icons-material/Edit";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import {
+  Modal,
+  Button,
+} from "@material-ui/core";
+import { Edit } from "@material-ui/icons";
+import PublishIcon from '@material-ui/icons/Publish';
+
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    position: "absolute",
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
+  iconos: {
+    cursor: "pointer",
+  },
+  inputMaterial: {
+    width: "100%",
+  },
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: "none",
+  },
+}));
 
 function AsignarJurado() {
+
   const [responsive, setResponsive] = useState("standard");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);
   const [selectableRows, setSelectableRows] = useState("none");
 
-  const columns = [
-    {
-      name: "Nombre del estudiante",
-    },
-    {
-      name: "Jurado 1",
-      editComponent: (props) => (
-        <input
-          type="text"
-          value={props.value}
-          onChange={(e) => props.onChange(e.target.value)}
-        />
-      ),
-    },
-    {
-      name: "Jurado 2",
-    },
-    {
-      name: "Jurado 3",
-    },
-    {
-      name: "Editar",
-
-      options: {
-        customBodyRenderLite: (dataIndex, rowIndex) => {
-          return (
-            <button
-              onClick={() =>
-                window.alert(
-                  `Clicked "Edit" for row ${rowIndex} with dataIndex of ${dataIndex}`
-                )
-              }
-            >
-              <EditIcon />
-            </button>
-          );
-        },
-      },
-    },
-  ];
+  const [modalEditar, setModalEditar] = useState(false);
 
   const options = {
     filter: true,
@@ -61,56 +64,110 @@ function AsignarJurado() {
       transitionTime,
     },
     selectableRows: selectableRows,
+    
   };
 
-  const data = [
-    ["Gabby George", "Business Analyst", "Minneapolis", 30, 100000],
-    ["Business Analyst", "Business Consultant", "Dallas", 55, 200000],
-    ["Jaden Collins", "Attorney", "Santa Ana", 27, 500000],
-    ["Franky Rees", "Business Analyst", "St. Petersburg", 22, 50000],
-    ["Aaren Rose", "Business Consultant", "Toledo", 28, 75000],
-    ["Blake Duncan", "Business Management Analyst", "San Diego", 65, 94000],
-    ["Frankie Parry", "Agency Legal Counsel", "Jacksonville", 71, 210000],
-    ["Lane Wilson", "Commercial Specialist", "Omaha", 19, 65000],
-    ["Robin Duncan", "Business Analyst", "Los Angeles", 20, 77000],
-    ["Mel Brooks", "Business Consultant", "Oklahoma City", 37, 135000],
-    ["Harper White", "Attorney", "Pittsburgh", 52, 420000],
-    ["Kris Humphrey", "Agency Legal Counsel", "Laredo", 30, 150000],
-    ["Frankie Long", "Industrial Analyst", "Austin", 31, 170000],
-    ["Brynn Robbins", "Business Analyst", "Norfolk", 22, 90000],
-    ["Justice Mann", "Business Consultant", "Chicago", 24, 133000],
-    ["Addison Navarro", "Business Management Analyst", "New York", 50, 295000],
-    ["Jesse Welch", "Agency Legal Counsel", "Seattle", 28, 200000],
-    ["Eli Mejia", "Commercial Specialist", "Long Beach", 65, 400000],
-    ["Gene Leblanc", "Industrial Analyst", "Hartford", 34, 110000],
-    ["Danny Leon", "Computer Scientist", "Newark", 60, 220000],
-    ["Lane Lee", "Corporate Counselor", "Cincinnati", 52, 180000],
-    ["Jesse Hall", "Business Analyst", "Baltimore", 44, 99000],
-    ["Danni Hudson", "Agency Legal Counsel", "Tampa", 37, 90000],
-    ["Terry Macdonald", "Commercial Specialist", "Miami", 39, 140000],
-    ["Justice Mccarthy", "Attorney", "Tucson", 26, 330000],
-    ["Silver Carey", "Computer Scientist", "Memphis", 47, 250000],
-    ["Franky Miles", "Industrial Analyst", "Buffalo", 49, 190000],
-    ["Glen Nixon", "Corporate Counselor", "Arlington", 44, 80000],
-    [
-      "Gabby Strickland",
-      "Business Process Consultant",
-      "Scottsdale",
-      26,
-      45000,
-    ],
-    ["Mason Ray", "Computer Scientist", "San Francisco", 39, 142000],
+
+  const styles = useStyles();
+  
+  const abrirCerrarModalEditar = () => {
+    setModalEditar(!modalEditar);
+  };
+
+  
+
+  
+
+  const bodyEditar = (
+    <div className={styles.modal}>
+      <DialogTitle id="form-dialog-title">Cargar convenio</DialogTitle>
+      <div className={styles.root}>
+        <DialogContent>
+          <input
+            name="convenio"
+            accept=".pdf"
+            className={styles.input}
+            id="contained-button-file"
+            multiple
+            type="file"
+            // onChange={leerArchivo}
+          />
+          <label htmlFor="contained-button-file">
+            <Button variant="contained" color="primary" component="span">
+              <CloudUploadIcon /> Cargar Documento
+            </Button>
+          </label>
+        </DialogContent>
+      </div>
+      <br />
+      <br />
+      <div align="right">
+        <DialogActions>
+          <Button color="primary" >
+            Subir
+          </Button>
+          <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
+        </DialogActions>
+      </div>
+    </div>
+  );
+
+  const columns = [
+    {
+      name: "nombreEstudiante",
+      label: "Nombre Estudiante",
+      options: {
+        filter: false,
+        sort: true,
+        
+        
+      },
+    },
+    {
+      name: "jurado1",
+      label: "Jurado 1",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "jurado2",
+      label: "Jurado 2",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "jurado3",
+      label: "Jurado 3",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+
   ];
 
+  const row=[];
+//     data.map((empresa) => (
+//        row.push( [empresa.idempresa,empresa.nombre,empresa.razon_social,<PublishIcon
+//         className={styles.iconos}
+//         onClick={() => seleccionarEmpresa(empresa, "Editar")}
+//       />
+//       ]
+// )))
+
+
   return (
-    <>
-      <MUIDataTable
-        title={"Asignar jurados"}
-        data={data}
-        columns={columns}
-        options={options}
-      />
-    </>
+    <div className="App">
+      <MUIDataTable title={"ASIGNAR JURADO "} data={row} columns={columns} options={options} />
+
+      <Modal open={modalEditar} onClose={abrirCerrarModalEditar}>
+        {bodyEditar}
+      </Modal>
+    </div>
   );
 }
 
