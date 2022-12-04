@@ -25,7 +25,7 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
-import useAuth from '../hooks/useAuth'
+import useAuth from "../hooks/useAuth";
 import Button from "@material-ui/core/Button";
 
 const drawerWidth = 240;
@@ -163,12 +163,12 @@ export default function DrawerAdministrador() {
   const classes = useStyles();
   const theme = useTheme();
 
-  //cerrar Sesion 
-  const { cerrarSesionAuth } = useAuth()
+  //cerrar Sesion
+  const { cerrarSesionAuth } = useAuth();
   const handleCerrarSesion = () => {
-    cerrarSesionAuth()
-    localStorage.removeItem('token')
-}
+    cerrarSesionAuth();
+    localStorage.removeItem("token");
+  };
   //Abrir Drawer
   const [open, setOpen] = React.useState(false);
 
@@ -183,7 +183,7 @@ export default function DrawerAdministrador() {
   //Abrir menu ---------------
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -192,7 +192,6 @@ export default function DrawerAdministrador() {
     setAnchorEl(null);
   };
 
-  
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -223,38 +222,45 @@ export default function DrawerAdministrador() {
 
           <div className={classes.grow} />
           <div>
-          <IconButton aria-label="show 17 new notifications" color="inherit">
+            <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-             
-            </div>
+          </div>
           <div>
-              <IconButton
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                color="inherit"
-                onClick={handleClick}
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
+            <IconButton
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              color="inherit"
+              onClick={handleClick}
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <Link to="/Administrador/PerfilAdmin">
                 <MenuItem onClick={handleClose}>
-                 Perfil
+                  <Button>Perfil</Button>
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <Button onClick={handleCerrarSesion}>Cerrar Sesion</Button>
-                </MenuItem>
-              </Menu>
-            </div>
+              </Link>
 
+              <Link to="/Administrador/CambiarContraseñaAdmin">
+                <MenuItem onClick={handleClose}>
+                  <Button>Cambiar contraseña</Button>
+                </MenuItem>
+              </Link>
+
+              <MenuItem onClick={handleClose}>
+                <Button onClick={handleCerrarSesion}>Cerrar Sesion</Button>
+              </MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
 
@@ -292,18 +298,18 @@ export default function DrawerAdministrador() {
           <AccordionDetails>
             <List>
               {[
-                ["/Administrador","Activar Estudiantes"],
-                ["/Administrador/AsignarEmpresa","Asignar Empresa"],
-                ["/Administrador/AsignarJurado","Asignar Jurado"],
-                ["/Administrador/EstudianteActivo","Estudiantes Activos"],
-                ["/Administrador/HistorialEstudiante","Historial"]
+                ["/Administrador", "Activar Estudiantes"],
+                ["/Administrador/AsignarEmpresa", "Asignar Empresa"],
+                ["/Administrador/AsignarJurado", "Asignar Jurado"],
+                ["/Administrador/EstudianteActivo", "Estudiantes Activos"],
+                ["/Administrador/HistorialEstudiante", "Historial"],
               ].map((text, index) => (
                 <Link to={text[0]}>
                   <ListItem button>
                     <ListItemText primary={text[1]} />
                   </ListItem>
                 </Link>
-                ))}
+              ))}
             </List>
           </AccordionDetails>
         </Accordion>
@@ -320,20 +326,18 @@ export default function DrawerAdministrador() {
             <Typography className={classes.heading}>Empresa</Typography>
           </AccordionSummary>
           <AccordionDetails>
-
-          <List>
+            <List>
               {[
-                ["/Administrador/CargarConvenio","Cargar Convenio"],
-                ["/Administrador/DocumentosEmpresa","documentos a visualizar"],
-                ["/Administrador/HistorialEmpresa","Historial"],
-               
+                ["/Administrador/CargarConvenio", "Cargar Convenio"],
+                ["/Administrador/DocumentosEmpresa", "documentos a visualizar"],
+                ["/Administrador/HistorialEmpresa", "Historial"],
               ].map((text, index) => (
                 <Link to={text[0]}>
                   <ListItem button>
                     <ListItemText primary={text[1]} />
                   </ListItem>
                 </Link>
-                ))}
+              ))}
             </List>
           </AccordionDetails>
         </Accordion>
@@ -351,20 +355,18 @@ export default function DrawerAdministrador() {
           </AccordionSummary>
           <AccordionDetails>
             <List>
-            {[
-                ["/Administrador/RegistrarJurado","Registrar Jurado"],
-                ["/Administrador/DocumentoEvaluado","Documentos evaluados"],
-                ["/Administrador/EstudianteEvaluado","Estudiantes evaluados"],
-                ["/Administrador/HistorialJurado","Historial de jurados"],
-               
+              {[
+                ["/Administrador/RegistrarJurado", "Registrar Jurado"],
+                ["/Administrador/DocumentoEvaluado", "Documentos evaluados"],
+                ["/Administrador/EstudianteEvaluado", "Estudiantes evaluados"],
+                ["/Administrador/HistorialJurado", "Historial de jurados"],
               ].map((text, index) => (
                 <Link to={text[0]}>
                   <ListItem button>
                     <ListItemText primary={text[1]} />
                   </ListItem>
                 </Link>
-                ))}
-
+              ))}
             </List>
           </AccordionDetails>
         </Accordion>
@@ -382,17 +384,16 @@ export default function DrawerAdministrador() {
           </AccordionSummary>
           <AccordionDetails>
             <List>
-            {[
-                ["/Administrador/Evaluar","Evaluar"],
-                ["/Administrador/HistorialCalificacion"," Historial"],
+              {[
+                ["/Administrador/Evaluar", "Evaluar"],
+                ["/Administrador/HistorialCalificacion", " Historial"],
               ].map((text, index) => (
                 <Link to={text[0]}>
                   <ListItem button>
                     <ListItemText primary={text[1]} />
                   </ListItem>
                 </Link>
-                ))}
-
+              ))}
             </List>
           </AccordionDetails>
         </Accordion>
@@ -409,21 +410,17 @@ export default function DrawerAdministrador() {
           </AccordionSummary>
           <AccordionDetails>
             <List>
-
-            {[
-                ["/Administrador/ReporteEstudiante","Estudiantes"],
-                ["/Administrador/ReporteEmpresa","Empresas"],
-                            
+              {[
+                ["/Administrador/ReporteEstudiante", "Estudiantes"],
+                ["/Administrador/ReporteEmpresa", "Empresas"],
               ].map((text, index) => (
                 <Link to={text[0]}>
                   <ListItem button>
                     <ListItemText primary={text[1]} />
                   </ListItem>
                 </Link>
-                ))}
-
-
-               </List>
+              ))}
+            </List>
           </AccordionDetails>
         </Accordion>
       </Drawer>

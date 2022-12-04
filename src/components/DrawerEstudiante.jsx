@@ -32,6 +32,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import useAuth from "../hooks/useAuth";
 import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -251,6 +252,11 @@ export default function DrawerEstudiante() {
                   <Button>Perfil</Button>
                 </MenuItem>
               </Link>
+              <Link to="/Estudiante/CambiarPasswordEst">
+                <MenuItem onClick={handleClose}>
+                  <Button>Cambiar contraseña</Button>
+                </MenuItem>
+              </Link>
 
               <MenuItem onClick={handleClose}>
                 <Button onClick={handleCerrarSesion}>Cerrar Sesion</Button>
@@ -279,20 +285,23 @@ export default function DrawerEstudiante() {
           </IconButton>
         </div>
         <Divider />
-
+        <br></br>
+        <div>
+         
+        </div>
         <List>
           {[
-            ["/Estudiante","Estado de la pasantia"],
-            ["/Estudiante/DocumentoCargado","Cargar documentos"],
-            ["/Estudiante/AvanceCargado","Cargar avances"],
-            ["/Estudiante/DocumentoFinalCargado","Cargar Documentos finales"],
-            ["/Estudiante/Consulta","Consultas"]
+            ["/Estudiante", "Estado de la pasantia"],
+            ["/Estudiante/DocumentoCargado", "Cargar documentos"],
+            ["/Estudiante/AvanceCargado", "Cargar avances"],
+            ["/Estudiante/DocumentoFinalCargado", "Cargar Documentos finales"],
+            ["/Estudiante/Consulta", "Consultas"],
           ].map((text, index) => (
-          <Link to={text[0]}>
-            <ListItem button>
-              <ListItemText primary={text[1]} />
-            </ListItem>
-          </Link>
+            <Link to={text[0]}>
+              <ListItem button>
+                <ListItemText primary={text[1]} />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>

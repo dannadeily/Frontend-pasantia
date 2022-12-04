@@ -141,9 +141,16 @@ export default function AppbarEmpresa() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
+                <Link to="/Empresa/PerfilEmpresa">
                 <MenuItem onClick={handleClose}>
-                 Perfil
+                  <Button>Perfil</Button>
                 </MenuItem>
+                </Link>
+                <Link to="/Empresa/CambiarPasswordEmpresa">
+                <MenuItem onClick={handleClose}>
+                  <Button>Cambiar contraseña</Button>
+                </MenuItem>
+                </Link>
                 <MenuItem onClick={handleClose}>
                   <Button onClick={handleCerrarSesion}>Cerrar Sesion</Button>
                 </MenuItem>

@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
 import { Outlet } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -67,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 export default function HeaderInicio() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -75,7 +76,6 @@ export default function HeaderInicio() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
 
   return (
     <div className={classes.grow}>
@@ -93,39 +93,53 @@ export default function HeaderInicio() {
             PASANTIAS INGENIERIA DE SISTEMAS
           </Typography>
 
-          
+          <div className={classes.grow} />
 
-            <div className={classes.grow} />
-
-            <div>
-              <Button
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                onClick={handleClick}
-                variant="contained"
-                color="primary"
-              >
-                Registrarse
-              </Button>
-              <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>
-                  <Link to="/RegistrarEstudiante">
+          <div>
+            <Grid container spacing={3}>
+              
+                
+                <Grid item xs={6}>
+                <Link to="/">
+                  <Button
                     
-                    registrarse como estudiante
+                    
+                  >
+                    Iniciar Sesion
+                  </Button>
                   </Link>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <Link to="/RegistrarEmpresa">registrarse como Empresa</Link>
-                </MenuItem>
-              </Menu>
-            </div>
-         
+                </Grid>
+              
+
+              <Grid item xs={6}>
+                <Button
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                  variant="contained"
+                  color="primary"
+                >
+                  Registrarse
+                </Button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>
+                    <Link to="/RegistrarEstudiante">
+                      registrarse como estudiante
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <Link to="/RegistrarEmpresa">registrarse como Empresa</Link>
+                  </MenuItem>
+                </Menu>
+              </Grid>
+            </Grid>
+          </div>
         </Toolbar>
       </AppBar>
       {/* {renderMenu} */}

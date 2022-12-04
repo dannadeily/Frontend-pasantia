@@ -44,17 +44,27 @@ export default function CustomizedTables() {
   return (
     <Container fixed>
       <TableContainer component={Paper}>
-        <Typography variant="h6">Estado de la pasantia</Typography>
+        <Typography variant="h6">Estado: </Typography>
         <br></br>
         <br></br>
         <Table className={classes.table} aria-label="customized table">
           <TableBody>
+          <TableRow>
+              <StyledTableCell>Estado del aspirante:</StyledTableCell>
+              <StyledTableCell>
+                Aspirante/Pasante
+              </StyledTableCell>
+            </TableRow>
             <TableRow>
               <StyledTableCell>Inicio de la Pasantia:</StyledTableCell>
               <StyledTableCell>
                 <CheckBoxIcon />
               </StyledTableCell>
             </TableRow>
+            <br></br>
+            <br></br>
+            <Typography>Documentos aprobados:</Typography>
+            <br></br>
             <TableRow>
               <StyledTableCell>Documentos Requeridos:</StyledTableCell>
               <StyledTableCell>

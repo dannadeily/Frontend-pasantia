@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -237,11 +236,6 @@ export default function RegistrarEmpresa() {
           >
             Registrarse
           </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link to="/">Iniciar Sesion</Link>
-            </Grid>
-          </Grid>
         </form>
       </Box>
     </Container>

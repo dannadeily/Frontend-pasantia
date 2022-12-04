@@ -155,6 +155,7 @@ export default function SignInSide() {
               required
               fullWidth
               id="email"
+              type="email"
               label="Email Address"
               name="email"
               autoComplete="email"
@@ -162,23 +163,7 @@ export default function SignInSide() {
               value={email}
               onChange={(e) => 
                 setEmail(e.target.value)
-                // ;
-
-                // if (
-                //   !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9_.+-]+$/.test(
-                //     email
-                //   )
-                // ) {
-                //   setErrorEmail(true);
-                //   setMessageEmail("Debe ser un correo valido");
-                // } else if (
-                //   /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9_.+-]+$/.test(
-                //     email
-                //   )
-                // ) {
-                //   setErrorEmail(false);
-                //   setMessageEmail("");
-                // }
+            
               }
               error={errorEmail}
               helperText={messageEmail}

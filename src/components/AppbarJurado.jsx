@@ -111,9 +111,15 @@ export default function AppbarJurado() {
             JURADO
           </Typography>
           <div className={classes.menu}>
-            <Button className={classes.button}>Default</Button>
-            <Button className={classes.button}>Default</Button>
-            <Button className={classes.button}>Default</Button>
+           <Link to="/Jurado">  <Button className={classes.button}>Estudiantes asignados</Button> </Link> 
+           <Link to="/Jurado/EvaluarDocumento">
+           <Button className={classes.button}>Evaluar documento</Button>
+           </Link>
+           <Link to="/Jurado/EvaluarPasante">
+           <Button className={classes.button}>Evaluar Pasante</Button>
+           </Link>
+           
+            
           </div>
 
           <div className={classes.grow} />
@@ -141,9 +147,17 @@ export default function AppbarJurado() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
+                <Link to="/Jurado/PerfilJurado">
                 <MenuItem onClick={handleClose}>
-                 Perfil
+                  <Button>Perfil</Button>
                 </MenuItem>
+                </Link>
+                <Link to="/Jurado/CambiarPasswordJurado">
+                <MenuItem onClick={handleClose}>
+                  <Button>Cambiar contraseña</Button>
+                </MenuItem>
+                </Link>
+               
                 <MenuItem onClick={handleClose}>
                   <Button onClick={handleCerrarSesion}>Cerrar Sesion</Button>
                 </MenuItem>
