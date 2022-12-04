@@ -17,9 +17,6 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 
-
-
-
 const useStyles = makeStyles((theme) => ({
   modal: {
     position: "absolute",
@@ -78,19 +75,6 @@ function HistorialEmpresa() {
   });
 
   const [empresas, setData] = useState([]);
-    const peticionGet = async () => {
-      await conexionAxios.get("/empresasactivas").then((response) => {
-        setData(response.data.empresa);
-      });
-    };
-  
-    useEffect(async () => {
-      await peticionGet();
-    }, []);
-
-    
-
-   const columns = [
   const peticionGet = async () => {
     await conexionAxios.get("/empresasactivas").then((response) => {
       setData(response.data.empresa);
@@ -137,6 +121,8 @@ function HistorialEmpresa() {
     {
       name: "razonSocial",
       label: "Razon Social",
+      name: "nombreEmpresa",
+      label: "Nombre de la empresa",
       options: {
         filter: true,
         sort: true,
