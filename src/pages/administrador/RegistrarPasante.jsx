@@ -111,6 +111,37 @@ export default function RegistrarPasante() {
           </Snackbar>
         <form className={classes.form} noValidate onSubmit={agregarJurado} >
           <Grid container spacing={2}>
+
+            <Grid item xs={12} >
+            <TextField
+                autoComplete="fname"
+                name="nombres"
+                variant="outlined"
+                required
+                type="text"
+                fullWidth
+                id="firstName"
+                label="Nombres"
+                autoFocus
+                onChange={actualizarState}
+              />
+            </Grid>
+
+            <Grid item xs={12} >
+            <TextField
+                autoComplete="fname"
+                name="apellidos"
+                variant="outlined"
+                required
+                type="text"
+                fullWidth
+                id="firstName"
+                label="Apellidos"
+                autoFocus
+                onChange={actualizarState}
+              />
+            </Grid>
+            
             <Grid item xs={12} >
               <TextField
                 autoComplete="fname"
