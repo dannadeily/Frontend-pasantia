@@ -22,6 +22,7 @@ import TableRow from "@material-ui/core/TableRow";
 
 
 
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     position: "absolute",
@@ -97,17 +98,6 @@ function HistorialEmpresa() {
 
     
 
-  const bodyInformacion = (
-    <div>
-
-      <Link to={"/Administrador/HistorialEmpresa/InformacionEmpresa" + empresaSeleccionada.idempresa} className="btn btn-primary">
-          Edit
-        </Link>
-        &nbsp;
-    </div>
-   
-  );
-
    const columns = [
     {
       name: "idempresa",
@@ -134,8 +124,6 @@ function HistorialEmpresa() {
     {
       name: "razonSocial",
       label: "Razon Social",
-      name: "nombreEmpresa",
-      label: "Nombre de la empresa",
       options: {
         filter: true,
         sort: true,

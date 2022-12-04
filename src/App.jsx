@@ -100,6 +100,8 @@ function App() {
               element={<RecuperarPassword></RecuperarPassword>}
             />
           </Route>
+
+          
           {/** rutas de modulo Administrador */}
           <Route path="/Administrador" element={<RutaProtegida />}>
             <Route
@@ -263,11 +265,11 @@ function App() {
               path="/Jurado/InformacionEstudiante"
               element={<InformacionEstudiante></InformacionEstudiante>}
             />
-             <Route
+            <Route
               path="/Jurado/EvaluarDocumento"
               element={<EvaluarDocumento></EvaluarDocumento>}
             />
-             <Route
+            <Route
               path="/Jurado/EvaluarPasante"
               element={<EvaluarPasante></EvaluarPasante>}
             />
@@ -279,7 +281,6 @@ function App() {
               path="/Jurado/CambiarPasswordJurado"
               element={<CambiarPasswordJurado></CambiarPasswordJurado>}
             />
-
           </Route>
 
           {/** Rutas del modulo empresa */}
@@ -289,7 +290,7 @@ function App() {
               path="/Empresa/PerfilEmpresa"
               element={<PerfilEmpresa></PerfilEmpresa>}
             />
-             <Route
+            <Route
               path="/Empresa/CambiarPasswordEmpresa"
               element={<CambiarPasswordEmpresa></CambiarPasswordEmpresa>}
             />

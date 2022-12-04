@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { alpha, makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -13,9 +13,6 @@ import { Outlet } from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import MenuIcon from "@material-ui/icons/Menu";
-import MoreIcon from "@material-ui/icons/MoreVert";
-import clsx from "clsx";
 import useAuth from '../hooks/useAuth'
 
 
