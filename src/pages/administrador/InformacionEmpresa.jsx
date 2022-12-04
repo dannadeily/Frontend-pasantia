@@ -49,7 +49,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Nombre de la empresa: </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">yghrdh </Typography>
+                  <Typography variant="p"> {empresa.nombre} </Typography>
                 </TableCell>
               </TableRow>
 
@@ -58,7 +58,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Nit:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">29/04/2000</Typography>
+                  <Typography variant="p">{empresa.nit}</Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -88,7 +88,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Razon social: </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">Duque Conde</Typography>
+                  <Typography variant="p"> {empresa.razon_social} </Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -96,7 +96,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Email:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">1010075720</Typography>
+                  <Typography variant="p"> {empresa.email} </Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -104,7 +104,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Telefono:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">Cedula de ciudadania</Typography>
+                  <Typography variant="p"> {empresa.telefono} </Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -112,7 +112,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Convenio:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p"> <Link to=""> <VisibilityIcon/> </Link> </Typography>
+                  <Typography variant="p"> <a target={"_blank"} href={`http://localhost:4010/`+ empresa.convenio }> <VisibilityIcon/> </a> </Typography>
                 </TableCell>
               </TableRow>
             </TableBody>
