@@ -7,8 +7,8 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,10 +22,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function DatosPersonales() {
   const classes = useStyles();
+  const {id}= useParams();
 
   const [empresa, setData] = useState([]);
   const peticionGet = async () => {
-    await conexionAxios.get("/empresasactivas").then((response) => {
+    await conexionAxios.get("/empresa/"+ id  ).then((response) => {
       setData(response.data.empresa);
     });
   };
