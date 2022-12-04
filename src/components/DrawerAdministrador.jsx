@@ -298,7 +298,7 @@ export default function DrawerAdministrador() {
           <AccordionDetails>
             <List>
               {[
-                ["/Administrador", "Activar Estudiantes"],
+                ["/Administrador", "Registrar pasante"],
                 ["/Administrador/AsignarEmpresa", "Asignar Empresa"],
                 ["/Administrador/AsignarJurado", "Asignar Jurado"],
                 ["/Administrador/EstudianteActivo", "Estudiantes Activos"],
