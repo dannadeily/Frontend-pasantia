@@ -11,7 +11,7 @@ import RecuperarPassword from "./pages/RecuperarPassword";
 
 //Administrador
 import DrawerAdminsitrador from "./components/DrawerAdministrador";
-import ActivarEstudiante from "./pages/administrador/ActivarEstudiante";
+import ActivarEstudiante from "./pages/administrador/RegistrarPasante";
 import EstudianteActivo from "./pages/administrador/EstudianteActivo";
 import AsignarEmpresa from "./pages/administrador/AsignarEmpresa";
 import ModalAsignarEmpresa from "./pages/administrador/ModalAsignarEmpresa";

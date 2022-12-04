@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { alpha, makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -22,7 +22,6 @@ import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import useAuth from "../hooks/useAuth";
 import Button from "@material-ui/core/Button";
-
 
 const drawerWidth = 240;
 
@@ -192,6 +191,10 @@ export default function DrawerEstudiante() {
     setExpanded(isExpanded ? panel : false);
   };
 
+  // habilitar menu
+
+  const [habilitarMenu, setHabilitarMenu] = useState(false);
+
   return (
     <div className={classes.root}>
       <AppBar
@@ -277,24 +280,27 @@ export default function DrawerEstudiante() {
         </div>
         <Divider />
         <br></br>
-        <div>
-         
-        </div>
-        <List>
-          {[
-            ["/Estudiante", "Estado de la pasantia"],
-            ["/Estudiante/DocumentoCargado", "Cargar documentos"],
-            ["/Estudiante/AvanceCargado", "Cargar avances"],
-            ["/Estudiante/DocumentoFinalCargado", "Cargar Documentos finales"],
-            ["/Estudiante/Consulta", "Consultas"],
-          ].map((text, index) => (
-            <Link to={text[0]}>
-              <ListItem button>
-                <ListItemText primary={text[1]} />
-              </ListItem>
-            </Link>
-          ))}
-        </List>
+
+        <Button disabled={true}>
+          <List>
+            {[
+              ["/Estudiante", "Estado de la pasantia"],
+              ["/Estudiante/DocumentoCargado", "Cargar documentos"],
+              ["/Estudiante/AvanceCargado", "Cargar avances"],
+              [
+                "/Estudiante/DocumentoFinalCargado",
+                "Cargar Documentos finales",
+              ],
+              ["/Estudiante/Consulta", "Consultas"],
+            ].map((text, index) => (
+              <Link to={text[0]}>
+                <ListItem button>
+                  <ListItemText primary={text[1]} />
+                </ListItem>
+              </Link>
+            ))}
+          </List>
+        </Button>
       </Drawer>
 
       <main
