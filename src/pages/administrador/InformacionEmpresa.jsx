@@ -1,6 +1,6 @@
-import React, { Component ,useState,useEffect} from "react";
+import React, { Component, useState ,useEffect } from "react";
 import conexionAxios from "../../config/axios";
-import { makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
@@ -23,9 +23,16 @@ const useStyles = makeStyles((theme) => ({
 export default function DatosPersonales() {
   const classes = useStyles();
 
+  const [empresa, setData] = useState([]);
+  const peticionGet = async () => {
+    await conexionAxios.get("/empresasactivas").then((response) => {
+      setData(response.data.empresa);
+    });
+  };
 
-
-
+  useEffect(async () => {
+    await peticionGet();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -43,7 +50,7 @@ export default function DatosPersonales() {
                   <Typography variant="p">yghrdh </Typography>
                 </TableCell>
               </TableRow>
-             
+
               <TableRow>
                 <TableCell>
                   <Typography variant="h6">Nit:</Typography>
@@ -74,7 +81,7 @@ export default function DatosPersonales() {
         <Grid item xs={12} sm={6}>
           <Table>
             <TableBody>
-            <TableRow>
+              <TableRow>
                 <TableCell>
                   <Typography variant="h6">Razon social: </Typography>
                 </TableCell>
@@ -106,12 +113,10 @@ export default function DatosPersonales() {
                   <Typography variant="p">Cucuta</Typography>
                 </TableCell>
               </TableRow>
-              
             </TableBody>
           </Table>
         </Grid>
       </Grid>
-
     </div>
   );
 }
