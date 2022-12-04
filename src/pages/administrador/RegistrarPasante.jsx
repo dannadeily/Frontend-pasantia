@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RegistrarEstudiante() {
+export default function RegistrarPasante() {
   const classes = useStyles();
 
   const [jurado, setJurado] = useState({
