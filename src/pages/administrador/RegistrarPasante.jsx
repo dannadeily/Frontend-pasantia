@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -46,16 +46,18 @@ const useStyles = makeStyles((theme) => ({
 export default function RegistrarPasante() {
   const classes = useStyles();
 
-  const [jurado, setJurado] = useState({
+  const [pasante, setPasante] = useState({
     nombres: "",
     apellidos: "",
+    codigo: "",
     email: "",
     password: "",
+    empresa: "",
   });
 
   const actualizarState = (e) => {
     // Almacenar lo que el usuario escribe en el state
-    setJurado({
+    setPasante({
       // obtener una copia del state actual
       ...jurado,
       [e.target.name]: e.target.value,
@@ -81,7 +83,7 @@ export default function RegistrarPasante() {
   const agregarJurado = (e) => {
     e.preventDefault();
 
-    conexionAxios.post("/jurado", jurado).then((res) => {
+    conexionAxios.post("/jurado", pasante).then((res) => {
       if (res.data.status === 201) {
         setAlerta({
           msg: (
@@ -102,6 +104,17 @@ export default function RegistrarPasante() {
         });
     });
   };
+
+  const [empresas, setData] = useState([]);
+  const peticionGet = async () => {
+    await conexionAxios.get("/empresasactivas").then((response) => {
+      setData(response.data.empresa);
+    });
+  };
+
+  useEffect(async () => {
+    await peticionGet();
+  }, []);
 
   const { msg } = alerta;
 
@@ -175,15 +188,23 @@ export default function RegistrarPasante() {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControl variant="outlined" fullWidth >
+              <FormControl variant="outlined" fullWidth>
                 <InputLabel htmlFor="outlined-age-native-simple">
-                 Asignar empresa
+                  Asignar empresa
                 </InputLabel>
-                <Select native label="empresa">
-                  <option aria-label="None" value="" />
-                  <option value={10}>Ten</option>
-                  <option value={20}>Twenty</option>
-                  <option value={30}>Thirty</option>
+                <Select
+                  onChange={actualizarState}
+                  name="empresa"
+                  native
+                  label="empresa"
+                >
+                  {empresas.map((empresa) => {
+                    return (
+                      <option value={empresa.idempresa}>
+                        {empresa.nombre}
+                      </option>
+                    );
+                  })}
                 </Select>
               </FormControl>
             </Grid>
