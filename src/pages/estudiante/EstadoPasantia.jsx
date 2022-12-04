@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import Button from "@material-ui/core/Button";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -80,6 +81,12 @@ export default function CustomizedTables() {
           </TableBody>
         </Table>
       </TableContainer>
+      <br></br>
+      <br></br>
+
+      <Button variant="contained" color="primary">
+        Solicitar Pasantia
+      </Button>
     </Container>
   );
 }

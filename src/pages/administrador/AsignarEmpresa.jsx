@@ -81,7 +81,7 @@ function AsignarEmpresa() {
 
   const styles = useStyles();
   
-  const abrirCerrarModalEditar = () => {
+  const abrirCerrarModalAsignar = () => {
     setModalEditar(!modalEditar);
   };
 
@@ -89,9 +89,9 @@ function AsignarEmpresa() {
 
   
 
-  const bodyEditar = (
+  const bodyAsignarEmpresa = (
     <div className={styles.modal}>
-      <DialogTitle id="form-dialog-title">Cargar convenio</DialogTitle>
+      <DialogTitle id="form-dialog-title">Asignar empresa</DialogTitle>
       <div className={styles.root}>
         <DialogContent>
           <input
@@ -117,7 +117,7 @@ function AsignarEmpresa() {
           <Button color="primary" >
             Subir
           </Button>
-          <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
+          <Button onClick={() => abrirCerrarModalAsignar()}>Cancelar</Button>
         </DialogActions>
       </div>
     </div>
@@ -156,8 +156,8 @@ function AsignarEmpresa() {
     <div className="App">
       <MUIDataTable title={"ASIGNAR EMPRESA "} data={row} columns={columns} options={options} />
 
-      <Modal open={modalEditar} onClose={abrirCerrarModalEditar}>
-        {bodyEditar}
+      <Modal open={modalEditar} onClose={abrirCerrarModalAsignar}>
+        {bodyAsignarEmpresa}
       </Modal>
     </div>
   );

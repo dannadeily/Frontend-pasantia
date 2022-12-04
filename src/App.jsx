@@ -37,6 +37,7 @@ import EvaluarEstudiante from "./pages/administrador/EvaluarEstudiante";
 import Puntuacion from "./pages/administrador/Puntuacion";
 import CambiarPasswordAdmin from "./pages/administrador/CambiarPasswordAdmin";
 import PerfilAdmin from "./pages/administrador/PerfilAdmin";
+import CrearDocumento from "./pages/administrador/CrearDocumento"
 //Estudiante
 import DrawerEstudiante from "./components/DrawerEstudiante";
 import EstadoPasantia from "./pages/estudiante/EstadoPasantia";
@@ -101,7 +102,7 @@ function App() {
             />
           </Route>
 
-          
+
           {/** rutas de modulo Administrador */}
           <Route path="/Administrador" element={<RutaProtegida />}>
             <Route
@@ -209,6 +210,10 @@ function App() {
             <Route
               path="/Administrador/PerfilAdmin"
               element={<PerfilAdmin></PerfilAdmin>}
+            ></Route>
+             <Route
+              path="/Administrador/CrearDocumento"
+              element={<CrearDocumento></CrearDocumento>}
             ></Route>
           </Route>
 

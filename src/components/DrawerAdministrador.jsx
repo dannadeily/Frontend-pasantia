@@ -423,6 +423,21 @@ export default function DrawerAdministrador() {
             </List>
           </AccordionDetails>
         </Accordion>
+
+        <List>
+              {[
+               
+                ["/Administrador/CrearDocumento", "Crear documento"],
+              ].map((text, index) => (
+                <Link to={text[0]}>
+                  <ListItem button>
+                    <ListItemText primary={text[1]} />
+                  </ListItem>
+                </Link>
+              ))}
+            </List>
+
+
       </Drawer>
 
       <main

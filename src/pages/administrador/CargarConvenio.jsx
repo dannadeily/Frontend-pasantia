@@ -129,20 +129,20 @@ function CargarConvenio() {
       <DialogTitle id="form-dialog-title">Cargar convenio</DialogTitle>
       <div className={styles.root}>
         <DialogContent>
-          <input
-            name="convenio"
-            accept=".pdf"
-            className={styles.input}
-            id="contained-button-file"
-            multiple
-            type="file"
-            onChange={leerArchivo}
+        
+        <TextField
+                autoComplete="fname"
+                name="file"
+                variant="outlined"
+                type="file"
+                required
+                fullWidth
+                id="file"
+                autoFocus
+                onChange={leerArchivo}
+           
           />
-          <label htmlFor="contained-button-file">
-            <Button variant="contained" color="primary" component="span">
-              <CloudUploadIcon /> Cargar Documento
-            </Button>
-          </label>
+          
         </DialogContent>
       </div>
       <br />
