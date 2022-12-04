@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignInSideEmpresa() {
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
@@ -105,15 +105,9 @@ export default function SignInSide() {
 
       setAuth(data);
       console.log(data);
-      if (data.usuario.rol === 1) {
-        navigate("/Administrador");
-      } else if (data.usuario.rol === 2) {
-        navigate("/Estudiante");
-      } else if (data.usuario.rol === 3) {
-        navigate("/Jurado");
-      } else {
-        navigate("/");
-      }
+      if (data.usuario.rol === 4) {
+        navigate("/Empresa");
+      } 
     } catch (error) {
       setAlerta(
         {
@@ -139,13 +133,13 @@ export default function SignInSide() {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+          <BusinessIcon/>
           </Avatar>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <div  >{msg && <Alerta alerta={alerta} />}</div>
           </Snackbar>
           <Typography component="h1" variant="h5">
-            INICIAR SESION 
+            INICIAR SESION COMO EMPRESA
           </Typography>
           
           <ValidatorForm className={classes.form} onSubmit={handleSubmit}>
@@ -221,40 +215,14 @@ export default function SignInSide() {
               Iniciar Sesion
             </Button>
           </ValidatorForm>
-          <br></br>
           <Grid item>
             <Button>
               <Link to="/RecuperarPassword">Recuperar contraseña</Link>
             </Button>
           </Grid>
-          <br></br>
-          <Link to="/IniciarSesionEmpresa">
-          <Grid >
-            <BusinessIcon/>
-          </Grid>
-          </Link>
-          
         </div>
       </Grid>
     </Grid>
   );
 }
 
-//
-
-//           <form className={classes.form} noValidate onSubmit={handleSubmit}>
-//             {/* <FormControl variant="outlined" className={classes.formControl}>
-//               <InputLabel id="demo-simple-select-outlined-label">
-//                 Rol
-//               </InputLabel>
-//               <Select
-//                 labelId="demo-simple-select-outlined-label"
-//                 id="rol"
-//                 label="Rol"
-//               >
-//                 <MenuItem value={1}>Administrador</MenuItem>
-//                 <MenuItem value={2}>Empresa</MenuItem>
-//                 <MenuItem value={3}>Estudiante</MenuItem>
-//                 <MenuItem value={4}>Jurado</MenuItem>
-//               </Select>
-//             </FormControl> */}

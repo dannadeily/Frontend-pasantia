@@ -292,9 +292,10 @@ export default function DrawerAdministrador() {
           <AccordionDetails>
             <List>
               {[
-                ["/Administrador","Estudiantes Activos"],
+                ["/Administrador","Activar Estudiantes"],
                 ["/Administrador/AsignarEmpresa","Asignar Empresa"],
                 ["/Administrador/AsignarJurado","Asignar Jurado"],
+                ["/Administrador/EstudianteActivo","Estudiantes Activos"],
                 ["/Administrador/HistorialEstudiante","Historial"]
               ].map((text, index) => (
                 <Link to={text[0]}>

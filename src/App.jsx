@@ -1,20 +1,26 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
+
+//Incicio 
 import HeaderInicio from "./components/Headerinicio";
-//Administrador
-import DrawerAdminsitrador from "./components/DrawerAdministrador";
+import IniciarSesionEmpresa from "./pages/IniciarSesionEmpresa"
 import IniciarSesion from "./pages/IniciarSesion";
 import RegistrarEstudiante from "./pages/RegistrarEstudiante";
 import RegistrarEmpresa from "./pages/RegistrarEmpresa";
+import RecuperarPassword from "./pages/RecuperarPassword";
+
+//Administrador
+import DrawerAdminsitrador from "./components/DrawerAdministrador";
+import ActivarEstudiante from "./pages/administrador/ActivarEstudiante";
 import EstudianteActivo from "./pages/administrador/EstudianteActivo";
 import AsignarEmpresa from "./pages/administrador/AsignarEmpresa";
 import ModalAsignarEmpresa from "./pages/administrador/ModalAsignarEmpresa"
 import AsignarJurado from "./pages/administrador/AsignarJurado";
-import RecuperarPassword from "./pages/RecuperarPassword";
 import HistorialEstudiante from "./pages/administrador/HistorialEstudiante";
 import CargarConvenio from "./pages/administrador/CargarConvenio";
 import DocumentosEmpresa from "./pages/administrador/DocumentosEmpresa";
 import HistorialEmpresa from "./pages/administrador/HistorialEmpresa";
+import InformacionEmpresa from  "./pages/administrador/InformacionEmpresa"
 import RegistrarJurado from "./pages/administrador/RegistrarJurado";
 import DocumentoEvaluado from "./pages/administrador/DocumentoEvaluado";
 import EstudianteEvaluado from "./pages/administrador/EstudianteEvaluado";
@@ -48,12 +54,16 @@ import EstudianteAsignado from "./pages/jurado/EstudianteAsignado";
 import InformacionEstudiante from "./pages/jurado/InformacionEstudiante";
 import Alerta from "./components/alerta";
 
+//Empresa
+import AppbarEmpresa from "./components/AppbarEmpresa";
+
 //AuthContext
 import {AuthProvider} from './context/AuthProvider'
 import RutaProtegida from "./layouts/RutaProtegida";
 import RutaProtegidaEstudiante from "./layouts/RutaProtegidaEstudiante";
 import RutaProtegidaJurado from "./layouts/RutaProtegidaJurado";
-import Proyectos from "./pages/Proyectos";
+import RutaProtegidaEmpresa from "./layouts/RutaProtegidaEmpresa"
+
 
 function App() {
   return (
@@ -65,6 +75,7 @@ function App() {
           {/** rutas de Inicio */}
           <Route path="/" element={<HeaderInicio></HeaderInicio>}>
             <Route index element={<IniciarSesion></IniciarSesion>} />
+            <Route path="/IniciarSesionEmpresa" element={<IniciarSesionEmpresa></IniciarSesionEmpresa>}></Route>
             <Route
               path="/RegistrarEstudiante"
               element={<RegistrarEstudiante></RegistrarEstudiante>}
@@ -80,8 +91,9 @@ function App() {
           </Route>
           {/** rutas de modulo Administrador */}
           <Route path="/Administrador" element={<RutaProtegida/>}>
+            <Route index element={<ActivarEstudiante></ActivarEstudiante>}></Route>
           
-            <Route index element={<EstudianteActivo></EstudianteActivo>} />
+            <Route path="/Administrador/EstudianteActivo" element={<EstudianteActivo></EstudianteActivo>} />
 
             <Route
               path="/Administrador/FinalizarPasantia"
@@ -119,6 +131,8 @@ function App() {
               path="/Administrador/HistorialEmpresa"
               element={<HistorialEmpresa></HistorialEmpresa>}
             />
+            <Route path="/Administrador/HistorialEmpresa/InformacionEmpresa"
+              element={<InformacionEmpresa></InformacionEmpresa>}></Route>
             <Route
               path="/Administrador/RegistrarJurado"
               element={<RegistrarJurado></RegistrarJurado>}
@@ -222,6 +236,15 @@ function App() {
               path="/Jurado/InformacionEstudiante"
               element={<InformacionEstudiante></InformacionEstudiante>}
             />
+          </Route>
+
+          {/** Rutas del modulo empresa */}
+          <Route path="/Empresa" element={<RutaProtegidaEmpresa/>}>
+            {/* <Route index element={<EstudianteAsignado></EstudianteAsignado>} />
+            <Route
+              path="/Jurado/InformacionEstudiante"
+              element={<InformacionEstudiante></InformacionEstudiante>}
+            /> */}
           </Route>
 
          

@@ -31,6 +31,7 @@ const AuthProvider = ({children}) => {
                 if(!token){
                     
                     setCargando(false)
+                    
                     return
                 }
                 const { data } = await clienteAxios('/perfil', config)
