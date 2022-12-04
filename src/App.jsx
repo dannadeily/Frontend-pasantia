@@ -151,7 +151,7 @@ function App() {
               element={<HistorialEmpresa></HistorialEmpresa>}
             />
             <Route
-              path="/Administrador/HistorialEmpresa/InformacionEmpresa"
+              path="/Administrador/HistorialEmpresa/InformacionEmpresa/:id"
               element={<InformacionEmpresa></InformacionEmpresa>}
             ></Route>
             <Route

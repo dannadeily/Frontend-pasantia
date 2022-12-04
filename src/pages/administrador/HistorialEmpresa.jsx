@@ -1,4 +1,4 @@
-import React, { Component ,useState,useEffect} from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import conexionAxios from "../../config/axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,12 +7,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import {
-  Modal,
-  Button,
-} from "@material-ui/core";
+import { Modal, Button } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
-import InfoIcon from '@material-ui/icons/Info';
+import InfoIcon from "@material-ui/icons/Info";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
@@ -53,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function HistorialEmpresa() {
-
   const [responsive, setResponsive] = useState("standard");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
@@ -73,18 +69,14 @@ function HistorialEmpresa() {
       transitionTime,
     },
     selectableRows: selectableRows,
-    
   };
 
-
   const styles = useStyles();
-  
- 
- 
+
   const [empresaSeleccionada, setEmpresaSeleccionada] = useState({
     idempresa: "",
   });
-  
+
   const [empresas, setData] = useState([]);
     const peticionGet = async () => {
       await conexionAxios.get("/empresasactivas").then((response) => {
@@ -99,15 +91,39 @@ function HistorialEmpresa() {
     
 
    const columns = [
+  const peticionGet = async () => {
+    await conexionAxios.get("/empresasactivas").then((response) => {
+      setData(response.data.empresa);
+    });
+  };
+
+  useEffect(async () => {
+    await peticionGet();
+  }, []);
+
+  const bodyInformacion = (
+    <div>
+      <Link
+        to={
+          "/Administrador/HistorialEmpresa/InformacionEmpresa" +
+          empresaSeleccionada.idempresa
+        }
+        className="btn btn-primary"
+      >
+        Edit
+      </Link>
+      &nbsp;
+    </div>
+  );
+
+  const columns = [
     {
       name: "idempresa",
       label: "ID de la empresa",
       options: {
         filter: false,
         sort: true,
-        display:false,
-        
-        
+        display: false,
       },
     },
     {
@@ -116,10 +132,7 @@ function HistorialEmpresa() {
       options: {
         filter: true,
         sort: true,
-        
-        
       },
-     
     },
     {
       name: "razonSocial",
@@ -127,33 +140,39 @@ function HistorialEmpresa() {
       options: {
         filter: true,
         sort: true,
-        
-        
       },
     },
     {
       name: "informacion",
       label: "Informacion",
-   
     },
-
   ];
 
-  const row=[];
-empresas.map( (empresa) => (
-  row.push( [empresa.idempresa,empresa.nombre,empresa.razon_social,
-    <Link to={"/Administrador/HistorialEmpresa/InformacionEmpresa" + empresaSeleccionada.idempresa} className="btn btn-primary">
-     <InfoIcon  />
-  </Link>
- 
-          ]
-)))
-
-
+  const row = [];
+  empresas.map((empresa) =>
+    row.push([
+      empresa.idempresa,
+      empresa.nombre,
+      empresa.razon_social,
+      <Link
+        to={
+          `/Administrador/HistorialEmpresa/InformacionEmpresa/${empresa.idempresa}`
+        }
+        className="btn btn-primary"
+      >
+        <InfoIcon />
+      </Link>,
+    ])
+  );
 
   return (
     <div className="App">
-      <MUIDataTable title={"HISTORIAL DE LAS EMPRESA"} data={row} columns={columns} options={options} />
+      <MUIDataTable
+        title={"HISTORIAL DE LAS EMPRESA"}
+        data={row}
+        columns={columns}
+        options={options}
+      />
     </div>
   );
 }
