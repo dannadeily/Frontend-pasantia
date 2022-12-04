@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,6 +17,11 @@ import conexionAxios from "../../config/axios";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import Alerta from "../../components/alerta";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -77,23 +82,24 @@ export default function RegistrarPasante() {
     e.preventDefault();
 
     conexionAxios.post("/jurado", jurado).then((res) => {
-        
-      if(res.data.status===201){
-        setAlerta(
-          {
-          
-            msg: <Alert severity="sucess" onClose={handleClose} >{res.data.message}</Alert>,
-            error: true
-          
+      if (res.data.status === 201) {
+        setAlerta({
+          msg: (
+            <Alert severity="sucess" onClose={handleClose}>
+              {res.data.message}
+            </Alert>
+          ),
+          error: true,
         });
-      } else 
-      setAlerta(
-        {
-        
-          msg: <Alert severity="error" onClose={handleClose} >{res.data.message}</Alert>,
-          error: true
-        
-      });
+      } else
+        setAlerta({
+          msg: (
+            <Alert severity="error" onClose={handleClose}>
+              {res.data.message}
+            </Alert>
+          ),
+          error: true,
+        });
     });
   };
 
@@ -107,13 +113,12 @@ export default function RegistrarPasante() {
           Registrar nuevo pasante
         </Typography>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <div  >{msg && <Alerta alerta={alerta} />}</div>
-          </Snackbar>
-        <form className={classes.form} noValidate onSubmit={agregarJurado} >
+          <div>{msg && <Alerta alerta={alerta} />}</div>
+        </Snackbar>
+        <form className={classes.form} noValidate onSubmit={agregarJurado}>
           <Grid container spacing={2}>
-
-            <Grid item xs={12} >
-            <TextField
+            <Grid item xs={12}>
+              <TextField
                 autoComplete="fname"
                 name="nombres"
                 variant="outlined"
@@ -127,8 +132,8 @@ export default function RegistrarPasante() {
               />
             </Grid>
 
-            <Grid item xs={12} >
-            <TextField
+            <Grid item xs={12}>
+              <TextField
                 autoComplete="fname"
                 name="apellidos"
                 variant="outlined"
@@ -141,8 +146,8 @@ export default function RegistrarPasante() {
                 onChange={actualizarState}
               />
             </Grid>
-            
-            <Grid item xs={12} >
+
+            <Grid item xs={12}>
               <TextField
                 autoComplete="fname"
                 name="codigo"
@@ -156,7 +161,7 @@ export default function RegistrarPasante() {
                 onChange={actualizarState}
               />
             </Grid>
-           
+
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -168,6 +173,19 @@ export default function RegistrarPasante() {
                 autoComplete="email"
                 onChange={actualizarState}
               />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl variant="outlined" fullWidth >
+                <InputLabel htmlFor="outlined-age-native-simple">
+                 Asignar empresa
+                </InputLabel>
+                <Select native label="empresa">
+                  <option aria-label="None" value="" />
+                  <option value={10}>Ten</option>
+                  <option value={20}>Twenty</option>
+                  <option value={30}>Thirty</option>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <TextField
