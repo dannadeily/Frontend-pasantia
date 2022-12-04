@@ -1,21 +1,9 @@
-import React, { Component, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import conexionAxios from "../../config/axios";
 import { makeStyles } from "@material-ui/core/styles";
 import MUIDataTable from "mui-datatables";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import { Modal, Button } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
 import InfoIcon from "@material-ui/icons/Info";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -53,8 +41,6 @@ function HistorialEmpresa() {
   const [transitionTime, setTransitionTime] = useState(300);
   const [selectableRows, setSelectableRows] = useState("none");
 
-  const [modalInformacion, setModalEditar] = useState(false);
-
   const options = {
     filter: true,
     filterType: "dropdown",
@@ -85,20 +71,7 @@ function HistorialEmpresa() {
     await peticionGet();
   }, []);
 
-  const bodyInformacion = (
-    <div>
-      <Link
-        to={
-          "/Administrador/HistorialEmpresa/InformacionEmpresa" +
-          empresaSeleccionada.idempresa
-        }
-        className="btn btn-primary"
-      >
-        Edit
-      </Link>
-      &nbsp;
-    </div>
-  );
+
 
   const columns = [
     {
