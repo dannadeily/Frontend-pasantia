@@ -59,7 +59,7 @@ export default function RegistrarPasante() {
     // Almacenar lo que el usuario escribe en el state
     setPasante({
       // obtener una copia del state actual
-      ...jurado,
+      ...pasante,
       [e.target.name]: e.target.value,
     });
   };
@@ -80,10 +80,10 @@ export default function RegistrarPasante() {
     setOpen(false);
   };
 
-  const agregarJurado = (e) => {
+  const agregarPasante = (e) => {
     e.preventDefault();
 
-    conexionAxios.post("/jurado", pasante).then((res) => {
+    conexionAxios.post("/user", pasante).then((res) => {
       if (res.data.status === 201) {
         setAlerta({
           msg: (
@@ -128,7 +128,7 @@ export default function RegistrarPasante() {
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <div>{msg && <Alerta alerta={alerta} />}</div>
         </Snackbar>
-        <form className={classes.form} noValidate onSubmit={agregarJurado}>
+        <form className={classes.form} noValidate onSubmit={agregarPasante}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
