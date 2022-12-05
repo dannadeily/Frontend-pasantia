@@ -299,7 +299,6 @@ export default function DrawerAdministrador() {
             <List>
               {[
                 ["/Administrador", "Registrar pasante"],
-                ["/Administrador/AsignarEmpresa", "Asignar Empresa"],
                 ["/Administrador/AsignarJurado", "Asignar Jurado"],
                 ["/Administrador/EstudianteActivo", "Estudiantes Activos"],
                 ["/Administrador/HistorialEstudiante", "Historial"],

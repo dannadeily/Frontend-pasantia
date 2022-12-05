@@ -13,8 +13,6 @@ import RecuperarPassword from "./pages/RecuperarPassword";
 import DrawerAdminsitrador from "./components/DrawerAdministrador";
 import ActivarEstudiante from "./pages/administrador/RegistrarPasante";
 import EstudianteActivo from "./pages/administrador/EstudianteActivo";
-import AsignarEmpresa from "./pages/administrador/AsignarEmpresa";
-import ModalAsignarEmpresa from "./pages/administrador/ModalAsignarEmpresa";
 import AsignarJurado from "./pages/administrador/AsignarJurado";
 import HistorialEstudiante from "./pages/administrador/HistorialEstudiante";
 import CargarConvenio from "./pages/administrador/CargarConvenio";
@@ -123,14 +121,8 @@ function App() {
               path="/Administrador/InfoEstudiante"
               element={<InfoEstudiante></InfoEstudiante>}
             />
-            <Route
-              path="/Administrador/AsignarEmpresa"
-              element={<AsignarEmpresa></AsignarEmpresa>}
-            />
-            <Route
-              path="/Administrador/AsignarEmpresa/ModalAsignarEmpresa"
-              element={<ModalAsignarEmpresa></ModalAsignarEmpresa>}
-            />
+            
+        
             <Route
               path="/Administrador/AsignarJurado"
               element={<AsignarJurado></AsignarJurado>}

@@ -23,6 +23,10 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -83,6 +87,14 @@ export default function RegistrarPasante() {
   const agregarPasante = (e) => {
     e.preventDefault();
 
+    if([pasante].includes('')) {
+      setAlerta({
+          msg:  <Alert severity="sucess" onClose={handleClose} >Todos los campos son obligatorios</Alert>,
+          error: true
+      })
+      return
+   }
+
     conexionAxios.post("/user", pasante).then((res) => {
       if (res.data.status === 201) {
         setAlerta({
@@ -121,14 +133,14 @@ export default function RegistrarPasante() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <div >
         <Typography component="h1" variant="h5">
           Registrar nuevo pasante
         </Typography>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <div>{msg && <Alerta alerta={alerta} />}</div>
         </Snackbar>
-        <form className={classes.form} noValidate onSubmit={agregarPasante}>
+        <form className={classes.form}  onSubmit={agregarPasante}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -179,6 +191,7 @@ export default function RegistrarPasante() {
               <TextField
                 variant="outlined"
                 required
+                
                 fullWidth
                 id="email"
                 label="Email"
@@ -189,7 +202,7 @@ export default function RegistrarPasante() {
             </Grid>
             <Grid item xs={12}>
               <FormControl variant="outlined" fullWidth>
-                <InputLabel htmlFor="outlined-age-native-simple">
+              <InputLabel >
                   Asignar empresa
                 </InputLabel>
                 <Select
