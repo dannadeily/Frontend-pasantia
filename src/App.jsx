@@ -118,7 +118,7 @@ function App() {
               element={<FinalizarPasantia></FinalizarPasantia>}
             />
             <Route
-              path="/Administrador/InfoEstudiante"
+              path="/Administrador/InfoEstudiante/:id"
               element={<InfoEstudiante></InfoEstudiante>}
             />
             

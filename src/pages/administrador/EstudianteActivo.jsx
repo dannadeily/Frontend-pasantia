@@ -1,4 +1,4 @@
-import React, {  useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import conexionAxios from "../../config/axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -61,10 +61,10 @@ function HistorialEmpresa() {
     idempresa: "",
   });
 
-  const [empresas, setData] = useState([]);
+  const [pasantes, setData] = useState([]);
   const peticionGet = async () => {
-    await conexionAxios.get("/empresasactivas").then((response) => {
-      setData(response.data.empresa);
+    await conexionAxios.get("/pasantes").then((response) => {
+      setData(response.data.pasantes);
     });
   };
 
@@ -72,41 +72,30 @@ function HistorialEmpresa() {
     await peticionGet();
   }, []);
 
-
-
   const columns = [
-        {
-          name: "Nombre del estudiante",
-          options:{
-            
-          }
-    
-        },
-        {
-          name: "Empresa",
-    
-        },
-        {
-          name: "Fecha inicio de la pasantia",
-    
-        },
-        {
-          name: "Informacion",
-    
-         
-        },
-      ];
+    {
+      name: "Nombre del estudiante",
+      options: {},
+    },
+    {
+      name: "Empresa",
+    },
+    {
+      name: "Fecha inicio de la pasantia",
+    },
+    {
+      name: "Informacion",
+    },
+  ];
 
   const row = [];
-  empresas.map((empresa) =>
+  pasantes.map((pasante) =>
     row.push([
-      empresa.idempresa,
-      empresa.nombre,
-      empresa.razon_social,
+      pasante.usuario.nombres+ " "+ pasante.usuario.apellidos ,
+      pasante.empresa.nombre,
+      pasante.createdAt.substring(0,10),
       <Link
-        to={
-          `/Administrador/InfoEstudiante/${empresa.idempresa}`
-        }
+        to={`/Administrador/InfoEstudiante/${pasante.idpasante}`}
         className="btn btn-primary"
       >
         <InfoIcon />
@@ -117,13 +106,12 @@ function HistorialEmpresa() {
   return (
     <div className="App">
       <MUIDataTable
-         title={"ESTUDIANTES ACTIVOS EN EL SEMESTRE"}
-                 data={row}
-                 columns={columns}
-                 options={options}
+        title={"ESTUDIANTES ACTIVOS EN EL SEMESTRE"}
+        data={row}
+        columns={columns}
+        options={options}
       />
       <Button variant="contained" color="primary">
- 
         <Link to="/Administrador/FinalizarPasantia">Finalizar pasantia</Link>
       </Button>
     </div>
@@ -131,9 +119,6 @@ function HistorialEmpresa() {
 }
 
 export default HistorialEmpresa;
-
-
-
 
 // import React, { useState } from "react";
 // import ReactDOM from "react-dom";
@@ -145,7 +130,7 @@ export default HistorialEmpresa;
 // import FormControl from "@mui/material/FormControl";
 // import Select from "@mui/material/Select";
 // import TextField from "@mui/material/TextField";
-// 
+//
 // import { DndProvider } from "react-dnd";
 // import { HTML5Backend } from "react-dnd-html5-backend";
 // import { Link } from "react-router-dom";
@@ -161,7 +146,7 @@ export default HistorialEmpresa;
 //     {
 //       name: "Nombre del estudiante",
 //       options:{
-        
+
 //       }
 
 //     },

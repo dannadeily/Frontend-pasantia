@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,8 +11,8 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import conexionAxios from "../../config/axios";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -73,6 +73,19 @@ export default function InfoEstudiante() {
     setValue(newValue);
   };
 
+  const {id}= useParams();
+
+  const [pasante, setData] = useState([]);
+  const peticionGet = async () => {
+    await conexionAxios.get("/pasante/"+ id  ).then((response) => {
+      setData(response.data.pasante);
+    });
+  };
+
+  useEffect(async () => {
+    await peticionGet();
+  }, []);
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -98,250 +111,238 @@ export default function InfoEstudiante() {
       </AppBar>
       {/* TABLA DE INFORMACION GENERAL  */}
       <TabPanel value={value} index={0}>
-      
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Nombres:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Danna Deily </Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Apellidos:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Duque Conde</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Fecha de nacimiento:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">29/04/2000</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Lugar de nacimiento:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">cúcuta</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Sexo:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Femenino</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Direccion:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">av 4 # 6-47 san luis</Typography>
-                </TableCell>
-              </TableRow>
-
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Telefono:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">3177141689</Typography>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">Nombres:</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p"> {pasante.nombres} </Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">Apellidos:</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p"> {pasante.apellidos}</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">Direccion:</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p"> {pasante.direccion}</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">Telefono:</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p"> {pasante.telefono}</Typography>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">Cedula:</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p"> {pasante.numero_identificacion}</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">Tipo:</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">Cedula de ciudadania</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">Email:</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">
+                    {pasante.email}
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">Codigo estudiantil:</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p"> {pasante.codigo}</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">Semestre:</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p"> {pasante.semestre}</Typography>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Cedula:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">1010075720</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Tipo:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Cedula de ciudadania</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Expedida:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Cucuta</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Email:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">dannadeilydc@ufps.edu.co</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Codigo estudiantil:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">1151732</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Semestre:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">10</Typography>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </Grid>
-      </Grid>
       </TabPanel>
 
       {/* DOCUMENTO DE ACEPTACION */}
       <TabPanel value={value} index={1}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Documento de identidad:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Danna Deily </Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Formato solicitud pasantia PPS01:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Duque Conde</Typography>
-                </TableCell>
-              </TableRow>  
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Plan de trabajo pasantia PPS03: </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Danna Deily </Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Convenio "Borrador" PPS02:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Duque Conde</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Acta de Compromiso PPS03-1:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Duque Conde</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Presentacion Plan de trabajo PPS04:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">29/04/2000</Typography>
-                </TableCell>
-              </TableRow>  
-            </TableBody>
-          </Table>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Documento de identidad:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">Danna Deily </Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Formato solicitud pasantia PPS01:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">Duque Conde</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Plan de trabajo pasantia PPS03:{" "}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">Danna Deily </Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Convenio "Borrador" PPS02:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">Duque Conde</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Acta de Compromiso PPS03-1:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">Duque Conde</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Presentacion Plan de trabajo PPS04:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">29/04/2000</Typography>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Grid>
         </Grid>
-      </Grid>
       </TabPanel>
 
-   {/* AVANCES */}
+      {/* AVANCES */}
       <TabPanel value={value} index={2}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <Table>
-            <TableBody>
-            <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Informe parcial 1 PPS06: </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Danna Deily </Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Informe parcial 2 PPS06:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Duque Conde</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Informe final PPS08:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">29/04/2000</Typography>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Informe parcial 1 PPS06:{" "}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">Danna Deily </Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Informe parcial 2 PPS06:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">Duque Conde</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">Informe final PPS08:</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">29/04/2000</Typography>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Grid>
         </Grid>
-      </Grid>
       </TabPanel>
 
-    {/* DOCUMENTOS FINALES */}
+      {/* DOCUMENTOS FINALES */}
       <TabPanel value={value} index={3}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <Table>
-            <TableBody>
-            <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Solicitud de sustentacion informe final PPS08-1:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">29/04/2000</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Acta de finalizacion por parte de la empresa PPS08-2:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">29/04/2000</Typography>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Solicitud de sustentacion informe final PPS08-1:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">29/04/2000</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Acta de finalizacion por parte de la empresa PPS08-2:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">29/04/2000</Typography>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Grid>
         </Grid>
-      </Grid>
       </TabPanel>
     </div>
   );

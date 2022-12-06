@@ -49,22 +49,6 @@ const useStyles = makeStyles((theme) => ({
 export default function RegistrarJurado() {
   const classes = useStyles();
 
-  const [jurado, setJurado] = useState({
-    nombres: "",
-    apellidos: "",
-    email: "",
-    password: "",
-  });
-
-  const actualizarState = (e) => {
-    // Almacenar lo que el usuario escribe en el state
-    setJurado({
-      // obtener una copia del state actual
-      ...jurado,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const [alerta, setAlerta] = useState({});
   //ALERTA------------------------------------
   const [open, setOpen] = React.useState(false);
@@ -81,7 +65,24 @@ export default function RegistrarJurado() {
     setOpen(false);
   };
 
-  const agregarJurado = (e) => {
+  //-----------------------
+
+  const [documento, setData] = useState({
+    nombreDocumento: "",
+  });
+
+  const actualizarState = (e) => {
+    // Almacenar lo que el usuario escribe en el state
+    setData({
+      // obtener una copia del state actual
+      ...documento,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+
+
+  const crearDocumento = (e) => {
     e.preventDefault();
 
     conexionAxios.post("/jurado", jurado).then((res) => {
@@ -127,7 +128,7 @@ export default function RegistrarJurado() {
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <div  >{msg && <Alerta alerta={alerta} />}</div>
           </Snackbar>
-        <form className={classes.form} noValidate onSubmit={agregarJurado} >
+        <form className={classes.form} noValidate onSubmit={crearDocumento} >
           <Grid container spacing={2}>
             <Grid item xs={12} >
               <TextField
@@ -151,7 +152,6 @@ export default function RegistrarJurado() {
                 required
                 fullWidth
                 id="file"
-               
                 autoFocus
                 onChange={actualizarState}
               />
