@@ -281,7 +281,7 @@ export default function DrawerEstudiante() {
         <Divider />
         <br></br>
 
-        <Button disabled={true}>
+        
           <List>
             {[
               ["/Estudiante", "Estado de la pasantia"],
@@ -300,7 +300,7 @@ export default function DrawerEstudiante() {
               </Link>
             ))}
           </List>
-        </Button>
+     
       </Drawer>
 
       <main

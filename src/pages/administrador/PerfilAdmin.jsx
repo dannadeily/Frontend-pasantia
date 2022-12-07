@@ -147,7 +147,7 @@ export default function PerfilAdmin() {
       </Grid>
       <Grid item>
         <Button variant="contained" color="primary">
-          <Link to="/Estudiante/EditarDatos">Editar datos</Link>
+          <Link to="/Administrador/EditarDatosAdmin">Editar datos</Link>
         </Button>
       </Grid>
     </div>

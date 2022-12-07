@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-export default function EditarDatos() {
+export default function EditarDatosAdmin() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -47,15 +47,15 @@ export default function EditarDatos() {
                   <Input id="semestre" type="text"></Input>
                   </TableCell>
                 </TableRow>
-                
                 <TableRow>
                   <TableCell>
-                    <Typography variant="h6">Direccion:</Typography>
+                    <Typography variant="h6">Fecha de nacimiento:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Input id="semestre" type="text"></Input>
+                  <Input id="semestre" type="text"></Input>
                   </TableCell>
                 </TableRow>
+           
 
                 <TableRow>
                   <TableCell>
@@ -63,14 +63,6 @@ export default function EditarDatos() {
                   </TableCell>
                   <TableCell>
                     <Input id="semestre" type="number"></Input>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">Semestre:</Typography>
-                  </TableCell>
-                  <TableCell>
-                  <Input id="semestre" type="text"></Input>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -84,7 +76,7 @@ export default function EditarDatos() {
                     <Typography variant="h6">Cedula:</Typography>
                   </TableCell>
                   <TableCell>
-                  <Input id="semestre" type="text"></Input>
+                    <Typography variant="p">1010075720</Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -92,7 +84,7 @@ export default function EditarDatos() {
                     <Typography variant="h6">Tipo:</Typography>
                   </TableCell>
                   <TableCell>
-                  <Input id="semestre" type="text"></Input>
+                    <Typography variant="p">Cedula de ciudadania</Typography>
                   </TableCell>
                 </TableRow>
                 
@@ -101,9 +93,7 @@ export default function EditarDatos() {
                     <Typography variant="h6">Email:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p">
-                      dannadeilydc@ufps.edu.co
-                    </Typography>
+                  <Input id="semestre" type="text"></Input>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -111,7 +101,7 @@ export default function EditarDatos() {
                     <Typography variant="h6">Codigo estudiantil:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p">1151732</Typography>
+                  <Input id="semestre" type="text"></Input>
                   </TableCell>
                 </TableRow>
                 

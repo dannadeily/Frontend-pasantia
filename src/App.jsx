@@ -36,6 +36,7 @@ import Puntuacion from "./pages/administrador/Puntuacion";
 import CambiarPasswordAdmin from "./pages/administrador/CambiarPasswordAdmin";
 import PerfilAdmin from "./pages/administrador/PerfilAdmin";
 import CrearDocumento from "./pages/administrador/CrearDocumento"
+import EditarDatosAdmin from "./pages/administrador/EditarDatosAdmin";
 //Estudiante
 import DrawerEstudiante from "./components/DrawerEstudiante";
 import EstadoPasantia from "./pages/estudiante/EstadoPasantia";
@@ -203,6 +204,11 @@ function App() {
               path="/Administrador/PerfilAdmin"
               element={<PerfilAdmin></PerfilAdmin>}
             ></Route>
+            <Route
+              path="/Administrador/EditarDatosAdmin"
+              element={<EditarDatosAdmin></EditarDatosAdmin>}
+            ></Route>
+            
              <Route
               path="/Administrador/CrearDocumento"
               element={<CrearDocumento></CrearDocumento>}

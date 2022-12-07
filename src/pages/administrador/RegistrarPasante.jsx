@@ -29,7 +29,7 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -133,7 +133,7 @@ export default function RegistrarPasante() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div >
+      <div className={classes.paper}>
         <Typography component="h1" variant="h5">
           Registrar nuevo pasante
         </Typography>
@@ -202,7 +202,7 @@ export default function RegistrarPasante() {
             </Grid>
             <Grid item xs={12}>
               <FormControl variant="outlined" fullWidth>
-              <InputLabel >
+              <InputLabel shrink>
                   Asignar empresa
                 </InputLabel>
                 <Select

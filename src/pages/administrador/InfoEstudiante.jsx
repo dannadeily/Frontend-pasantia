@@ -147,6 +147,14 @@ export default function InfoEstudiante() {
                     <Typography variant="p"> {pasante.telefono}</Typography>
                   </TableCell>
                 </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">Semestre:</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p"> {pasante.semestre}</Typography>
+                  </TableCell>
+                </TableRow>
               </TableBody>
             </Table>
           </Grid>
@@ -187,14 +195,7 @@ export default function InfoEstudiante() {
                     <Typography variant="p"> {pasante.codigo}</Typography>
                   </TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">Semestre:</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p"> {pasante.semestre}</Typography>
-                  </TableCell>
-                </TableRow>
+               
               </TableBody>
             </Table>
           </Grid>
