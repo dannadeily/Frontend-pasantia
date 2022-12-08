@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,13 +17,13 @@ import conexionAxios from "../../config/axios";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import Alerta from "../../components/alerta";
-import { withStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
-import FormGroup from '@material-ui/core/FormGroup';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import { withStyles } from "@material-ui/core/styles";
+import { green } from "@material-ui/core/colors";
+import FormGroup from "@material-ui/core/FormGroup";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import Favorite from "@material-ui/icons/Favorite";
+import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
 
 export default function RegistrarJurado() {
   const classes = useStyles();
@@ -69,7 +68,9 @@ export default function RegistrarJurado() {
 
   const [documento, setData] = useState({
     nombreDocumento: "",
+    aprobacion: "",
   });
+  const [archivo, guardarArchivo] = useState("");
 
   const actualizarState = (e) => {
     // Almacenar lo que el usuario escribe en el state
@@ -80,39 +81,28 @@ export default function RegistrarJurado() {
     });
   };
 
-
-
-  const crearDocumento = (e) => {
-    e.preventDefault();
-
-    conexionAxios.post("/jurado", jurado).then((res) => {
-        
-      if(res.data.status===201){
-        setAlerta(
-          {
-          
-            msg: <Alert severity="sucess" onClose={handleClose} >{res.data.message}</Alert>,
-            error: true
-          
-        });
-      } else 
-      setAlerta(
-        {
-        
-          msg: <Alert severity="error" onClose={handleClose} >{res.data.message}</Alert>,
-          error: true
-        
-      });
-    });
-  };
-
   const { msg } = alerta;
 
   const [state, setState] = React.useState({
-
-    checkedB: true,
-   
+    aprobacion: true,
   });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("plantilla", archivo);
+    formData.append("nombre", documento.nombreDocumento);
+    formData.append("aprobacion", state.aprobacion);
+    await conexionAxios.post("/documento", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  };
+
+  const leerArchivo = (e) => {
+    guardarArchivo(e.target.files[0]);
+  };
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -126,11 +116,11 @@ export default function RegistrarJurado() {
           Crear un nuevo documento
         </Typography>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <div  >{msg && <Alerta alerta={alerta} />}</div>
-          </Snackbar>
-        <form className={classes.form} noValidate onSubmit={crearDocumento} >
+          <div>{msg && <Alerta alerta={alerta} />}</div>
+        </Snackbar>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <TextField
                 autoComplete="fname"
                 name="nombreDocumento"
@@ -143,7 +133,7 @@ export default function RegistrarJurado() {
                 onChange={actualizarState}
               />
             </Grid>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <TextField
                 autoComplete="fname"
                 name="file"
@@ -153,22 +143,22 @@ export default function RegistrarJurado() {
                 fullWidth
                 id="file"
                 autoFocus
-                onChange={actualizarState}
+                onChange={leerArchivo}
               />
             </Grid>
-            
+
             <Grid item xs={12}>
-            <FormControlLabel
-        control={
-          <Checkbox
-            checked={state.checkedB}
-            onChange={handleChange}
-            name="checkedB"
-            color="primary"
-          />
-        }
-        label="Requiere aprobación"
-      />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={state.aprobacion}
+                    onChange={handleChange}
+                    name="aprobacion"
+                    color="primary"
+                  />
+                }
+                label="Requiere aprobación"
+              />
             </Grid>
           </Grid>
           <Button
