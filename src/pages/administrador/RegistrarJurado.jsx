@@ -18,6 +18,10 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import Alerta from "../../components/alerta";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -82,7 +86,7 @@ export default function RegistrarJurado() {
         setAlerta(
           {
           
-            msg: <Alert severity="sucess" onClose={handleClose} >{res.data.message}</Alert>,
+            msg: <Alert severity="success" onClose={handleClose} >Jurado registrado exitosamente</Alert>,
             error: true
           
         });

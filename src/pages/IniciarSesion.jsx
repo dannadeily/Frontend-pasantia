@@ -96,7 +96,7 @@ export default function SignInSide() {
       setAlerta(
         {
         
-          msg: <Alert severity="sucess" onClose={handleClose} >Incio exitoso</Alert>,
+          msg: <Alert severity="success" onClose={handleClose} >Incio exitoso</Alert>,
           error: true
         
       });

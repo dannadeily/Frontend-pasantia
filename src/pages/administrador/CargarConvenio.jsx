@@ -85,6 +85,7 @@ function CargarConvenio() {
   const [archivo, guardarArchivo] = useState("");
 
   const peticionGet = async () => {
+    
     await conexionAxios.get("/empresasinactivas").then((response) => {
       setData(response.data.empresa);
     });
@@ -105,6 +106,7 @@ function CargarConvenio() {
         setData(dataNueva);
         abrirCerrarModalEditar();
       });
+
   };
 
   const abrirCerrarModalEditar = () => {

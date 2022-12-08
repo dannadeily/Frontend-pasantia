@@ -11,7 +11,7 @@ import RecuperarPassword from "./pages/RecuperarPassword";
 
 //Administrador
 import DrawerAdminsitrador from "./components/DrawerAdministrador";
-import ActivarEstudiante from "./pages/administrador/RegistrarPasante";
+import RegistrarPasante from "./pages/administrador/RegistrarPasante";
 import EstudianteActivo from "./pages/administrador/EstudianteActivo";
 import AsignarJurado from "./pages/administrador/AsignarJurado";
 import HistorialEstudiante from "./pages/administrador/HistorialEstudiante";
@@ -106,7 +106,7 @@ function App() {
           <Route path="/Administrador" element={<RutaProtegida />}>
             <Route
               index
-              element={<ActivarEstudiante></ActivarEstudiante>}
+              element={<RegistrarPasante></RegistrarPasante>}
             ></Route>
 
             <Route

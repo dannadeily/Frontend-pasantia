@@ -5,7 +5,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -13,15 +12,14 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import conexionAxios from "../../config/axios";
+import { Link ,Navigate,useNavigate} from "react-router-dom";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import Alerta from "../../components/alerta";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -58,6 +56,8 @@ export default function RegistrarPasante() {
     password: "",
     empresa: "",
   });
+  
+  const navigate = useNavigate()
 
   const actualizarState = (e) => {
     // Almacenar lo que el usuario escribe en el state
@@ -86,30 +86,24 @@ export default function RegistrarPasante() {
 
   const agregarPasante = (e) => {
     e.preventDefault();
-
-    if([pasante].includes('')) {
-      setAlerta({
-          msg:  <Alert severity="sucess" onClose={handleClose} >Todos los campos son obligatorios</Alert>,
-          error: true
-      })
-      return
-   }
-
     conexionAxios.post("/user", pasante).then((res) => {
       if (res.data.status === 201) {
-        setAlerta({
-          msg: (
-            <Alert severity="sucess" onClose={handleClose}>
-              {res.data.message}
-            </Alert>
-          ),
-          error: true,
-        });
+        
+        setAlerta(
+          {
+          
+            msg: <Alert severity="success" onClose={handleClose} >Pasante registrado exitosamente</Alert>,
+            error: true
+           
+          
+        })
+        
+        
       } else
         setAlerta({
           msg: (
             <Alert severity="error" onClose={handleClose}>
-              {res.data.message}
+             {res.data.message}
             </Alert>
           ),
           error: true,
