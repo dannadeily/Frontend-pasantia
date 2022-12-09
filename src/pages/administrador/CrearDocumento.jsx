@@ -10,13 +10,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import conexionAxios from "../../config/axios";
 import InputLabel from "@material-ui/core/InputLabel";
-import Snackbar from "@material-ui/core/Snackbar";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import Alerta from "../../components/alerta";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -62,7 +65,7 @@ export default function RegistrarJurado() {
   const [documento, setData] = useState({
     nombreDocumento: "",
     aprobacion: "",
-    formato:""
+    formato: "",
   });
   const [archivo, guardarArchivo] = useState("");
 
@@ -88,11 +91,33 @@ export default function RegistrarJurado() {
     formData.append("nombre", documento.nombreDocumento);
     formData.append("formato", documento.formato);
     formData.append("aprobacion", state.aprobacion);
-    await conexionAxios.post("/documento", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    await conexionAxios
+      .post("/documento", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        if (res.data.status === 201) {
+          setAlerta({
+            msg: (
+              <Alert severity="success" onClose={handleClose}>
+                {res.data.message}
+              </Alert>
+            ),
+            error: true,
+          });
+        } else {
+          setAlerta({
+            msg: (
+              <Alert severity="error" onClose={handleClose}>
+                {res.data.message}
+              </Alert>
+            ),
+            error: true,
+          });
+        }
+      });
   };
 
   const leerArchivo = (e) => {
@@ -155,21 +180,22 @@ export default function RegistrarJurado() {
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth required className={classes.formControl}>
-                <InputLabel id="demo-simple-select-required-label">
-                  Age
-                </InputLabel>
+                <InputLabel id="formato">Agregar a:</InputLabel>
                 <Select
-                  labelId="demo-simple-select-required-label"
+                  labelId="formato"
                   onChange={actualizarState}
                   className={classes.selectEmpty}
                   fullWidth
                   name="formato"
                 >
                   {tiposFormatos.map((formatos) => {
-                    return (<MenuItem value={formatos.idformato}>{formatos.formato}</MenuItem>);
+                    return (
+                      <MenuItem value={formatos.idformato}>
+                        {formatos.formato}
+                      </MenuItem>
+                    );
                   })}
                 </Select>
-                <FormHelperText>Required</FormHelperText>
               </FormControl>
             </Grid>
             <Grid item xs={12}>

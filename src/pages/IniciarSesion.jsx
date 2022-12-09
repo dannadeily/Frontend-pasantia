@@ -9,14 +9,14 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
+import BusinessIcon from '@material-ui/icons/Business';
 import conexionAxios from "../config/axios";
-import Alerta from "../components/alerta";
+
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import useAuth from "../hooks/useAuth";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import BusinessIcon from '@material-ui/icons/Business';
+import Alerta from "../components/alerta";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -99,7 +99,7 @@ export default function SignInSide() {
           msg: <Alert severity="success" onClose={handleClose} >Incio exitoso</Alert>,
           error: true
         
-      });
+      })
 
       localStorage.setItem("token", data.token);
 

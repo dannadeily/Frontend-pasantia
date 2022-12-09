@@ -285,7 +285,7 @@ export default function DrawerEstudiante() {
           <List>
             {[
               ["/Estudiante", "Estado de la pasantia"],
-              ["/Estudiante/DocumentoCargado", "Cargar documentos"],
+              ["/Estudiante/DocumentoCargado", "Cargar documentos iniciales"],
               ["/Estudiante/AvanceCargado", "Cargar avances"],
               [
                 "/Estudiante/DocumentoFinalCargado",

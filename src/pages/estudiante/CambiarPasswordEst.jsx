@@ -3,29 +3,20 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import conexionAxios from "../../config/axios";
 import useAuth from "../../hooks/useAuth";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import Alerta from "../../components/alerta";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +51,25 @@ export default function CambiarPasswordEst() {
     newPassword: "",
     repeatPassword: "",
   });
+ 
 
+
+     //ALERTA------------------------------------
+     const [alerta, setAlerta] = useState({});
+     const [open, setOpen] = React.useState(false);
+
+     const handleClick = () => {
+       setOpen(true);
+     };
+   
+     const handleClose = (event, reason) => {
+       if (reason === "clickaway") {
+         return;
+       }
+   
+       setOpen(false);
+     };
+   
 
   const actualizarState = (e) => {
     // Almacenar lo que el usuario escribe en el state
@@ -74,9 +83,34 @@ export default function CambiarPasswordEst() {
   const handleSubmit = (e) => {
     e.preventDefault();
     conexionAxios.put("/cambiarPassword", data).then((res) => {
+      if(res.data.status===200){
+        setAlerta(
+          {
+          
+            msg: <Alert severity="success" onClose={handleClose} >{res.data.message}</Alert>,
+            error: true
+          
+        });
+
+      }else{
+        setAlerta(
+          {
+          
+            msg: <Alert severity="error" onClose={handleClose} >{res.data.message}</Alert>,
+            error: true
+          
+        });
+        
+      }
+      
       
     });
   };
+
+
+   //ALERTA------------------------------------
+
+   const { msg } = alerta;
 
   return (
     <Container component="main" maxWidth="xs">
@@ -85,10 +119,13 @@ export default function CambiarPasswordEst() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <div  >{msg && <Alerta alerta={alerta} />}</div>
+          </Snackbar>
         <Typography component="h1" variant="h5">
           Cambiar contraseña
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form}  onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -136,6 +173,7 @@ export default function CambiarPasswordEst() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleClick}
           >
             Cambiar Contraseña
           </Button>

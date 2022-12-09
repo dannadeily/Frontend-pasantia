@@ -75,7 +75,7 @@ export default function CargarDocumentos() {
               </TableRow>
             </TableBody>
           </Table>
-
+          <br></br>
           <Grid item>
             <Button variant="contained" color="primary">
               <Link to="/Estudiante/DocumentoFinal">Actualizar Documentos</Link>
