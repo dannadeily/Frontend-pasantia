@@ -111,7 +111,7 @@ function DocumentosEmpresa() {
    };
    //----------------------------
 
-   
+
   const columns = [
     {
       name: "documento",
@@ -124,6 +124,11 @@ function DocumentosEmpresa() {
       },
     },
     {
+        name: "formato",
+        label: "Formato",
+      
+      },
+    {
       name: "visualizado",
       label: "Visualizado",
     
@@ -133,7 +138,7 @@ function DocumentosEmpresa() {
 
   const row=[];
     data.map((empresa) => (
-       row.push( ["empresa.nombre", <Checkbox
+       row.push( ["empresa.nombre", "empresa.nombre",<Checkbox
         defaultChecked
         color="primary"
         inputProps={{ 'aria-label': 'secondary checkbox' }}
