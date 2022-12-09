@@ -9,6 +9,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,8 +25,10 @@ export default function PerfilAdmin() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Typography variant="h6">Datos Personales</Typography>
 
+   <Container maxWidth="md">
+      <Typography variant="h6">Datos Personales</Typography>
+    
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <Table>
@@ -150,6 +153,8 @@ export default function PerfilAdmin() {
           <Link to="/Administrador/EditarDatosAdmin">Editar datos</Link>
         </Button>
       </Grid>
+
+      </Container>
     </div>
   );
 }
