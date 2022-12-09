@@ -107,6 +107,7 @@ export default function InfoEstudiante() {
           />
           <LinkTab label="Avances" href="/spam" {...a11yProps(2)} />
           <LinkTab label="Documentos Finales" href="/spam" {...a11yProps(3)} />
+          <LinkTab label="Empresa y jurados asignados" href="/spam" {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       {/* TABLA DE INFORMACION GENERAL  */}
@@ -344,6 +345,71 @@ export default function InfoEstudiante() {
             </Table>
           </Grid>
         </Grid>
+      </TabPanel>
+      {/* Empresa y jurados asignados */}
+      <TabPanel value={value} index={4}>
+      <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Empresa asignada:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">29/04/2000</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Tutor Asignado:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">29/04/2000</Typography>
+                  </TableCell>
+                </TableRow>
+                <br></br>
+                <br></br>
+                <Typography variant="p">Jurados asignados:</Typography>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Jurado 1:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">29/04/2000</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Jurado 2:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">29/04/2000</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="h6">
+                      Jurado 3:
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="p">29/04/2000</Typography>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Grid>
+        </Grid>
+
       </TabPanel>
     </div>
   );
