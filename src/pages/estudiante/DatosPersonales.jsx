@@ -1,5 +1,4 @@
 import React from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +8,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import useAuth from '../../hooks/useAuth'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function DatosPersonales() {
   const classes = useStyles();
+  const { auth } = useAuth();
+  const {usuario}= auth;
   return (
     <div className={classes.root}>
       <Typography variant="h6">Datos Personales</Typography>
@@ -35,7 +37,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Nombres:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">Danna Deily </Typography>
+                  <Typography variant="p">{usuario.nombres} </Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -43,31 +45,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Apellidos:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">Duque Conde</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Fecha de nacimiento:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">29/04/2000</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Lugar de nacimiento:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">cúcuta</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Sexo:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Femenino</Typography>
+                  <Typography variant="p">{usuario.apellidos}</Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -75,7 +53,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Direccion:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">av 4 # 6-47 san luis</Typography>
+                  <Typography variant="p"> {usuario.direccion} </Typography>
                 </TableCell>
               </TableRow>
 
@@ -84,7 +62,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Telefono:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">3177141689</Typography>
+                  <Typography variant="p"> {usuario.telefono} </Typography>
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -98,7 +76,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Cedula:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">1010075720</Typography>
+                  <Typography variant="p"> {usuario.numeroDocumento} </Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -111,18 +89,10 @@ export default function DatosPersonales() {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <Typography variant="h6">Expedida:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Cucuta</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
                   <Typography variant="h6">Email:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">dannadeilydc@ufps.edu.co</Typography>
+                  <Typography variant="p">{usuario.email}</Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -130,7 +100,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Codigo estudiantil:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">1151732</Typography>
+                  <Typography variant="p">{usuario.codigo}</Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -138,7 +108,7 @@ export default function DatosPersonales() {
                   <Typography variant="h6">Semestre:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="p">10</Typography>
+                  <Typography variant="p">{usuario.semestre}</Typography>
                 </TableCell>
               </TableRow>
             </TableBody>
