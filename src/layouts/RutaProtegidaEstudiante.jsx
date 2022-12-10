@@ -12,7 +12,7 @@ const RutaProtegidaEstudiante = () => {
     console.log(auth)
     return (
         <>
-             {auth.usuario.idusuario && auth.usuario.rol===2? 
+             { auth.status!==401 && auth.usuario.idusuario && auth.usuario.rol===2? 
             (
                 <DrawerEstudiante/>
             ) :<Navigate to="/" />}

@@ -9,10 +9,9 @@ const RutaProtegida = () => {
     
 
     if(cargando) return <Cargando/>
-
     return (
         <>
-            {auth.usuario.idusuario && auth.usuario.rol===1 ? 
+            {auth.status!==401 &&auth.usuario.idusuario && auth.usuario.rol===1 ? 
             (
                 <DrawerAdministrador/>
             ) : <Navigate to="/" /> }

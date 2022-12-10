@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -10,7 +10,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TextField from "@material-ui/core/TextField";
 import { Link } from "react-router-dom";
-
+import conexionAxios from "../../config/axios";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -25,6 +25,17 @@ const useStyles = makeStyles((theme) => ({
 export default function CargarDocumentos() {
   const classes = useStyles();
 
+  const [data, setData] = useState([]);
+  const peticionGet = async () => {
+    await conexionAxios.get("/documentosAvances").then((response) => {
+      setData(response.data);
+    });
+  };
+
+  useEffect(async () => {
+    await peticionGet();
+  }, []);
+
   return (
     <Container fixed>
       <Typography component="div" style={{ height: "100vh" }}>
@@ -32,60 +43,30 @@ export default function CargarDocumentos() {
         <form class="" action="" method="post">
           <Table>
             <TableBody>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Cedula de ciudadania:</Typography>
-                </TableCell>
+              {data.map((documento) => {
+                return (
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="h6">
+                        {documento.documento}:
+                      </Typography>
+                    </TableCell>
 
-                <TableCell>
-                  <TextField
-                    autoComplete="fname"
-                    name="file"
-                    variant="outlined"
-                    type="file"
-                    required
-                    fullWidth
-                    id="file"
-                    autoFocus
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Cedula de ciudadania:</Typography>
-                </TableCell>
-
-                <TableCell>
-                  <TextField
-                    autoComplete="fname"
-                    name="file"
-                    variant="outlined"
-                    type="file"
-                    required
-                    fullWidth
-                    id="file"
-                    autoFocus
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Cedula de ciudadania:</Typography>
-                </TableCell>
-
-                <TableCell>
-                  <TextField
-                    autoComplete="fname"
-                    name="file"
-                    variant="outlined"
-                    type="file"
-                    required
-                    fullWidth
-                    id="file"
-                    autoFocus
-                  />
-                </TableCell>
-              </TableRow>
+                    <TableCell>
+                      <TextField
+                        autoComplete="fname"
+                        name="file"
+                        variant="outlined"
+                        type="file"
+                        required
+                        fullWidth
+                        id="file"
+                        autoFocus
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
           <br></br>

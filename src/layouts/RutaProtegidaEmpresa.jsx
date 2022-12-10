@@ -13,7 +13,7 @@ const RutaProtegida = () => {
     console.log(auth)
     return (
         <>
-            {auth.usuario.idusuario && auth.usuario.rol===4 ? 
+            {auth.status!==401 &&auth.usuario.idusuario && auth.usuario.rol===4 ? 
             (
                 <AppbarEmpresa/>
             ) : <Navigate to="/" /> }
