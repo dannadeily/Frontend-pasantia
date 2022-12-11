@@ -126,9 +126,7 @@ export default function SignInSideEmpresa() {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} >
-        <img src="/fondoescritorio.jpg"></img>
-      </Grid>
+     
 
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
@@ -221,6 +219,10 @@ export default function SignInSideEmpresa() {
             </Button>
           </Grid>
         </div>
+        
+      </Grid>
+      <Grid item xs={false} sm={4} md={7} className={classes.image} >
+        <img src="/fondoescritorio.jpg"></img>
       </Grid>
     </Grid>
   );
