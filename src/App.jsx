@@ -265,7 +265,7 @@ function App() {
           <Route path="/Jurado" element={<RutaProtegidaJurado />}>
             <Route index element={<EstudianteAsignado></EstudianteAsignado>} />
             <Route
-              path="/Jurado/InformacionEstudiante"
+              path="/Jurado/InformacionEstudiante/:id"
               element={<InformacionEstudiante></InformacionEstudiante>}
             />
             <Route

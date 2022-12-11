@@ -188,7 +188,9 @@ const [pasantesSeleccionada, setpasantesSeleccionada] = useState({
   const columns = [
     {
       name: "Id del estudiante",
-      options: {},
+      options: {
+        display:false,
+      },
     },
     {
       name: "Nombre del estudiante",
@@ -205,7 +207,7 @@ const [pasantesSeleccionada, setpasantesSeleccionada] = useState({
 
   const row = [];
   pasantes.map((pasante) =>
-    row.push([pasante.usuario.id,
+    row.push([pasante.idpasante,
       pasante.usuario.nombres + " " + pasante.usuario.apellidos,
       pasante.empresa.nombre,
 

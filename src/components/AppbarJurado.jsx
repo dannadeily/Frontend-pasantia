@@ -109,9 +109,6 @@ export default function AppbarJurado() {
           </Typography>
           <div className={classes.menu}>
            <Link to="/Jurado">  <Button className={classes.button}>Estudiantes asignados</Button> </Link> 
-           <Link to="/Jurado/EvaluarDocumento">
-           <Button className={classes.button}>Evaluar documento</Button>
-           </Link>
            <Link to="/Jurado/EvaluarPasante">
            <Button className={classes.button}>Evaluar Pasante</Button>
            </Link>
