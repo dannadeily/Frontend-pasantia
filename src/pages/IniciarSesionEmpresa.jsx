@@ -17,6 +17,7 @@ import useAuth from "../hooks/useAuth";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import BusinessIcon from '@material-ui/icons/Business';
+import background from "../../public/fondoescritorio.jpg";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -221,8 +222,7 @@ export default function SignInSideEmpresa() {
         </div>
         
       </Grid>
-      <Grid item xs={false} sm={4} md={7} className={classes.image} >
-        <img src="/fondoescritorio.jpg"></img>
+      <Grid item xs={false} sm={4} md={7} className={classes.image} style={{ backgroundImage: `url(${background})` }} >
       </Grid>
     </Grid>
   );
