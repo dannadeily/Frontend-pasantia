@@ -1,52 +1,68 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import MUIDataTable from "mui-datatables";
-import InfoIcon from "@mui/icons-material/Info";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
-import Button from "@material-ui/core/Button";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Container from "@material-ui/core/Container";
+import conexionAxios from "../../config/axios";
+import { makeStyles } from "@material-ui/core/styles";
+import MUIDataTable from "mui-datatables";
+import InfoIcon from "@material-ui/icons/Info";
+import Container from '@material-ui/core/Container';
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import {
+  Table,
+  TableContainer,
+  TableHead,
+  TableCell,
+  TableBody,
+  TableRow,
+  Modal,
+  Button,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+import EditIcon from '@material-ui/icons/Edit';
+import Dialog from "@material-ui/core/Dialog";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import DialogContentText from '@material-ui/core/DialogContentText';
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    position: "absolute",
+    width: 1000,
+    height: 500,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
+  iconos: {
+    cursor: "pointer",
+  },
+  inputMaterial: {
+    width: "100%",
+  },
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: "none",
+  },
+}));
 
 function EvaluarPasante() {
-  const [responsive, setResponsive] = useState("horizontal");
+  const classes = useStyles();
+  const [responsive, setResponsive] = useState("standard");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);
   const [selectableRows, setSelectableRows] = useState("none");
-
-  const columns = [
-    {
-      name: "Nombre del estudiante",
-    },
-    {
-      name: "Empresa",
-    },
-    {
-      name: "Fecha inicio de la pasantia",
-    },
-    {
-      name: "Informacion",
-
-      options: {
-        customBodyRenderLite: (dataIndex, rowIndex) => {
-          return (
-            <button>
-              <Link to="/Jurado/InformacionEstudiante">
-                <InfoIcon />
-              </Link>
-            </button>
-          );
-        },
-      },
-    },
-  ];
 
   const options = {
     filter: true,
@@ -61,58 +77,191 @@ function EvaluarPasante() {
     selectableRows: selectableRows,
   };
 
-  const data = [
-    ["Gabby George", "Business Analyst", "Minneapolis", 30, 100000],
-    ["Business Analyst", "Business Consultant", "Dallas", 55, 200000],
-    ["Jaden Collins", "Attorney", "Santa Ana", 27, 500000],
-    ["Franky Rees", "Business Analyst", "St. Petersburg", 22, 50000],
-    ["Aaren Rose", "Business Consultant", "Toledo", 28, 75000],
-    ["Blake Duncan", "Business Management Analyst", "San Diego", 65, 94000],
-    ["Frankie Parry", "Agency Legal Counsel", "Jacksonville", 71, 210000],
-    ["Lane Wilson", "Commercial Specialist", "Omaha", 19, 65000],
-    ["Robin Duncan", "Business Analyst", "Los Angeles", 20, 77000],
-    ["Mel Brooks", "Business Consultant", "Oklahoma City", 37, 135000],
-    ["Harper White", "Attorney", "Pittsburgh", 52, 420000],
-    ["Kris Humphrey", "Agency Legal Counsel", "Laredo", 30, 150000],
-    ["Frankie Long", "Industrial Analyst", "Austin", 31, 170000],
-    ["Brynn Robbins", "Business Analyst", "Norfolk", 22, 90000],
-    ["Justice Mann", "Business Consultant", "Chicago", 24, 133000],
-    ["Addison Navarro", "Business Management Analyst", "New York", 50, 295000],
-    ["Jesse Welch", "Agency Legal Counsel", "Seattle", 28, 200000],
-    ["Eli Mejia", "Commercial Specialist", "Long Beach", 65, 400000],
-    ["Gene Leblanc", "Industrial Analyst", "Hartford", 34, 110000],
-    ["Danny Leon", "Computer Scientist", "Newark", 60, 220000],
-    ["Lane Lee", "Corporate Counselor", "Cincinnati", 52, 180000],
-    ["Jesse Hall", "Business Analyst", "Baltimore", 44, 99000],
-    ["Danni Hudson", "Agency Legal Counsel", "Tampa", 37, 90000],
-    ["Terry Macdonald", "Commercial Specialist", "Miami", 39, 140000],
-    ["Justice Mccarthy", "Attorney", "Tucson", 26, 330000],
-    ["Silver Carey", "Computer Scientist", "Memphis", 47, 250000],
-    ["Franky Miles", "Industrial Analyst", "Buffalo", 49, 190000],
-    ["Glen Nixon", "Corporate Counselor", "Arlington", 44, 80000],
-    [
-      "Gabby Strickland",
-      "Business Process Consultant",
-      "Scottsdale",
-      26,
-      45000,
-    ],
-    ["Mason Ray", "Computer Scientist", "San Francisco", 39, 142000],
+  const styles = useStyles();
+
+
+  const [pasantes, setData] = useState([]);
+  const peticionGet = async () => {
+    await conexionAxios.get("/pasantes").then((response) => {
+      setData(response.data.pasantes);
+    });
+  };
+
+  useEffect(async () => {
+    await peticionGet();
+  }, []);
+
+  const seleccionarpasantes = (pasantes, caso) => {
+    
+    setpasantesSeleccionada(pasantes);
+    abrirCerrarModalEvaluar();
+  };
+  
+  const [pasantesSeleccionada, setpasantesSeleccionada] = useState({
+    idusuario: "",
+  });
+
+  //----------------------MODAL-----------------------------------
+  
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+
+  const [modalEvaluar, setModalEvaluar] = useState(false);
+
+  const abrirCerrarModalEvaluar = () => {
+    setModalEvaluar(!modalEvaluar);
+  };
+
+  
+  
+  const bodyEvaluar = (
+    <div >
+      <Dialog
+       fullScreen={fullScreen}
+       open={modalEvaluar}
+       onClose={abrirCerrarModalEvaluar}
+       aria-labelledby="responsive-dialog-title">
+      <DialogTitle id="form-dialog-title">EVALUAR</DialogTitle>
+      <div className={styles.root}>
+      
+          <DialogContentText>
+          Evaluación  del Informe Final y sustentación 
+
+          </DialogContentText>
+          <DialogContentText>
+          El rango de valoracion de cada indicador es de 0-5  
+          
+          </DialogContentText>
+        
+      <form className={classes.form}  >
+          <Grid container spacing={2}>
+           
+            <Grid item xs={12}>
+            <Typography>Cumplimiento de los objetivos propuestos:</Typography>
+              <TextField
+                
+                variant="outlined"
+                required
+                type="number"
+                fullWidth
+      
+              
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+            <Typography>Calidad de los entregables (hitos) desarrollados durante la pasantía:</Typography>
+              <TextField
+                
+                variant="outlined"
+                required
+                type="number"
+                fullWidth
+              
+              />
+            </Grid>
+            
+            <Grid item xs={12}>
+            <Typography>Sustentación de las actividades desarrolladas en la pasantía:</Typography>
+              <TextField
+             
+                variant="outlined"
+                required
+                type="number"
+                fullWidth
+               
+              />
+            </Grid>
+            <Grid item xs={12}>
+            <Typography>Presentación documento – con el desarrollo del informe parcial :</Typography>
+              <TextField
+
+                variant="outlined"
+                required
+                type="number"
+                fullWidth
+
+              />
+            </Grid>
+          </Grid>
+          <br></br>
+          <Button
+            type="submit"
+            
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            
+          >
+            Enviar
+          </Button>
+        </form>
+
+
+
+        <DialogActions>
+          
+          <Button onClick={() => abrirCerrarModalEvaluar()}>Cancelar</Button>
+        </DialogActions>
+
+      </div>
+      </Dialog>
+    </div>
+  );
+
+
+  const columns = [
+    {
+      name: "Id del estudiante",
+      options: {
+
+        display:false,
+      },
+    },
+    {
+      name: "Nombre del estudiante",
+      options: {},
+    },
+   
+    {
+      name: "Evaluar",
+    },
   ];
 
+  const row = [];
+  pasantes.map((pasante) =>
+    row.push([pasante.idpasante,
+      pasante.usuario.nombres+ " "+ pasante.usuario.apellidos ,
+      <Button 
+        className={styles.iconos}
+        onClick={() => seleccionarpasantes(pasantes, "Editar")}
+        color="primary"
+        variant="outlined"
+      >EVALUAR</Button>,
+    ])
+  );
   return (
-    <>
+    <div className="App">
+      <br></br>
+     
       <Container maxWidth="lg">
-        <br></br>
-        <MUIDataTable
-          title={"Estudiantes activos"}
-          data={data}
-          columns={columns}
-          options={options}
-        />
-        <br></br>
+      <MUIDataTable
+        title={"PASANTES ASIGNADOS"}
+        data={row}
+        columns={columns}
+        options={options}
+
+        
+
+      />
+      
+      <Modal open={modalEvaluar} onClose={abrirCerrarModalEvaluar}>
+        {bodyEvaluar}
+      </Modal>
+      
       </Container>
-    </>
+    </div>
   );
 }
 

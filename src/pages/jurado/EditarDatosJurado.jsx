@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-export default function PerfilJurado() {
+export default function EditarDatosJurado() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <br></br>
       <Container maxWidth="sm">
-      <Typography variant="h6">Datos Personales</Typography>
+      <Typography variant="h6">Editar datos personales</Typography>
        
           <Table>
             <TableBody>
@@ -36,7 +36,7 @@ export default function PerfilJurado() {
                   <Typography variant="h6">Nombres:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography >Danna Deily </Typography>
+                  
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -44,7 +44,7 @@ export default function PerfilJurado() {
                   <Typography variant="h6">Apellidos:</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography >Duque Conde</Typography>
+                 
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -69,7 +69,7 @@ export default function PerfilJurado() {
       <br></br>
       <Grid item>
         <Button variant="contained" color="primary">
-          <Link to="/Jurado/EditarDatosJurado">Editar datos</Link>
+          <Link to="/Jurado/PerfilJurado">Guardar cambios</Link>
         </Button>
       </Grid>
       </Container>

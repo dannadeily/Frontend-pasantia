@@ -57,8 +57,8 @@ import EstudianteAsignado from "./pages/jurado/EstudianteAsignado";
 import InformacionEstudiante from "./pages/jurado/InformacionEstudiante";
 import PerfilJurado from "./pages/jurado/PerfilJurado";
 import CambiarPasswordJurado from "./pages/jurado/CambiarPassworsJurado";
-import EvaluarDocumento from "./pages/jurado/EvaluarDocumento";
 import EvaluarPasante from "./pages/jurado/EvaluarPasante";
+import EditarDatosJurado from "./pages/jurado/EditarDatosJurado";
 
 //Empresa
 import AppbarEmpresa from "./components/AppbarEmpresa";
@@ -72,6 +72,7 @@ import RutaProtegida from "./layouts/RutaProtegida";
 import RutaProtegidaEstudiante from "./layouts/RutaProtegidaEstudiante";
 import RutaProtegidaJurado from "./layouts/RutaProtegidaJurado";
 import RutaProtegidaEmpresa from "./layouts/RutaProtegidaEmpresa";
+
 
 function App() {
   return (
@@ -268,10 +269,7 @@ function App() {
               path="/Jurado/InformacionEstudiante/:id"
               element={<InformacionEstudiante></InformacionEstudiante>}
             />
-            <Route
-              path="/Jurado/EvaluarDocumento"
-              element={<EvaluarDocumento></EvaluarDocumento>}
-            />
+           
             <Route
               path="/Jurado/EvaluarPasante"
               element={<EvaluarPasante></EvaluarPasante>}
@@ -283,6 +281,10 @@ function App() {
             <Route
               path="/Jurado/CambiarPasswordJurado"
               element={<CambiarPasswordJurado></CambiarPasswordJurado>}
+            />
+            <Route
+            path="/Jurado/EditarDatosJurado"
+            element={<EditarDatosJurado></EditarDatosJurado>}
             />
           </Route>
 

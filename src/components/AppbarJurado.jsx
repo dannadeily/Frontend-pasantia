@@ -85,7 +85,7 @@ export default function AppbarJurado() {
      cerrarSesionAuth()
      localStorage.removeItem('token')
  }
-  const [open, setOpen] = React.useState(false);
+
 
   //Abrir menu ---------------
 

@@ -104,6 +104,7 @@ function EstudianteAsignado() {
   return (
     <div className="App">
       <Container maxWidth="lg">
+      <br></br>
       <MUIDataTable
         title={"PASANTES ASIGNADOS"}
         data={row}
