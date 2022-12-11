@@ -7,7 +7,7 @@ import InfoIcon from "@material-ui/icons/Info";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from "@material-ui/icons/Edit";
 import {
   Table,
   TableContainer,
@@ -77,15 +77,32 @@ function AsignarJurado() {
   const styles = useStyles();
 
   const [pasantes, setData] = useState([]);
+  const [jurados, setJurados] = useState([]);
+
   const peticionGet = async () => {
     await conexionAxios.get("/pasantes").then((response) => {
       setData(response.data.pasantes);
     });
+    await conexionAxios.get("/jurados").then((response) => {
+      setJurados(response.data);
+    });
   };
 
-  useEffect(async () => {
-    await peticionGet();
+  useEffect(() => {
+    peticionGet();
   }, []);
+
+  const [asignados, setAsignados] = useState({
+    });
+
+  const actualizarState = (e) => {
+    // Almacenar lo que el usuario escribe en el state
+    setAsignados({
+      // obtener una copia del state actual
+      ...asignados,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   //-----------------------------MODAL---------------------------------------
 
@@ -95,77 +112,81 @@ function AsignarJurado() {
     setModalEditar(!modalEditar);
   };
 
+  const peticionPost = async () => {
+    console.log(asignados);
+    await conexionAxios
+      .post("asignarjurados/" + pasantesSeleccionada.idpasante, asignados)
+      .then((response) => {
+        abrirCerrarModalEditar();
+      });
+  };
+
   const bodyEditar = (
     <div className={styles.modal}>
       <div className={styles.root}>
         <DialogContent>
-
-          <Typography>
-
-            Asigne los 3 jurados del estudiante:
-          </Typography>
+          <Typography>Asigne los 3 jurados del estudiante:</Typography>
           <br></br>
           <Grid item xs={12}>
-          <InputLabel >
-                  Asignar jurado 1 : 
-          </InputLabel>
-          <FormControl variant="outlined" fullWidth>
-            
-                <Select
-                  
-                  name="jurado"
-                  native
-                  label="jurado"
-                >
-                  
-                </Select>
-              </FormControl>
-
-              </Grid>
-              <br></br>
-              <Grid item xs={12}>
-          <InputLabel >
-                  Asignar jurado 2 : 
-          </InputLabel>
-          <FormControl variant="outlined" fullWidth>
-            
-                <Select
-                  
-                  name="jurado"
-                  native
-                  label="jurado"
-                >
-                  
-                </Select>
-              </FormControl>
-
-              </Grid>
-              <br></br>
-              <Grid item xs={12}>
-          <InputLabel >
-                  Asignar jurado 3 : 
-          </InputLabel>
-          <FormControl variant="outlined" fullWidth>
-            
-                <Select
-                  
-                  name="jurado"
-                  native
-                  label="jurado"
-                >
-                  
-                </Select>
-              </FormControl>
-
-              </Grid>
-          
+            <InputLabel>Asignar jurado 1 :</InputLabel>
+            <FormControl variant="outlined" fullWidth>
+              <Select 
+              name="jurado1" 
+              native 
+              label="jurado"
+              onChange={actualizarState}
+              >
+                
+                {jurados.map((jurado) => {
+                  return (
+                    <option value={jurado.idusuario}>
+                      {" "}
+                      {jurado.nombres + " " + jurado.apellidos}{" "}
+                    </option>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+          <br></br>
+          <Grid item xs={12}>
+            <InputLabel>Asignar jurado 2 :</InputLabel>
+            <FormControl variant="outlined" fullWidth>
+              <Select name="jurado2" native label="jurado" onChange={actualizarState}>
+                {jurados.map((jurado) => {
+                  return (
+                    <option value={jurado.idusuario}>
+                      {" "}
+                      {jurado.nombres + " " + jurado.apellidos}{" "}
+                    </option>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+          <br></br>
+          <Grid item xs={12}>
+            <InputLabel>Asignar jurado 3 :</InputLabel>
+            <FormControl variant="outlined" fullWidth>
+              <Select name="jurado3" native label="jurado" onChange={actualizarState}>
+                {jurados.map((jurado) => {
+                  return (
+                    <option value={jurado.idusuario}>
+                      {" "}
+                      {jurado.nombres + " " + jurado.apellidos}{" "}
+                    </option>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
         </DialogContent>
       </div>
       <br />
       <br />
       <div align="right">
         <DialogActions>
-          <Button color="primary" onClick={() => peticionPut()}>
+          <Button color="primary" onClick={() => peticionPost()}>
             Guardar
           </Button>
           <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
@@ -173,23 +194,22 @@ function AsignarJurado() {
       </div>
     </div>
   );
-//------------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------------
 
+  const seleccionarpasantes = (pasantes, caso) => {
+    setpasantesSeleccionada(pasantes);
+    abrirCerrarModalEditar();
+  };
 
-const seleccionarpasantes = (pasantes, caso) => {
-  setpasantesSeleccionada(pasantes);
-  abrirCerrarModalEditar();
-};
-
-const [pasantesSeleccionada, setpasantesSeleccionada] = useState({
-  idusuario: "",
-});
+  const [pasantesSeleccionada, setpasantesSeleccionada] = useState({
+    idpasante: "",
+  });
 
   const columns = [
     {
       name: "Id del estudiante",
       options: {
-        display:false,
+        display: false,
       },
     },
     {
@@ -207,14 +227,15 @@ const [pasantesSeleccionada, setpasantesSeleccionada] = useState({
 
   const row = [];
   pasantes.map((pasante) =>
-    row.push([pasante.idpasante,
+    row.push([
+      pasante.idpasante,
       pasante.usuario.nombres + " " + pasante.usuario.apellidos,
       pasante.empresa.nombre,
 
       <EditIcon
         className={styles.iconos}
-        onClick={() => seleccionarpasantes(pasantes, "Editar")}
-      />
+        onClick={() => seleccionarpasantes(pasante, "Editar")}
+      />,
     ])
   );
 

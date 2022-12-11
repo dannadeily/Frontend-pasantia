@@ -45,7 +45,7 @@ export default function CargarDocumentos() {
           <Table>
             <TableBody>
               {data.map((documento) => {
-                <TableRow>
+                return(<TableRow>
                   <TableCell>
                     <Typography variant="h6">{documento.documento}:</Typography>
                   </TableCell>
@@ -53,7 +53,7 @@ export default function CargarDocumentos() {
                   <TableCell>
                     <TextField
                       autoComplete="fname"
-                      name="file"
+                      name={documento.documento}
                       variant="outlined"
                       type="file"
                       required
@@ -62,7 +62,7 @@ export default function CargarDocumentos() {
                       autoFocus
                     />
                   </TableCell>
-                </TableRow>;
+                </TableRow>);
               })}
             </TableBody>
           </Table>

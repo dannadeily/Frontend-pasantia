@@ -20,7 +20,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
-import PublishIcon from '@material-ui/icons/Publish';
+import PublishIcon from "@material-ui/icons/Publish";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -51,14 +51,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CargarConvenio() {
-
   const [responsive, setResponsive] = useState("standard");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);
   const [selectableRows, setSelectableRows] = useState("none");
-
-
 
   const options = {
     filter: true,
@@ -71,9 +68,7 @@ function CargarConvenio() {
       transitionTime,
     },
     selectableRows: selectableRows,
-    
   };
-
 
   const styles = useStyles();
   const [data, setData] = useState([]);
@@ -85,7 +80,6 @@ function CargarConvenio() {
   const [archivo, guardarArchivo] = useState("");
 
   const peticionGet = async () => {
-    
     await conexionAxios.get("/empresasinactivas").then((response) => {
       setData(response.data.empresa);
     });
@@ -106,7 +100,6 @@ function CargarConvenio() {
         setData(dataNueva);
         abrirCerrarModalEditar();
       });
-
   };
 
   const abrirCerrarModalEditar = () => {
@@ -131,20 +124,17 @@ function CargarConvenio() {
       <DialogTitle id="form-dialog-title">Cargar convenio</DialogTitle>
       <div className={styles.root}>
         <DialogContent>
-        
-        <TextField
-                autoComplete="fname"
-                name="file"
-                variant="outlined"
-                type="file"
-                required
-                fullWidth
-                id="file"
-                autoFocus
-                onChange={leerArchivo}
-           
+          <TextField
+            autoComplete="fname"
+            name="file"
+            variant="outlined"
+            type="file"
+            required
+            fullWidth
+            id="file"
+            autoFocus
+            onChange={leerArchivo}
           />
-          
         </DialogContent>
       </div>
       <br />
@@ -168,7 +158,6 @@ function CargarConvenio() {
         filter: false,
         sort: true,
         display: false,
-        
       },
     },
     {
@@ -193,19 +182,27 @@ function CargarConvenio() {
     },
   ];
 
-  const row=[];
-    data.map((empresa) => (
-       row.push( [empresa.idempresa,empresa.nombre,empresa.razon_social,<PublishIcon
+  const row = [];
+  data.map((empresa) =>
+    row.push([
+      empresa.idempresa,
+      empresa.nombre,
+      empresa.razon_social,
+      <PublishIcon
         className={styles.iconos}
         onClick={() => seleccionarEmpresa(empresa, "Editar")}
-      />
-      ]
-)))
-
+      />,
+    ])
+  );
 
   return (
     <div className="App">
-      <MUIDataTable title={"CARGAR CONVENIOS"} data={row} columns={columns} options={options} />
+      <MUIDataTable
+        title={"CARGAR CONVENIOS"}
+        data={row}
+        columns={columns}
+        options={options}
+      />
 
       <Modal open={modalEditar} onClose={abrirCerrarModalEditar}>
         {bodyEditar}

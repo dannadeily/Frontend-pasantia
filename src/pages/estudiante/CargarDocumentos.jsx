@@ -23,25 +23,60 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const archivos = [];
+
 export default function CargarDocumentos() {
   const classes = useStyles();
 
   const [data, setData] = useState([]);
-  const peticionGet = async () => {
+  const peticionGet = async (e) => {
     await conexionAxios.get("/documentosIniciales").then((response) => {
       setData(response.data);
     });
   };
 
-  useEffect(async () => {
-    await peticionGet();
+  useEffect(() => {
+    peticionGet();
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    for (const property in documentos) {
+      formData.append( property, documentos[property]  );
+    }
+
+    await conexionAxios
+      .post("/inicioPasantia", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+
+      });
+  };
+
+  const [documentos, setDocumentos] = useState(
+    data.map((documento) => {
+      documento.documneto = null;
+    })
+  );
+
+  const actualizarState = (e) => {
+    // Almacenar lo que el usuario escribe en el state
+    setDocumentos({
+      // obtener una copia del state actual
+      ...documentos,
+      [e.target.name]: e.target.files[0],
+    });
+  };
 
   return (
     <Container fixed>
       <Typography component="div" style={{ height: "100vh" }}>
         <Typography variant="h6">Cargar documentos</Typography>
-        <form class="" action="" method="post">
+        <form onSubmit={handleSubmit}>
           <Table>
             <TableBody>
               {data.map((documentos) => {
@@ -52,17 +87,17 @@ export default function CargarDocumentos() {
                         {documentos.documento}:
                       </Typography>
                     </TableCell>
-
                     <TableCell>
                       <TextField
                         autoComplete="fname"
-                        name="file"
+                        name={documentos.documento}
                         variant="outlined"
                         type="file"
                         required
                         fullWidth
                         id="file"
                         autoFocus
+                        onChange={actualizarState}
                       />
                     </TableCell>
                   </TableRow>
@@ -77,8 +112,13 @@ export default function CargarDocumentos() {
           </h6>
           <br></br>
           <Grid item>
-            <Button variant="contained" color="primary">
-              <Link to="/Estudiante/DocumentoCargado">Editar datos</Link>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Cargar documentos
             </Button>
           </Grid>
         </form>
