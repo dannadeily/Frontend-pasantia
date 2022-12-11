@@ -1,24 +1,35 @@
-import React, { Component ,useState} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import conexionAxios from "../../config/axios";
 import { makeStyles } from "@material-ui/core/styles";
 import MUIDataTable from "mui-datatables";
+import InfoIcon from "@material-ui/icons/Info";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import EditIcon from '@material-ui/icons/Edit';
 import {
+  Table,
+  TableContainer,
+  TableHead,
+  TableCell,
+  TableBody,
+  TableRow,
   Modal,
   Button,
+  TextField,
+  Typography,
 } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
-import PublishIcon from '@material-ui/icons/Publish';
-
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
     position: "absolute",
-    width: 400,
+    width: 1000,
+    height: 500,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -44,14 +55,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function AsignarJurado() {
-
   const [responsive, setResponsive] = useState("standard");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
   const [transitionTime, setTransitionTime] = useState(300);
   const [selectableRows, setSelectableRows] = useState("none");
-
-  const [modalEditar, setModalEditar] = useState(false);
 
   const options = {
     filter: true,
@@ -64,105 +72,158 @@ function AsignarJurado() {
       transitionTime,
     },
     selectableRows: selectableRows,
-    
   };
 
-
   const styles = useStyles();
-  
+
+  const [pasantes, setData] = useState([]);
+  const peticionGet = async () => {
+    await conexionAxios.get("/pasantes").then((response) => {
+      setData(response.data.pasantes);
+    });
+  };
+
+  useEffect(async () => {
+    await peticionGet();
+  }, []);
+
+  //-----------------------------MODAL---------------------------------------
+
+  const [modalEditar, setModalEditar] = useState(false);
+
   const abrirCerrarModalEditar = () => {
     setModalEditar(!modalEditar);
   };
 
-  
-
-  
-
   const bodyEditar = (
     <div className={styles.modal}>
-      <DialogTitle id="form-dialog-title">Cargar convenio</DialogTitle>
       <div className={styles.root}>
         <DialogContent>
-          <input
-            name="convenio"
-            accept=".pdf"
-            className={styles.input}
-            id="contained-button-file"
-            multiple
-            type="file"
-            // onChange={leerArchivo}
-          />
-          <label htmlFor="contained-button-file">
-            <Button variant="contained" color="primary" component="span">
-              <CloudUploadIcon /> Cargar Documento
-            </Button>
-          </label>
+
+          <Typography>
+
+            Asigne los 3 jurados del estudiante:
+          </Typography>
+          <br></br>
+          <Grid item xs={12}>
+          <InputLabel >
+                  Asignar jurado 1 : 
+          </InputLabel>
+          <FormControl variant="outlined" fullWidth>
+            
+                <Select
+                  
+                  name="jurado"
+                  native
+                  label="jurado"
+                >
+                  
+                </Select>
+              </FormControl>
+
+              </Grid>
+              <br></br>
+              <Grid item xs={12}>
+          <InputLabel >
+                  Asignar jurado 2 : 
+          </InputLabel>
+          <FormControl variant="outlined" fullWidth>
+            
+                <Select
+                  
+                  name="jurado"
+                  native
+                  label="jurado"
+                >
+                  
+                </Select>
+              </FormControl>
+
+              </Grid>
+              <br></br>
+              <Grid item xs={12}>
+          <InputLabel >
+                  Asignar jurado 3 : 
+          </InputLabel>
+          <FormControl variant="outlined" fullWidth>
+            
+                <Select
+                  
+                  name="jurado"
+                  native
+                  label="jurado"
+                >
+                  
+                </Select>
+              </FormControl>
+
+              </Grid>
+          
         </DialogContent>
       </div>
       <br />
       <br />
       <div align="right">
         <DialogActions>
-          <Button color="primary" >
-            Subir
+          <Button color="primary" onClick={() => peticionPut()}>
+            Guardar
           </Button>
           <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
         </DialogActions>
       </div>
     </div>
   );
+//------------------------------------------------------------------------------------
+
+
+const seleccionarpasantes = (pasantes, caso) => {
+  setpasantesSeleccionada(pasantes);
+  abrirCerrarModalEditar();
+};
+
+const [pasantesSeleccionada, setpasantesSeleccionada] = useState({
+  idusuario: "",
+});
 
   const columns = [
     {
-      name: "nombreEstudiante",
-      label: "Nombre Estudiante",
-      options: {
-        filter: false,
-        sort: true,
-        
-        
-      },
+      name: "Id del estudiante",
+      options: {},
     },
     {
-      name: "jurado1",
-      label: "Jurado 1",
-      options: {
-        filter: true,
-        sort: true,
-      },
+      name: "Nombre del estudiante",
+      options: {},
     },
     {
-      name: "jurado2",
-      label: "Jurado 2",
-      options: {
-        filter: true,
-        sort: true,
-      },
+      name: "Empresa",
+      options: {},
     },
     {
-      name: "jurado3",
-      label: "Jurado 3",
-      options: {
-        filter: true,
-        sort: true,
-      },
+      name: "Asignar jurado",
     },
-
   ];
 
-  const row=[];
-//     data.map((empresa) => (
-//        row.push( [empresa.idempresa,empresa.nombre,empresa.razon_social,<PublishIcon
-//         className={styles.iconos}
-//         onClick={() => seleccionarEmpresa(empresa, "Editar")}
-//       />
-//       ]
-// )))
+  const row = [];
+  pasantes.map((pasante) =>
+    row.push([pasante.usuario.id,
+      pasante.usuario.nombres + " " + pasante.usuario.apellidos,
+      pasante.empresa.nombre,
 
+      <EditIcon
+        className={styles.iconos}
+        onClick={() => seleccionarpasantes(pasantes, "Editar")}
+      />
+    ])
+  );
 
   return (
     <div className="App">
-      <MUIDataTable title={"ASIGNAR JURADO "} data={row} columns={columns} options={options} />
+      <MUIDataTable
+        title={"ASIGNAR JURADO"}
+        data={row}
+        columns={columns}
+        options={options}
+      />
 
       <Modal open={modalEditar} onClose={abrirCerrarModalEditar}>
         {bodyEditar}
