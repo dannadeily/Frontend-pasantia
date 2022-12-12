@@ -26,6 +26,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import DialogContentText from '@material-ui/core/DialogContentText';
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -145,6 +146,8 @@ function EvaluarPasante() {
                 required
                 type="number"
                 fullWidth
+                InputProps={{ inputProps: { min: 0, max: 5 } }}
+
       
               
               />
@@ -158,6 +161,7 @@ function EvaluarPasante() {
                 required
                 type="number"
                 fullWidth
+                InputProps={{ inputProps: { min: 0, max: 5 } }}
               
               />
             </Grid>
@@ -170,6 +174,7 @@ function EvaluarPasante() {
                 required
                 type="number"
                 fullWidth
+                InputProps={{ inputProps: { min: 0, max: 5 } }}
                
               />
             </Grid>
@@ -181,6 +186,7 @@ function EvaluarPasante() {
                 required
                 type="number"
                 fullWidth
+                InputProps={{ inputProps: { min: 0, max: 5 } }}
 
               />
             </Grid>

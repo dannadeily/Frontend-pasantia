@@ -17,6 +17,7 @@ import useAuth from "../hooks/useAuth";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import Alerta from "../components/alerta";
+import background from "../../public/fondoescritorio.jpg";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   image: {
-    
+   
     backgroundColor:
       theme.palette.type === "light"
         ? theme.palette.grey[50]
@@ -132,8 +133,8 @@ export default function SignInSide() {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} >
-        <img src="/fondoescritorio.jpg"></img>
+      <Grid item xs={false} sm={4} md={7} className={classes.image} style={{ backgroundImage: `url(${background})` }}>
+        
       </Grid>
 
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -225,21 +226,3 @@ export default function SignInSide() {
   );
 }
 
-//
-
-//           <form className={classes.form} noValidate onSubmit={handleSubmit}>
-//             {/* <FormControl variant="outlined" className={classes.formControl}>
-//               <InputLabel id="demo-simple-select-outlined-label">
-//                 Rol
-//               </InputLabel>
-//               <Select
-//                 labelId="demo-simple-select-outlined-label"
-//                 id="rol"
-//                 label="Rol"
-//               >
-//                 <MenuItem value={1}>Administrador</MenuItem>
-//                 <MenuItem value={2}>Empresa</MenuItem>
-//                 <MenuItem value={3}>Estudiante</MenuItem>
-//                 <MenuItem value={4}>Jurado</MenuItem>
-//               </Select>
-//             </FormControl> */}

@@ -114,6 +114,7 @@ export default function InformacionEstudiante() {
 
   return (
     <div className={classes.root}>
+      <br></br>
       <Container maxWidth="lg">
         <AppBar position="static">
           <Tabs
