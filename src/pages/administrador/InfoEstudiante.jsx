@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -73,12 +73,20 @@ export default function InfoEstudiante() {
     setValue(newValue);
   };
 
-  const {id}= useParams();
+  const { id } = useParams();
 
   const [pasante, setData] = useState([]);
+  const [empresa, setEmpresa] = useState([]);
+  const [jurados, setJurados] = useState([]);
   const peticionGet = async () => {
-    await conexionAxios.get("/pasante/"+ id  ).then((response) => {
+    await conexionAxios.get("/pasante/" + id).then((response) => {
       setData(response.data.pasante);
+    });
+    await conexionAxios.get("/empresaasignada/" + id).then((response) => {
+      setEmpresa(response.data);
+    });
+    await conexionAxios.get("/juradosasignados/" + id).then((response) => {
+      setJurados(response.data.jurados);
     });
   };
 
@@ -107,7 +115,11 @@ export default function InfoEstudiante() {
           />
           <LinkTab label="Avances" href="/spam" {...a11yProps(2)} />
           <LinkTab label="Documentos Finales" href="/spam" {...a11yProps(3)} />
-          <LinkTab label="Empresa y jurados asignados" href="/spam" {...a11yProps(4)} />
+          <LinkTab
+            label="Empresa y jurados asignados"
+            href="/spam"
+            {...a11yProps(4)}
+          />
         </Tabs>
       </AppBar>
       {/* TABLA DE INFORMACION GENERAL  */}
@@ -167,7 +179,10 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Cedula:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p"> {pasante.numero_identificacion}</Typography>
+                    <Typography variant="p">
+                      {" "}
+                      {pasante.numero_identificacion}
+                    </Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -183,9 +198,7 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Email:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p">
-                    {pasante.email}
-                    </Typography>
+                    <Typography variant="p">{pasante.email}</Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -196,7 +209,6 @@ export default function InfoEstudiante() {
                     <Typography variant="p"> {pasante.codigo}</Typography>
                   </TableCell>
                 </TableRow>
-               
               </TableBody>
             </Table>
           </Grid>
@@ -348,25 +360,23 @@ export default function InfoEstudiante() {
       </TabPanel>
       {/* Empresa y jurados asignados */}
       <TabPanel value={value} index={4}>
-      <Grid container spacing={3}>
+        <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <Table>
               <TableBody>
                 <TableRow>
                   <TableCell>
-                    <Typography variant="h6">
-                      Empresa asignada:
-                    </Typography>
+                    <Typography variant="h6">Empresa asignada:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p">29/04/2000</Typography>
+                    <Typography variant="p">
+                      {empresa.empresa.nombre}
+                    </Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <Typography variant="h6">
-                      Tutor Asignado:
-                    </Typography>
+                    <Typography variant="h6">Tutor Asignado:</Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="p">29/04/2000</Typography>
@@ -375,41 +385,23 @@ export default function InfoEstudiante() {
                 <br></br>
                 <br></br>
                 <Typography variant="p">Jurados asignados:</Typography>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Jurado 1:
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">29/04/2000</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Jurado 2:
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">29/04/2000</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Jurado 3:
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">29/04/2000</Typography>
-                  </TableCell>
-                </TableRow>
+
+                {jurados.map((jurado) => {
+                  return (
+                    <TableRow>
+                      <TableCell>
+                        <Typography variant="h6">Jurado {jurado.numero_jurado}:</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="p">{jurado.usuario.nombres + ' '+ jurado.usuario.apellidos }</Typography>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </Grid>
         </Grid>
-
       </TabPanel>
     </div>
   );

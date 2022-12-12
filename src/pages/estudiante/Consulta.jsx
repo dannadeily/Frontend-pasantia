@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,6 +10,8 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import InfoIcon from "@mui/icons-material/Info";
 import Container from "@material-ui/core/Container";
+import useAuth from "../../hooks/useAuth";
+import conexionAxios from "../../config/axios";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -29,12 +31,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(nombreEmpresa, nombreTutor) {
-  return { nombreEmpresa, nombreTutor };
-}
-
-const rows = [createData("Frozen yoghurt", "Luis Perez")];
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
@@ -43,6 +39,21 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables() {
   const classes = useStyles();
+  const { auth } = useAuth();
+  const { usuario } = auth;
+
+  const [datos, setDatos] = useState([]);
+
+  const peticionGet = async () => {
+    await conexionAxios.get("/infopasante/" + usuario.idusuario).then((res) => {
+      console.log(res);
+      setDatos(res.data);
+    });
+  };
+
+  useEffect(() => {
+    peticionGet();
+  }, []);
 
   return (
     <Container fixed>
@@ -59,17 +70,15 @@ export default function CustomizedTables() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.nombreEmpresa}>
-                <StyledTableCell component="th" scope="row">
-                  {row.nombreEmpresa}
-                </StyledTableCell>
-                <StyledTableCell>{row.nombreTutor}</StyledTableCell>
-                <StyledTableCell>
-                  <InfoIcon />
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
+            <StyledTableRow>
+              <StyledTableCell component="th" scope="row">
+                {datos.empresa.nombre}
+              </StyledTableCell>
+              <StyledTableCell>nombreTutor</StyledTableCell>
+              <StyledTableCell>
+                <InfoIcon />
+              </StyledTableCell>
+            </StyledTableRow>
           </TableBody>
         </Table>
       </TableContainer>
@@ -90,15 +99,13 @@ export default function CustomizedTables() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.nombreEmpresa}>
-                <StyledTableCell component="th" scope="row">
-                  {row.nombreEmpresa}
-                </StyledTableCell>
-                <StyledTableCell>{row.nombreTutor}</StyledTableCell>
-                <StyledTableCell>{row.nombreTutor}</StyledTableCell>
-              </StyledTableRow>
-            ))}
+            <StyledTableRow>
+              <StyledTableCell component="th" scope="row">
+                {datos.jurados[0].usuario.nombres + " " + datos.jurados[0].usuario.apellidos}
+              </StyledTableCell>
+              <StyledTableCell>{datos.jurados[1].usuario.nombres + " " + datos.jurados[1].usuario.apellidos}</StyledTableCell>
+              <StyledTableCell>{datos.jurados[2].usuario.nombres + " " + datos.jurados[2].usuario.apellidos}</StyledTableCell>
+            </StyledTableRow>
           </TableBody>
         </Table>
       </TableContainer>

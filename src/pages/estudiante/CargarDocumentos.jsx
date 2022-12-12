@@ -9,8 +9,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TextField from "@material-ui/core/TextField";
-import { Link } from "react-router-dom";
 import conexionAxios from "../../config/axios";
+import useAuth from "../../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,12 +23,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const archivos = [];
-
 export default function CargarDocumentos() {
   const classes = useStyles();
 
   const [data, setData] = useState([]);
+  const { auth } = useAuth();
+  const { usuario } = auth;
   const peticionGet = async (e) => {
     await conexionAxios.get("/documentosIniciales").then((response) => {
       setData(response.data);
@@ -43,32 +43,26 @@ export default function CargarDocumentos() {
     e.preventDefault();
     const formData = new FormData();
     for (const property in documentos) {
-      formData.append( property, documentos[property]  );
+      formData.append(property, documentos[property]);
     }
 
     await conexionAxios
-      .post("/inicioPasantia", formData, {
+      .post("/inicioPasantia/"+ usuario.idusuario, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((response) => {
-
-      });
+      .then((response) => {});
   };
 
-  const [documentos, setDocumentos] = useState(
-    data.map((documento) => {
-      documento.documneto = null;
-    })
-  );
+  const [documentos, setDocumentos] = useState(data.map((documento) => {}));
 
   const actualizarState = (e) => {
     // Almacenar lo que el usuario escribe en el state
     setDocumentos({
       // obtener una copia del state actual
       ...documentos,
-      [e.target.name]: e.target.files[0],
+      [e.target.id]: e.target.files[0],
     });
   };
 
@@ -95,7 +89,7 @@ export default function CargarDocumentos() {
                         type="file"
                         required
                         fullWidth
-                        id="file"
+                        id={documentos.iddocumento}
                         autoFocus
                         onChange={actualizarState}
                       />
