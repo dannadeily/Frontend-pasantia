@@ -10,7 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import InfoIcon from "@mui/icons-material/Info";
 import Container from "@material-ui/core/Container";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -45,40 +45,38 @@ const useStyles = makeStyles({
   },
 });
 
-
 export default function CustomizedTables() {
   const classes = useStyles();
 
   //----------------------MODAL---------------------------------
-const [open, setOpen] = React.useState(false);
-const theme = useTheme();
-const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-const handleClickOpen = () => {
-  setOpen(true);
-};
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-const handleClose = () => {
-  setOpen(false);
-};
-//-----------------------------------------------------------------------
+  const handleClose = () => {
+    setOpen(false);
+  };
+  //-----------------------------------------------------------------------
 
   const { auth } = useAuth();
   const { usuario } = auth;
 
-  const [datos, setDatos] = useState([]);
+  const [data, setData] = useState([]);
 
   const peticionGet = async () => {
-    await conexionAxios.get("/infopasante/" + usuario.idusuario).then((res) => {
-      console.log(res);
-      setDatos(res.data);
+    await conexionAxios.get("/infopasante/"+ usuario.idusuario).then((response) => {
+      setData(response.data);
     });
   };
 
   useEffect(() => {
     peticionGet();
-  }, []);
-
+  },[]
+  );
   return (
     <Container fixed>
       <TableContainer component={Paper}>
@@ -96,42 +94,37 @@ const handleClose = () => {
           <TableBody>
             <StyledTableRow>
               <StyledTableCell component="th" scope="row">
-                {datos.empresa.nombre}
+                { typeof data.length === 'undefined' ? data.empresa.nombre : "" }
               </StyledTableCell>
               <StyledTableCell>nombreTutor</StyledTableCell>
               <StyledTableCell>
-                  <div>
-                    <Button
-                      
-                      
-                      onClick={handleClickOpen}
-                    >
-                    <InfoIcon/>
-                    </Button>
-                    <Dialog
-                      fullScreen={fullScreen}
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="responsive-dialog-title"
-                    >
-                      <DialogTitle id="responsive-dialog-title">
-                        {"Use Google's location service?"}
-                      </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText>
-                          Let Google help apps determine location. This means
-                          sending anonymous location data to Google, even when
-                          no apps are running.
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                      
-                        <Button onClick={handleClose} color="primary" autoFocus>
-                          Cerrar
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
-                  </div>
+                <div>
+                  <Button onClick={handleClickOpen}>
+                    <InfoIcon />
+                  </Button>
+                  <Dialog
+                    fullScreen={fullScreen}
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="responsive-dialog-title"
+                  >
+                    <DialogTitle id="responsive-dialog-title">
+                      {"Use Google's location service?"}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText>
+                        Let Google help apps determine location. This means
+                        sending anonymous location data to Google, even when no
+                        apps are running.
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose} color="primary" autoFocus>
+                        Cerrar
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </div>
               </StyledTableCell>
             </StyledTableRow>
           </TableBody>
@@ -156,10 +149,20 @@ const handleClose = () => {
           <TableBody>
             <StyledTableRow>
               <StyledTableCell component="th" scope="row">
-                {datos.jurados[0].usuario.nombres + " " + datos.jurados[0].usuario.apellidos}
+                { typeof data.length === 'undefined' ? data.jurados[0].usuario.nombres +
+                  " " +
+                  data.jurados[0].usuario.apellidos:""}
               </StyledTableCell>
-              <StyledTableCell>{datos.jurados[1].usuario.nombres + " " + datos.jurados[1].usuario.apellidos}</StyledTableCell>
-              <StyledTableCell>{datos.jurados[2].usuario.nombres + " " + datos.jurados[2].usuario.apellidos}</StyledTableCell>
+              <StyledTableCell>
+                {typeof data.length === 'undefined' ?data.jurados[1].usuario.nombres +
+                  " " +
+                  data.jurados[1].usuario.apellidos:""}
+              </StyledTableCell>
+              <StyledTableCell>
+                {typeof data.length === 'undefined' ?data.jurados[2].usuario.nombres +
+                  " " +
+                  data.jurados[2].usuario.apellidos:""}
+              </StyledTableCell>
             </StyledTableRow>
           </TableBody>
         </Table>

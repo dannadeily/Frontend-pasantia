@@ -29,7 +29,7 @@ export default function CargarDocumentos() {
   const [data, setData] = useState([]);
   const { auth } = useAuth();
   const { usuario } = auth;
-  const peticionGet = async (e) => {
+  const peticionGet = async () => {
     await conexionAxios.get("/documentosIniciales").then((response) => {
       setData(response.data);
     });
