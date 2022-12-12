@@ -107,12 +107,14 @@ function App() {
           <Route path="/Administrador" element={<RutaProtegida />}>
             <Route
               index
-              element={<RegistrarPasante></RegistrarPasante>}
+              element={<EstudianteActivo></EstudianteActivo>}
+              
             ></Route>
 
             <Route
-              path="/Administrador/EstudianteActivo"
-              element={<EstudianteActivo></EstudianteActivo>}
+              path="/Administrador/RegistrarPasante"
+              element={<RegistrarPasante></RegistrarPasante>}
+             
             />
 
             <Route
