@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TextField from "@material-ui/core/TextField";
 import { Link } from "react-router-dom";
 import conexionAxios from "../../config/axios";
+import useAuth from "../../hooks/useAuth";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -26,6 +27,8 @@ export default function CargarDocumentos() {
   const classes = useStyles();
 
   const [data, setData] = useState([]);
+  const { auth } = useAuth();
+  const { usuario } = auth;
   const peticionGet = async () => {
     await conexionAxios.get("/documentosAvances").then((response) => {
       setData(response.data);
@@ -36,11 +39,40 @@ export default function CargarDocumentos() {
     await peticionGet();
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    for (const property in documentos) {
+      formData.append(property, documentos[property]);
+    }
+
+    await conexionAxios
+      .post("/inicioPasantia/"+ usuario.idusuario, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {});
+  };
+
+  const [documentos, setDocumentos] = useState(data.map((documento) => {}));
+
+  const actualizarState = (e) => {
+    // Almacenar lo que el usuario escribe en el state
+    setDocumentos({
+      // obtener una copia del state actual
+      ...documentos,
+      [e.target.id]: e.target.files[0],
+    });
+  };
+
+  console.log(data);
+
   return (
     <Container fixed>
       <Typography component="div" style={{ height: "100vh" }}>
         <Typography variant="h6">Cargar Avances</Typography>
-        <form class="" action="" method="post">
+        <form onSubmit={handleSubmit}>
           <Table>
             <TableBody>
               {data.map((documento) => {
@@ -55,13 +87,14 @@ export default function CargarDocumentos() {
                     <TableCell>
                       <TextField
                         autoComplete="fname"
-                        name="file"
+                        name={documento.documento}
                         variant="outlined"
                         type="file"
                         required
                         fullWidth
-                        id="file"
+                        id={documento.iddocumento}
                         autoFocus
+                        onChange={actualizarState}
                       />
                     </TableCell>
                   </TableRow>
@@ -77,8 +110,13 @@ export default function CargarDocumentos() {
           </h6>
           <br></br>
           <Grid item>
-            <Button variant="contained" color="primary">
-              <Link to="/Estudiante/AvanceCargado">Editar datos</Link>
+          <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Cargar documentos
             </Button>
           </Grid>
         </form>

@@ -133,7 +133,7 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Nombres:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p"> {pasante.nombres} </Typography>
+                    <Typography variant="p">  {typeof pasante.length === 'undefined' ? pasante.nombres:"" } </Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -141,7 +141,7 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Apellidos:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p"> {pasante.apellidos}</Typography>
+                    <Typography variant="p"> { typeof pasante.length === 'undefined' ?pasante.apellidos:""}</Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -149,7 +149,7 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Direccion:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p"> {pasante.direccion}</Typography>
+                    <Typography variant="p">  {typeof pasante.length === 'undefined' ?pasante.direccion:""}</Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -157,7 +157,7 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Telefono:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p"> {pasante.telefono}</Typography>
+                    <Typography variant="p">  {typeof pasante.length === 'undefined' ?pasante.telefono:""}</Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -165,7 +165,7 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Semestre:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p"> {pasante.semestre}</Typography>
+                    <Typography variant="p">  {typeof pasante.length === 'undefined' ?pasante.semestre:""}</Typography>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -180,9 +180,7 @@ export default function InfoEstudiante() {
                   </TableCell>
                   <TableCell>
                     <Typography variant="p">
-                      {" "}
-                      {pasante.numero_identificacion}
-                    </Typography>
+                    {typeof pasante.length === 'undefined' ?pasante.numero_identificacion:  "" }                    </Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -370,7 +368,7 @@ export default function InfoEstudiante() {
                   </TableCell>
                   <TableCell>
                     <Typography variant="p">
-                      {empresa.empresa.nombre}
+                    {typeof empresa.length === 'undefined' ?empresa.empresa.nombre: ''}
                     </Typography>
                   </TableCell>
                 </TableRow>

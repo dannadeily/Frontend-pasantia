@@ -9,8 +9,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TextField from "@material-ui/core/TextField";
-import { Link } from "react-router-dom";
 import conexionAxios from "../../config/axios";
+import useAuth from "../../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,42 +27,75 @@ export default function CargarDocumentos() {
   const classes = useStyles();
 
   const [data, setData] = useState([]);
+  const { auth } = useAuth();
+  const { usuario } = auth;
   const peticionGet = async () => {
     await conexionAxios.get("/documentosFinales").then((response) => {
       setData(response.data);
     });
   };
 
-  useEffect(async () => {
-    await peticionGet();
+  useEffect(() => {
+    peticionGet();
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    for (const property in documentos) {
+      formData.append(property, documentos[property]);
+    }
+
+    await conexionAxios
+      .post("/inicioPasantia/"+ usuario.idusuario, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {});
+  };
+
+  const [documentos, setDocumentos] = useState(data.map((documento) => {}));
+
+  const actualizarState = (e) => {
+    // Almacenar lo que el usuario escribe en el state
+    setDocumentos({
+      // obtener una copia del state actual
+      ...documentos,
+      [e.target.id]: e.target.files[0],
+    });
+  };
 
   return (
     <Container fixed>
       <Typography component="div" style={{ height: "100vh" }}>
-        <Typography variant="h6">Cargar Documentos Finales</Typography>
-        <form class="" action="" method="post">
+        <Typography variant="h6">Cargar documentos</Typography>
+        <form onSubmit={handleSubmit}>
           <Table>
             <TableBody>
-              {data.map((documento) => {
-                return(<TableRow>
-                  <TableCell>
-                    <Typography variant="h6">{documento.documento}:</Typography>
-                  </TableCell>
-
-                  <TableCell>
-                    <TextField
-                      autoComplete="fname"
-                      name={documento.documento}
-                      variant="outlined"
-                      type="file"
-                      required
-                      fullWidth
-                      id="file"
-                      autoFocus
-                    />
-                  </TableCell>
-                </TableRow>);
+              {data.map((documentos) => {
+                return (
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="h6">
+                        {documentos.documento}:
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        autoComplete="fname"
+                        name={documentos.documento}
+                        variant="outlined"
+                        type="file"
+                        required
+                        fullWidth
+                        id={documentos.iddocumento}
+                        autoFocus
+                        onChange={actualizarState}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
               })}
             </TableBody>
           </Table>
@@ -73,8 +106,13 @@ export default function CargarDocumentos() {
           </h6>
           <br></br>
           <Grid item>
-            <Button variant="contained" color="primary">
-              <Link to="/Estudiante/DocumentoFinalCargado">Editar datos</Link>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Cargar documentos
             </Button>
           </Grid>
         </form>

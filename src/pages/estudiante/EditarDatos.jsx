@@ -29,15 +29,15 @@ export default function EditarDatos() {
   const { usuario } = auth;
 
   const [data, setData] = useState({
-    nombres: "",
-    apellidos: "",
-    numeroIdentificacion: "",
+    nombres: usuario.nombres,
+    apellidos: usuario.apellidos,
+    numeroIdentificacion: usuario.numeroDocumento,
     idTipoDocumento: "",
     codigo: usuario.codigo,
     email: usuario.email,
-    telefono: "",
-    semestre: "",
-    direccion: "",
+    telefono: usuario.telefono,
+    semestre: usuario.semestre,
+    direccion: usuario.direccion,
   });
 
   const actualizarState = (e) => {
@@ -153,7 +153,7 @@ export default function EditarDatos() {
                       id="numeroIdentificacion"
                       name="numeroIdentificacion"
                       type="text"
-                      defaultValue={usuario.numeroIdentificacion}
+                      defaultValue={usuario.numeroDocumento}
                       onChange={actualizarState}
                     ></Input>
                   </TableCell>
