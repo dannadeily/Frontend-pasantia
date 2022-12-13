@@ -216,7 +216,7 @@ export default function SignInSide() {
           <br></br>
           <Link to="/IniciarSesionEmpresa">
           <Grid >
-            <BusinessIcon/>
+            <BusinessIcon/> empresa
           </Grid>
           </Link>
           

@@ -32,7 +32,7 @@ export default function PerfilEmpresa() {
             <TableBody>
               <TableRow>
                 <TableCell>
-                  <Typography variant="h6">Nombres:</Typography>
+                  <Typography variant="h6">Nombre de la empresa:</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="p">Danna Deily </Typography>
@@ -40,7 +40,7 @@ export default function PerfilEmpresa() {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <Typography variant="h6">Apellidos:</Typography>
+                  <Typography variant="h6">Razon social:</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="p">Duque Conde</Typography>
@@ -48,7 +48,7 @@ export default function PerfilEmpresa() {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <Typography variant="h6">Fecha de nacimiento:</Typography>
+                  <Typography variant="h6">NIT:</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="p">29/04/2000</Typography>
@@ -56,37 +56,14 @@ export default function PerfilEmpresa() {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <Typography variant="h6">Lugar de nacimiento:</Typography>
+                  <Typography variant="h6">Sector:</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="p">cúcuta</Typography>
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Sexo:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">Femenino</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Direccion:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">av 4 # 6-47 san luis</Typography>
-                </TableCell>
-              </TableRow>
-
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Telefono:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">3177141689</Typography>
-                </TableCell>
-              </TableRow>
+              
+             
             </TableBody>
           </Table>
         </Grid>
@@ -95,7 +72,7 @@ export default function PerfilEmpresa() {
             <TableBody>
               <TableRow>
                 <TableCell>
-                  <Typography variant="h6">Cedula:</Typography>
+                  <Typography variant="h6">Actividad:</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="p">1010075720</Typography>
@@ -103,7 +80,7 @@ export default function PerfilEmpresa() {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <Typography variant="h6">Tipo:</Typography>
+                  <Typography variant="h6">Direccion:</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="p">Cedula de ciudadania</Typography>
@@ -111,7 +88,7 @@ export default function PerfilEmpresa() {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <Typography variant="h6">Expedida:</Typography>
+                  <Typography variant="h6">Telefono:</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="p">Cucuta</Typography>
@@ -125,22 +102,7 @@ export default function PerfilEmpresa() {
                   <Typography variant="p">dannadeilydc@ufps.edu.co</Typography>
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Codigo estudiantil:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">1151732</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="h6">Semestre:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="p">10</Typography>
-                </TableCell>
-              </TableRow>
+              
             </TableBody>
           </Table>
         </Grid>

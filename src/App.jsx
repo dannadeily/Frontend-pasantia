@@ -5,7 +5,6 @@ import "./index.css";
 import HeaderInicio from "./components/Headerinicio";
 import IniciarSesionEmpresa from "./pages/IniciarSesionEmpresa";
 import IniciarSesion from "./pages/IniciarSesion";
-import RegistrarEstudiante from "./pages/RegistrarEstudiante";
 import RegistrarEmpresa from "./pages/RegistrarEmpresa";
 import RecuperarPassword from "./pages/RecuperarPassword";
 
@@ -87,10 +86,7 @@ function App() {
               path="/IniciarSesionEmpresa"
               element={<IniciarSesionEmpresa></IniciarSesionEmpresa>}
             ></Route>
-            <Route
-              path="/RegistrarEstudiante"
-              element={<RegistrarEstudiante></RegistrarEstudiante>}
-            />
+            
             <Route
               path="/RegistrarEmpresa"
               element={<RegistrarEmpresa></RegistrarEmpresa>}

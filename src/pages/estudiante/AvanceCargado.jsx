@@ -63,14 +63,7 @@ export default function CargarDocumentos() {
                       <a target={"_blank"} href={`http://localhost:4010/`+ documento.ruta }> <VisibilityIcon/> </a>
                       </Typography>
                     </TableCell>
-                    <TableCell>
-                      <Typography variant="p">
-                        Estado del documento:{" "}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="p">Aprobado </Typography>
-                    </TableCell>
+                  
                   </TableRow>
                 );
               })}

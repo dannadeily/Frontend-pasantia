@@ -20,6 +20,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import useAuth from "../../hooks/useAuth";
 import conexionAxios from "../../config/axios";
+import Grid from "@material-ui/core/Grid";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -68,15 +69,16 @@ export default function CustomizedTables() {
   const [data, setData] = useState([]);
 
   const peticionGet = async () => {
-    await conexionAxios.get("/infopasante/"+ usuario.idusuario).then((response) => {
-      setData(response.data);
-    });
+    await conexionAxios
+      .get("/infopasante/" + usuario.idusuario)
+      .then((response) => {
+        setData(response.data);
+      });
   };
 
   useEffect(() => {
     peticionGet();
-  },[]
-  );
+  }, []);
   return (
     <Container fixed>
       <TableContainer component={Paper}>
@@ -94,7 +96,7 @@ export default function CustomizedTables() {
           <TableBody>
             <StyledTableRow>
               <StyledTableCell component="th" scope="row">
-                { typeof data.length === 'undefined' ? data.empresa.nombre : "" }
+                {typeof data.length === "undefined" ? data.empresa.nombre : ""}
               </StyledTableCell>
               <StyledTableCell>nombreTutor</StyledTableCell>
               <StyledTableCell>
@@ -109,14 +111,103 @@ export default function CustomizedTables() {
                     aria-labelledby="responsive-dialog-title"
                   >
                     <DialogTitle id="responsive-dialog-title">
-                      {"Use Google's location service?"}
+                      {"Datos de la empresa"}
                     </DialogTitle>
                     <DialogContent>
-                      <DialogContentText>
-                        Let Google help apps determine location. This means
-                        sending anonymous location data to Google, even when no
-                        apps are running.
-                      </DialogContentText>
+                      <Grid container spacing={3}>
+                        <Grid  xs={12} sm={6}>
+                          <Table>
+                            <TableBody>
+                              <TableRow>
+                                <TableCell>
+                                  <Typography variant="h6">
+                                    Nombre de la empresa:
+                                  </Typography>
+                                </TableCell>
+                                <TableCell>
+                                  <Typography variant="p">
+                                    Danna Deily{" "}
+                                  </Typography>
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell>
+                                  <Typography variant="h6">
+                                    Razon social:
+                                  </Typography>
+                                </TableCell>
+                                <TableCell>
+                                  <Typography variant="p">
+                                    Duque Conde
+                                  </Typography>
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell>
+                                  <Typography variant="h6">NIT:</Typography>
+                                </TableCell>
+                                <TableCell>
+                                  <Typography variant="p">
+                                    29/04/2000
+                                  </Typography>
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell>
+                                  <Typography variant="h6">Sector:</Typography>
+                                </TableCell>
+                                <TableCell>
+                                  <Typography variant="p">cúcuta</Typography>
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell>
+                                  <Typography variant="h6">
+                                    Actividad:
+                                  </Typography>
+                                </TableCell>
+                                <TableCell>
+                                  <Typography variant="p">
+                                    1010075720
+                                  </Typography>
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell>
+                                  <Typography variant="h6">
+                                    Direccion:
+                                  </Typography>
+                                </TableCell>
+                                <TableCell>
+                                  <Typography variant="p">
+                                    Cedula de ciudadania
+                                  </Typography>
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell>
+                                  <Typography variant="h6">
+                                    Telefono:
+                                  </Typography>
+                                </TableCell>
+                                <TableCell>
+                                  <Typography variant="p">Cucuta</Typography>
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell>
+                                  <Typography variant="h6">Email:</Typography>
+                                </TableCell>
+                                <TableCell>
+                                  <Typography variant="p">
+                                    dannadeilydc@ufps.edu.co
+                                  </Typography>
+                                </TableCell>
+                              </TableRow>
+                            </TableBody>
+                          </Table>
+                        </Grid>
+                      </Grid>
                     </DialogContent>
                     <DialogActions>
                       <Button onClick={handleClose} color="primary" autoFocus>
@@ -149,19 +240,25 @@ export default function CustomizedTables() {
           <TableBody>
             <StyledTableRow>
               <StyledTableCell component="th" scope="row">
-                { typeof data.length === 'undefined' ? data.jurados[0].usuario.nombres +
-                  " " +
-                  data.jurados[0].usuario.apellidos:""}
+                {typeof data.length === "undefined"
+                  ? data.jurados[0].usuario.nombres +
+                    " " +
+                    data.jurados[0].usuario.apellidos
+                  : ""}
               </StyledTableCell>
               <StyledTableCell>
-                {typeof data.length === 'undefined' ?data.jurados[1].usuario.nombres +
-                  " " +
-                  data.jurados[1].usuario.apellidos:""}
+                {typeof data.length === "undefined"
+                  ? data.jurados[1].usuario.nombres +
+                    " " +
+                    data.jurados[1].usuario.apellidos
+                  : ""}
               </StyledTableCell>
               <StyledTableCell>
-                {typeof data.length === 'undefined' ?data.jurados[2].usuario.nombres +
-                  " " +
-                  data.jurados[2].usuario.apellidos:""}
+                {typeof data.length === "undefined"
+                  ? data.jurados[2].usuario.nombres +
+                    " " +
+                    data.jurados[2].usuario.apellidos
+                  : ""}
               </StyledTableCell>
             </StyledTableRow>
           </TableBody>

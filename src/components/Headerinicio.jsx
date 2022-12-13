@@ -128,11 +128,7 @@ export default function HeaderInicio() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>
-                    <Link to="/RegistrarEstudiante">
-                      registrarse como estudiante
-                    </Link>
-                  </MenuItem>
+                  
                   <MenuItem onClick={handleClose}>
                     <Link to="/RegistrarEmpresa">registrarse como Empresa</Link>
                   </MenuItem>
