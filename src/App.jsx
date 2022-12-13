@@ -16,7 +16,6 @@ import EstudianteActivo from "./pages/administrador/EstudianteActivo";
 import AsignarJurado from "./pages/administrador/AsignarJurado";
 import HistorialEstudiante from "./pages/administrador/HistorialEstudiante";
 import CargarConvenio from "./pages/administrador/CargarConvenio";
-import DocumentosEmpresa from "./pages/administrador/DocumentosEmpresa";
 import HistorialEmpresa from "./pages/administrador/HistorialEmpresa";
 import InformacionEmpresa from "./pages/administrador/InformacionEmpresa";
 import RegistrarJurado from "./pages/administrador/RegistrarJurado";
@@ -139,10 +138,7 @@ function App() {
               path="/Administrador/CargarConvenio"
               element={<CargarConvenio></CargarConvenio>}
             />
-            <Route
-              path="/Administrador/DocumentosEmpresa"
-              element={<DocumentosEmpresa></DocumentosEmpresa>}
-            />
+            
             <Route
               path="/Administrador/HistorialEmpresa"
               element={<HistorialEmpresa></HistorialEmpresa>}

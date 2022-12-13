@@ -298,9 +298,9 @@ export default function DrawerAdministrador() {
           <AccordionDetails>
             <List>
               {[
-                ["/Administrador", "Registrar pasante"],
+                ["/Administrador/RegistrarPasante", "Registrar pasante"],
                 ["/Administrador/AsignarJurado", "Asignar Jurado"],
-                ["/Administrador/EstudianteActivo", "Estudiantes Activos"],
+                ["/Administrador", "Estudiantes Activos"],
                 ["/Administrador/HistorialEstudiante", "Historial"],
               ].map((text, index) => (
                 <Link to={text[0]}>
@@ -328,7 +328,7 @@ export default function DrawerAdministrador() {
             <List>
               {[
                 ["/Administrador/CargarConvenio", "Cargar Convenio"],
-                ["/Administrador/DocumentosEmpresa", "documentos a visualizar"],
+                
                 ["/Administrador/HistorialEmpresa", "Historial"],
               ].map((text, index) => (
                 <Link to={text[0]}>
