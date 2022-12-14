@@ -18,12 +18,11 @@ import Button from "@material-ui/core/Button";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -88,10 +87,22 @@ export default function InformacionEstudiante() {
   const { id } = useParams();
 
   const [pasante, setData] = useState([]);
+  const [documentosIniciales, setDocumentosIniciales] = useState([]);
+  const [documentosAvances, setDocumentosAvances] = useState([]);
   const peticionGet = async () => {
     await conexionAxios.get("/pasante/" + id).then((response) => {
       setData(response.data.pasante);
     });
+    await conexionAxios
+      .get("/getdocumentoscargadosinicialesbypasante/" + id)
+      .then((response) => {
+        setDocumentosIniciales(response.data);
+      });
+    await conexionAxios
+      .get("/getdocumentoscargadosavancesbypasante/" + id)
+      .then((response) => {
+        setDocumentosAvances(response.data);
+      });
   };
 
   useEffect(async () => {
@@ -236,66 +247,22 @@ export default function InformacionEstudiante() {
             <Grid item xs={12} sm={6}>
               <Table>
                 <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <Typography variant="h6">
-                        Documento de identidad:
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="p">Danna Deily </Typography>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Typography variant="h6">
-                        Formato solicitud pasantia PPS01:
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="p">Duque Conde</Typography>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Typography variant="h6">
-                        Plan de trabajo pasantia PPS03:{" "}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="p">Danna Deily </Typography>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Typography variant="h6">
-                        Convenio "Borrador" PPS02:
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="p">Duque Conde</Typography>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Typography variant="h6">
-                        Acta de Compromiso PPS03-1:
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="p">Duque Conde</Typography>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Typography variant="h6">
-                        Presentacion Plan de trabajo PPS04:
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="p">29/04/2000</Typography>
-                    </TableCell>
-                  </TableRow>
+                  {documentosIniciales.map((iniciales) => {
+                    return (
+                      <TableRow>
+                        <TableCell>
+                          <Typography variant="h6">
+                            {iniciales.documento}:
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="p">
+                          <a target={"_blank"} href={`http://localhost:4010/`+ iniciales.ruta }> <VisibilityIcon/> </a>
+                          </Typography>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </Grid>
@@ -313,49 +280,44 @@ export default function InformacionEstudiante() {
                       </Button>
                     </TableCell>
                     <TableCell>
-                      
-                        <Button
-                          variant="outlined"
-                          color="primary"
-                          onClick={handleClickOpen}
-                        >
-                          Hacer Observaciones
-                        </Button>
-                       
-                        <Dialog
-                          fullScreen={fullScreen}
-                          open={open}
-                          onClose={handleClose}
-                          aria-labelledby="responsive-dialog-title"
-                        >
-                          
-                          <DialogTitle id="responsive-dialog-title">
-                            {
-                              "Por favor agregue la observaciones que presenta algun documento"
-                            }
-                          </DialogTitle>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleClickOpen}
+                      >
+                        Hacer Observaciones
+                      </Button>
 
-                          <TextareaAutosize
-                            aria-label="empty textarea"
-                            placeholder="Observaciones"
-            
-                          />
+                      <Dialog
+                        fullScreen={fullScreen}
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="responsive-dialog-title"
+                      >
+                        <DialogTitle id="responsive-dialog-title">
+                          {
+                            "Por favor agregue la observaciones que presenta algun documento"
+                          }
+                        </DialogTitle>
 
-                          <DialogActions>
-                            <Button autoFocus color="primary">
-                              Enviar
-                            </Button>
-                            <Button
-                              onClick={handleClose}
-                              color="primary"
-                              autoFocus
-                            >
-                              Cancelar
-                            </Button>
-                          </DialogActions>
-                     
-                        </Dialog>
-                        
+                        <TextareaAutosize
+                          aria-label="empty textarea"
+                          placeholder="Observaciones"
+                        />
+
+                        <DialogActions>
+                          <Button autoFocus color="primary">
+                            Enviar
+                          </Button>
+                          <Button
+                            onClick={handleClose}
+                            color="primary"
+                            autoFocus
+                          >
+                            Cancelar
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -370,34 +332,22 @@ export default function InformacionEstudiante() {
             <Grid item xs={12} sm={6}>
               <Table>
                 <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <Typography variant="h6">
-                        Informe parcial 1 PPS06:{" "}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="p">Danna Deily </Typography>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Typography variant="h6">
-                        Informe parcial 2 PPS06:
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="p">Duque Conde</Typography>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Typography variant="h6">Informe final PPS08:</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="p">29/04/2000</Typography>
-                    </TableCell>
-                  </TableRow>
+                  {documentosAvances.map((avances) => {
+                    return (
+                      <TableRow>
+                        <TableCell>
+                          <Typography variant="h6">
+                            {avances.documento}:
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="p">
+                          <a target={"_blank"} href={`http://localhost:4010/`+ avances.ruta }> <VisibilityIcon/> </a>
+                          </Typography>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </Grid>

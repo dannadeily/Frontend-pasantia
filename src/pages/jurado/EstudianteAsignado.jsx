@@ -6,6 +6,7 @@ import MUIDataTable from "mui-datatables";
 import InfoIcon from "@material-ui/icons/Info";
 import Button from "@material-ui/core/Button";
 import Container from '@material-ui/core/Container';
+import useAuth from "../../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -58,11 +59,14 @@ function EstudianteAsignado() {
 
   const styles = useStyles();
 
+  const { auth } = useAuth();
+  const { usuario } = auth;
+
 
   const [pasantes, setData] = useState([]);
   const peticionGet = async () => {
-    await conexionAxios.get("/pasantes").then((response) => {
-      setData(response.data.pasantes);
+    await conexionAxios.get("/getPasantesAsignados/"+usuario.idusuario ).then((response) => {
+      setData(response.data);
     });
   };
 
@@ -89,11 +93,11 @@ function EstudianteAsignado() {
   const row = [];
   pasantes.map((pasante) =>
     row.push([
-      pasante.usuario.nombres+ " "+ pasante.usuario.apellidos ,
-      pasante.empresa.nombre,
+      pasante.pasante.usuario.nombres + " "+ pasante.pasante.usuario.apellidos ,
+      pasante.pasante.empresa.nombre,
       pasante.createdAt.substring(0,10),
       <Link
-        to={`/Jurado/InformacionEstudiante/${pasante.idpasante}`}
+        to={`/Jurado/InformacionEstudiante/${pasante.pasante.idpasante}`}
         className="btn btn-primary"
       >
         <InfoIcon />
