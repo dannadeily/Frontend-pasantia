@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TextField from "@material-ui/core/TextField";
 import conexionAxios from "../../config/axios";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CargarDocumentos() {
   const classes = useStyles();
+  const navigate =useNavigate()
 
   const [data, setData] = useState([]);
   const { auth } = useAuth();
@@ -52,7 +54,12 @@ export default function CargarDocumentos() {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((response) => {});
+      .then((response) => {
+        if(response.data.status===200){
+          navigate("/Estudiante/AvanceCargado")
+        }
+       
+      });
   };
 
   const [documentos, setDocumentos] = useState(data.map((documento) => {}));
@@ -87,7 +94,7 @@ export default function CargarDocumentos() {
                         name={documentos.documento}
                         variant="outlined"
                         type="file"
-                        required
+                 
                         fullWidth
                         id={documentos.iddocumento}
                         autoFocus

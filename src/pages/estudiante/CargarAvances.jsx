@@ -90,7 +90,7 @@ export default function CargarDocumentos() {
                         name={documento.documento}
                         variant="outlined"
                         type="file"
-                        required
+                       
                         fullWidth
                         id={documento.iddocumento}
                         autoFocus
