@@ -72,7 +72,7 @@ export default function CargarDocumentos() {
           <br></br>
           <Grid item>
             <Button variant="contained" color="primary">
-              <Link to="/Estudiante/CargarDocumentos">
+              <Link to="/Estudiante/DocumentoFinal">
                 Actualizar Documentos
               </Link>
             </Button>
