@@ -13,6 +13,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import { Link, useParams } from "react-router-dom";
 import conexionAxios from "../../config/axios";
+import VisibilityIcon from '@material-ui/icons/Visibility';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -78,6 +79,10 @@ export default function InfoEstudiante() {
   const [pasante, setData] = useState([]);
   const [empresa, setEmpresa] = useState([]);
   const [jurados, setJurados] = useState([]);
+  const [documentosIniciales, setDocumentosIniciales] = useState([]);
+  const [documentosAvances, setDocumentosAvances] = useState([]);
+  const [documentosFinales, setDocumentosFinales] = useState([]);
+
   const peticionGet = async () => {
     await conexionAxios.get("/pasante/" + id).then((response) => {
       setData(response.data.pasante);
@@ -88,6 +93,21 @@ export default function InfoEstudiante() {
     await conexionAxios.get("/juradosasignados/" + id).then((response) => {
       setJurados(response.data.jurados);
     });
+    await conexionAxios
+      .get("/getdocumentoscargadosinicialesbypasante/" + id)
+      .then((response) => {
+        setDocumentosIniciales(response.data);
+      });
+    await conexionAxios
+      .get("/getdocumentoscargadosavancesbypasante/" + id)
+      .then((response) => {
+        setDocumentosAvances(response.data);
+      });
+    await conexionAxios
+      .get("/getdocumentoscargadosfinalesbypasante/" + id)
+      .then((response) => {
+        setDocumentosFinales(response.data);
+      });
   };
 
   useEffect(async () => {
@@ -133,7 +153,12 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Nombres:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p">  {typeof pasante.length === 'undefined' ? pasante.nombres:"" } </Typography>
+                    <Typography variant="p">
+                      {" "}
+                      {typeof pasante.length === "undefined"
+                        ? pasante.nombres
+                        : ""}{" "}
+                    </Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -141,7 +166,12 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Apellidos:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p"> { typeof pasante.length === 'undefined' ?pasante.apellidos:""}</Typography>
+                    <Typography variant="p">
+                      {" "}
+                      {typeof pasante.length === "undefined"
+                        ? pasante.apellidos
+                        : ""}
+                    </Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -149,7 +179,12 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Direccion:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p">  {typeof pasante.length === 'undefined' ?pasante.direccion:""}</Typography>
+                    <Typography variant="p">
+                      {" "}
+                      {typeof pasante.length === "undefined"
+                        ? pasante.direccion
+                        : ""}
+                    </Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -157,7 +192,12 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Telefono:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p">  {typeof pasante.length === 'undefined' ?pasante.telefono:""}</Typography>
+                    <Typography variant="p">
+                      {" "}
+                      {typeof pasante.length === "undefined"
+                        ? pasante.telefono
+                        : ""}
+                    </Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -165,7 +205,12 @@ export default function InfoEstudiante() {
                     <Typography variant="h6">Semestre:</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="p">  {typeof pasante.length === 'undefined' ?pasante.semestre:""}</Typography>
+                    <Typography variant="p">
+                      {" "}
+                      {typeof pasante.length === "undefined"
+                        ? pasante.semestre
+                        : ""}
+                    </Typography>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -180,7 +225,10 @@ export default function InfoEstudiante() {
                   </TableCell>
                   <TableCell>
                     <Typography variant="p">
-                    {typeof pasante.length === 'undefined' ?pasante.numero_identificacion:  "" }                    </Typography>
+                      {typeof pasante.length === "undefined"
+                        ? pasante.numero_identificacion
+                        : ""}{" "}
+                    </Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -219,66 +267,27 @@ export default function InfoEstudiante() {
           <Grid item xs={12} sm={6}>
             <Table>
               <TableBody>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Documento de identidad:
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">Danna Deily </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Formato solicitud pasantia PPS01:
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">Duque Conde</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Plan de trabajo pasantia PPS03:{" "}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">Danna Deily </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Convenio "Borrador" PPS02:
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">Duque Conde</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Acta de Compromiso PPS03-1:
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">Duque Conde</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Presentacion Plan de trabajo PPS04:
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">29/04/2000</Typography>
-                  </TableCell>
-                </TableRow>
+                {documentosIniciales.map((iniciales) => {
+                  return (
+                    <TableRow>
+                      <TableCell>
+                        <Typography variant="h6">
+                          {iniciales.documento}:
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="p">
+                          <a
+                            target={"_blank"}
+                            href={`http://localhost:4010/` + iniciales.ruta}
+                          >
+                            <VisibilityIcon />
+                          </a>
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </Grid>
@@ -291,34 +300,28 @@ export default function InfoEstudiante() {
           <Grid item xs={12} sm={6}>
             <Table>
               <TableBody>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Informe parcial 1 PPS06:{" "}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">Danna Deily </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Informe parcial 2 PPS06:
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">Duque Conde</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">Informe final PPS08:</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">29/04/2000</Typography>
-                  </TableCell>
-                </TableRow>
+                {documentosAvances.map((avances) => {
+                  return (
+                    <TableRow>
+                      <TableCell>
+                        <Typography variant="h6">
+                          {avances.documento}:{" "}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="p">
+                          <a
+                            target={"_blank"}
+                            href={`http://localhost:4010/` + avances.ruta}
+                          >
+                            {" "}
+                            <VisibilityIcon />{" "}
+                          </a>
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </Grid>
@@ -331,26 +334,22 @@ export default function InfoEstudiante() {
           <Grid item xs={12} sm={6}>
             <Table>
               <TableBody>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Solicitud de sustentacion informe final PPS08-1:
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">29/04/2000</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography variant="h6">
-                      Acta de finalizacion por parte de la empresa PPS08-2:
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="p">29/04/2000</Typography>
-                  </TableCell>
-                </TableRow>
+                {documentosFinales.map((finales) => {
+                  return (
+                    <TableRow>
+                      <TableCell>
+                        <Typography variant="h6">
+                          {finales.documento}:
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="p">
+                          <a target={"_blank"} href={`http://localhost:4010/`+ avances.ruta }> <VisibilityIcon/> </a>
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </Grid>
@@ -368,7 +367,9 @@ export default function InfoEstudiante() {
                   </TableCell>
                   <TableCell>
                     <Typography variant="p">
-                    {typeof empresa.length === 'undefined' ?empresa.empresa.nombre: ''}
+                      {typeof empresa.length === "undefined"
+                        ? empresa.empresa.nombre
+                        : ""}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -388,10 +389,16 @@ export default function InfoEstudiante() {
                   return (
                     <TableRow>
                       <TableCell>
-                        <Typography variant="h6">Jurado {jurado.numero_jurado}:</Typography>
+                        <Typography variant="h6">
+                          Jurado {jurado.numero_jurado}:
+                        </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="p">{jurado.usuario.nombres + ' '+ jurado.usuario.apellidos }</Typography>
+                        <Typography variant="p">
+                          {jurado.usuario.nombres +
+                            " " +
+                            jurado.usuario.apellidos}
+                        </Typography>
                       </TableCell>
                     </TableRow>
                   );
