@@ -344,7 +344,7 @@ export default function InfoEstudiante() {
                       </TableCell>
                       <TableCell>
                         <Typography variant="p">
-                          <a target={"_blank"} href={`http://localhost:4010/`+ avances.ruta }> <VisibilityIcon/> </a>
+                          <a target={"_blank"} href={`http://localhost:4010/`+ finales.ruta }> <VisibilityIcon/> </a>
                         </Typography>
                       </TableCell>
                     </TableRow>
